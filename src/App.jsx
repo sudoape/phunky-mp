@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import 'antd/dist/antd.css'
 import './style.css'
 import styled from '@emotion/styled'
