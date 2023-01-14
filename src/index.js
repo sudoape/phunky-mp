@@ -4,11 +4,9 @@ import App from './App'
 import './index.css'
 import Web3 from 'web3'
 import detectEthereumProvider from '@metamask/detect-provider'
+import { web3ProviderURL } from 'consts'
 
-// TODO: move to config based instead of hard coding
-const web3 = new Web3(
-  'https://eth-mainnet.alchemyapi.io/v2/FoyJ5k74vjxe1Wgn6vRgYMQikX-QhdML'
-)
+const web3 = new Web3(web3ProviderURL)
 
 const Application = () => {
   useEffect(() => {

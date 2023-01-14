@@ -7,6 +7,14 @@ export const networkCollections = {
       addrs: '0x176e0fe17314def59f0f06e976e1b74203be4a55',
     },
   ],
+  '0x5': [
+    {
+      image:
+        'https://lh3.googleusercontent.com/ju9ckwtv-1okvf45wo8uctr-m9he2pjilp0oovxe89ayippgtrr3gysu1zgy0hjd2xkigjjjtwic0ybj4vd7wv8t3pxdghojbzdb=s130',
+      name: 'Phunky Ape Yacht Club',
+      addrs: '0x5C6A6f56c0cE0811994bEa891BcC435c28C6eEE3',
+    },
+  ],
 }
 
 export const getCollection = () => networkCollections['0x1'][0]
