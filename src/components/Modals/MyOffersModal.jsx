@@ -15,7 +15,7 @@ const MyOffersModal = ({ nft, visible, dispatch, delegate }) => {
         })
       }
       onOk={() => {}}
-      okText="Recend Offer"
+      okText="Rescind Offer"
       footer={[
         <Button
           onClick={() =>
@@ -29,12 +29,12 @@ const MyOffersModal = ({ nft, visible, dispatch, delegate }) => {
           Cancel
         </Button>,
         <Button onClick={() => {}} type="primary">
-          Recend Offer
+          Rescind Offer
         </Button>,
       ]}
     >
       <img
-        alt="nft to recend offer"
+        alt="nft to rescind offer"
         src={imgLocation}
         style={{
           width: '250px',
