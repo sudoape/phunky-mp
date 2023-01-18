@@ -7,7 +7,7 @@ export const payc721ContractAddr =
   '0x5C6A6f56c0cE0811994bEa891BcC435c28C6eEE3'
 export const paycSubGraphAPI =
   //'https://api.studio.thegraph.com/query/18229/paycmarket/v2.5.7'
-  'https://api.studio.thegraph.com/query/40817/paycmarket-subgraph-test/v2.5.8'
+  'https://api.studio.thegraph.com/query/40817/paycmarket-subgraph-test/v2.5.9'
 export const localDirectory = 'https://payc-images.s3.amazonaws.com/ipfs/'
 export const web3ProviderURL =
   //'https://eth-mainnet.alchemyapi.io/v2/FoyJ5k74vjxe1Wgn6vRgYMQikX-QhdML'
