@@ -140,18 +140,6 @@ export async function bidOnPhunkyApe(
   }
 }
 
-// export async function withdrawlAmount(
-//   web3,
-// ) {
-//   const contract = new web3.eth.Contract(
-//     cryptoPhunksMarketAbi,
-//     paycMarketPlaceContractAddr
-//   )
-//   const withdrawAmt = await contract.methods.pendingWithdrawals(window.ethereum.selectedAddress).call()
-//   console.log("withdrawl amount..", withdrawAmt)
-//   return withdrawAmt
-// }
-
 export async function withdraw(web3) {
   const contract = new web3.eth.Contract(
     cryptoPhunksMarketAbi,
@@ -170,6 +158,30 @@ export async function withdraw(web3) {
     params: [approveTx],
   })
   return
+}
+
+export async function withdrawBidForPayc(web3, phunkyApeId) {
+  const contract = new web3.eth.Contract(
+    cryptoPhunksMarketAbi,
+    paycMarketPlaceContractAddr
+  )
+
+  // Input phunkyApeId into this field.
+  const abi_byte_string = await contract.methods
+    .withdrawBidForPayc(phunkyApeId)
+    .encodeABI()
+
+  const txObject = {
+    from: window.ethereum.selectedAddress,
+    to: paycMarketPlaceContractAddr,
+    data: abi_byte_string,
+    value: web3.utils.toHex(0),
+  }
+
+  await window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [txObject],
+  })
 }
 
 export async function listPhunkyApe(

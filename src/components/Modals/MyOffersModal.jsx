@@ -1,12 +1,13 @@
-import { Modal, Input, Spin, Button } from 'antd'
+import { Modal, Button } from 'antd'
 import { localDirectory } from 'consts'
+import { withdrawBidForPayc } from 'contracts/contractUtil'
 
-const MyOffersModal = ({ nft, visible, dispatch, delegate }) => {
+const MyOffersModal = ({ nft, web3, visible, dispatch, delegate }) => {
   const imgLocation = localDirectory + nft.num + '.png'
   return (
     <Modal
       title={`My Offer`}
-      visible={visible}
+      open={visible}
       onCancel={() =>
         dispatch({
           type: 'SET_MY_OFFERS_MADE_MODAL_STATUS',
@@ -28,7 +29,10 @@ const MyOffersModal = ({ nft, visible, dispatch, delegate }) => {
         >
           Cancel
         </Button>,
-        <Button onClick={() => {}} type="primary">
+        <Button
+          onClick={async () => await withdrawBidForPayc(web3, nft.phunkyApeId)}
+          type="primary"
+        >
           Rescind Offer
         </Button>,
       ]}

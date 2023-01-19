@@ -10,7 +10,7 @@ import BigNumber from 'uikit/BigNumber/BigNumber'
 import TraitBox from 'uikit/TraitBox/TraitBox'
 import { getEllipsisTxt } from 'helpers/formatters'
 import { Flex } from '../../uikit/Flex/Flex'
-import PrimaryButton, { SecondaryButton } from '../../uikit/Buttons/Buttons'
+import PrimaryButton from '../../uikit/Buttons/Buttons'
 import fallbackImg from 'helpers/fallbackImg'
 import { getApeByID } from '../../db'
 
@@ -172,6 +172,7 @@ const NFTDetails = ({ web3 }) => {
               <a
                 href={`https://etherscan.io/address/${currentOwner}`}
                 target="_blank"
+                rel="noreferrer"
               >
                 {getEllipsisTxt(currentOwner, 4)}
               </a>
@@ -197,10 +198,12 @@ const NFTDetails = ({ web3 }) => {
               {listing.isForSale ? (
                 <PrimaryButton text="Buy Now" onClick={() => purchaseNFT()} />
               ) : null}
-              {/* <SecondaryButton
-                text="Offer"                
-                onClick={() => setShowBidModal(true)}
-              /> */}
+              {
+                <PrimaryButton
+                  text="Offer"
+                  onClick={() => setShowBidModal(true)}
+                />
+              }
             </TransactionButtons>
           </PriceContainer>
           <Flex padding="2rem 0">
@@ -232,7 +235,7 @@ const NFTDetails = ({ web3 }) => {
       <Modal
         width="400px"
         title={`Bidding on PhunkyApeYachtClub #${token?.num}`}
-        visible={showBidModal}
+        open={showBidModal}
         onCancel={() => setShowBidModal(false)}
         onOk={bidOnNFT}
         okText="submit"

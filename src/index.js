@@ -25,7 +25,7 @@ const Application = () => {
     async function setProvider() {
       const provider = await detectEthereumProvider()
       if (provider) {
-        await window.ethereum.enable()
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
       } else {
         alert('Connect to MetaMask to use this app')
       }
