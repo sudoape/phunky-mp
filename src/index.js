@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
 import Web3 from 'web3'
@@ -36,9 +36,9 @@ const Application = () => {
   return <App web3={web3} />
 }
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'))
+root.render(
   // <React.StrictMode>
-  <Application />,
-  // </React.StrictMode>,
-  document.getElementById('root')
+  <Application />
+  // <React.StrictMode>
 )

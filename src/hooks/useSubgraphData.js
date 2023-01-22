@@ -125,9 +125,12 @@ export const useSubgraphData = (web3) => {
     return jsonData
   }
 
-  useEffect(async () => {
-    const data = await fetchSubgraphData()
-    setSubgraphData(data)
+  useEffect(() => {
+    const updateSubgraphData = async () => {
+      const data = await fetchSubgraphData()
+      setSubgraphData(data)
+    }
+    updateSubgraphData()
   }, [])
 
   return {

@@ -4,7 +4,6 @@ import styled from '@emotion/styled'
 
 import AccountButton from '../AccountButton/AccountButton'
 import { Dropdown, Image } from 'antd'
-import MenuItem from 'antd/lib/menu/MenuItem'
 
 const Header = ({ delegate, web3 }) => {
   const menu = () => (

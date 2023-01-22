@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useSubgraphData } from '../../hooks/useSubgraphData'
 import styled from '@emotion/styled'
 import { Image, Input, Modal } from 'antd'
@@ -90,7 +90,7 @@ const NFTDetails = ({ web3 }) => {
 
   const [showBidModal, setShowBidModal] = useState(false)
 
-  const history = useHistory()
+  const navigate = useNavigate()
   useEffect(() => {
     if (web3) {
       fetchSubgraphByHexId(web3.utils.toHex(id)).then((nft) => {
@@ -161,7 +161,7 @@ const NFTDetails = ({ web3 }) => {
         </Flex>
         <InfoContainer>
           <Flex container align="center">
-            <LinkHeader onClick={() => history.push('/marketplace')}>
+            <LinkHeader onClick={() => navigate('/marketplace')}>
               Phunky Ape Yacht Club
             </LinkHeader>
             <h2>{`/ #${token?.num}`}</h2>

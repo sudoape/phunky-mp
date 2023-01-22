@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useSubgraphData } from '../../hooks/useSubgraphData'
 import { reducer, getInitialState } from './MarketplaceReducer'
 import styled from '@emotion/styled'
@@ -23,9 +23,9 @@ function Marketplace({ web3, delegate }) {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   // Filter Region End
   // Forwarding to token details
-  const history = useHistory()
+  const navigate = useNavigate()
   const goToNFT = (tokenId) => {
-    history.push(`/details/${tokenId}`)
+    navigate(`/details/${tokenId}`)
   }
 
   // Toggle market view
