@@ -65,7 +65,7 @@ const LandingPage = () => {
               yacht club
             </CTAText>
             <CTAButton>
-              <Link to="/marketplace">
+              <Link to="/marketplace" style={{ textDecoration: 'none' }}>
                 <PrimaryButton text="Enter marketplace" fat />
               </Link>
             </CTAButton>

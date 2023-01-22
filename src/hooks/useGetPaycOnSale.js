@@ -3,7 +3,7 @@ import { cryptoPhunksMarketAbi } from '../contracts/abi/cryptoPhunksMarketABI'
 import { paycMarketPlaceContractAddr, paycSubGraphAPI } from '../consts'
 
 export const useGetPaycOnSale = (web3) => {
-  const [paycOnSaleStatus, updatePaycOnSaleStatus] = useState([])
+  const [paycOnSaleStatus, setPaycOnSaleStatus] = useState([])
 
   const fetchPaycOnSaleStatus = async () => {
     const contract = new web3.eth.Contract(
@@ -14,11 +14,14 @@ export const useGetPaycOnSale = (web3) => {
     return statuses
   }
 
-  useEffect(async () => {
-    const paycOnSaleStatus = await fetchPaycOnSaleStatus()
-    console.log(paycOnSaleStatus)
-    updatePaycOnSaleStatus(paycOnSaleStatus)
-  }, [])
+  useEffect(() => {
+    const updatePaycOnSaleStatus = async () => {
+      const paycOnSaleStatus = await fetchPaycOnSaleStatus()
+      console.log(paycOnSaleStatus)
+      setPaycOnSaleStatus(paycOnSaleStatus)
+    }
+    updatePaycOnSaleStatus()
+  })
 
   return { paycOnSaleStatus, fetchPaycOnSaleStatus }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router'
 import { SecondaryButton } from '../../../../uikit/Buttons/Buttons'
 
 const handleEnter = (e, dispatch, i, submitInputQuery) => {
@@ -51,10 +51,10 @@ const PAYCInputBox = ({ name, dispatch, i, submitInputQuery }) => {
 }
 
 const PAYCNumSearchInput = ({ state, dispatch }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const submitInputQuery = () => {
     const currentQuery = state.id.join('')
-    history.push(`/details/${currentQuery}`)
+    navigate(`/details/${currentQuery}`)
   }
 
   useEffect(() => {

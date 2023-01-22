@@ -1,19 +1,16 @@
-import React, { useState, useReducer, useEffect } from 'react'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
-import 'antd/dist/antd.css'
-import './style.css'
 import styled from '@emotion/styled'
-import { useSubgraphData } from './hooks/useSubgraphData'
+// import 'antd/dist/reset.css'
+import React, { useReducer } from 'react'
+import { HashRouter, Route, Routes } from 'react-router-dom'
+import './style.css'
 
-import { getCollection } from './helpers/collections'
+import MyCollection from 'components/MyCollection/MyCollection'
+import FAQ from './components/FAQ/FAQ'
 import LandingPage from './components/LandingPage/LandingPage'
 import Marketplace from './components/Marketplace/Marketplace'
-import MyCollection from 'components/MyCollection/MyCollection'
 import NFTDetails from './components/NFTDetails/NFTDetails'
-import FAQ from './components/FAQ/FAQ'
 import ScrollToTop from './helpers/scrollToTop'
-import { reducer, getInitialState } from './reducer'
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { getInitialState, reducer } from './reducer'
 
 const App = ({ web3 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
@@ -50,28 +47,25 @@ const App = ({ web3 }) => {
 
   return (
     <Layout>
-      <Router>
+      <HashRouter>
         <ScrollToTop>
           <Container>
-            <Switch>
-              <Route path="/" component={LandingPage} exact={true} />
-              <Route path="/marketplace">
-                <Marketplace web3={web3} delegate={delegate} />
-              </Route>
-              <Route path="/collection">
-                <MyCollection web3={web3} delegate={delegate} />
-              </Route>
-              <Route path="/faq" component={FAQ} web3={web3} />
-              <Route path="/details/:id">
-                <NFTDetails web3={web3} />
-              </Route>
-              {/*<Route path="/Transactions">*/}
-              {/*  <NFTMarketTransactions />*/}
-              {/*</Route>*/}
-            </Switch>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route
+                path="/marketplace/*"
+                element={<Marketplace web3={web3} delegate={delegate} />}
+              />
+              <Route
+                path="/collection/*"
+                element={<MyCollection web3={web3} delegate={delegate} />}
+              />
+              <Route path="/faq" element={<FAQ web3={web3} />} />
+              <Route path="/details/:id" element={<NFTDetails web3={web3} />} />
+            </Routes>
           </Container>
         </ScrollToTop>
-      </Router>
+      </HashRouter>
       <Footer />
     </Layout>
   )
