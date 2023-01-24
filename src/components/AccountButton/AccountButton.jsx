@@ -1,16 +1,15 @@
-import { getEllipsisTxt } from 'helpers/formatters'
 import styled from '@emotion/styled'
-import { PrimaryButton, SecondaryButton } from '../../uikit/Buttons/Buttons'
+import { SecondaryButton } from '../../uikit/Buttons/Buttons'
 import { withdraw } from 'contracts/contractUtil'
 import { cryptoPhunksMarketAbi } from 'contracts/abi/cryptoPhunksMarketABI'
 import { useEffect, useState } from 'react'
 import { paycMarketPlaceContractAddr } from 'consts'
+import { useContext } from 'react'
+import ConnectButton from 'components/ConnectButton/ConnectButton'
+import { AccountContext } from 'context/AccountContext'
 
 function AccountButton({ web3 }) {
-  const walletAddress = window.ethereum
-    ? window.ethereum.selectedAddress
-    : 'N/A'
-
+  const { account } = useContext(AccountContext)
   const [withdrawAmt, setWithdrawAmt] = useState('')
 
   useEffect(() => {
@@ -19,19 +18,17 @@ function AccountButton({ web3 }) {
         cryptoPhunksMarketAbi,
         paycMarketPlaceContractAddr
       )
-      const amt = await contract.methods
-        .pendingWithdrawals(window.ethereum.selectedAddress)
-        .call()
+      const amt = await contract.methods.pendingWithdrawals(account).call()
       setWithdrawAmt(web3.utils.fromWei(amt, 'ether') + ' ≡')
     }
-    updateWithdrawAmt()
+    if (account !== '0x0') {
+      updateWithdrawAmt()
+    }
   })
+
   return (
     <AccountContainer>
-      <PrimaryButton
-        onClick={() => {}}
-        text={walletAddress == 'N/A' ? 'N/A' : getEllipsisTxt(walletAddress, 4)}
-      ></PrimaryButton>
+      <ConnectButton />
       <SecondaryButton
         text={`🚰 ${withdrawAmt}`}
         onClick={async () => await withdraw(web3)}

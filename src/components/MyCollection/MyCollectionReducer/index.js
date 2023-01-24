@@ -89,6 +89,8 @@ function reducer(state, action) {
         // hasUpdatedData: !state.hasUpdatedData,
         // isGlobalLoadingStatus: false,
       }
+    case 'CLEAR_STATE':
+      return initialState
     default:
       throw new Error()
   }

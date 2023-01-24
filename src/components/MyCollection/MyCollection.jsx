@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react'
-import { Modal, Input, Alert, Spin, Button } from 'antd'
+import React, { useEffect, useContext, useReducer } from 'react'
 import { useSubgraphData } from '../../hooks/useSubgraphData'
 import styled from '@emotion/styled'
 
@@ -15,10 +14,12 @@ import MyCurrentListingModal from '../Modals/MyCurrentListingModal'
 import OffersReceivedModal from '../Modals/OffersReceivedModal'
 import MyOffersModal from '../Modals/MyOffersModal'
 import Spinners from '../Spinners/Spinners'
+import { AccountContext } from 'context/AccountContext'
 
 function MyCollection({ web3, delegate }) {
   const { fetchMyCollection, fetchMyOffers } = useSubgraphData()
   const [state, dispatch] = useReducer(reducer, getInitialState())
+  const { account } = useContext(AccountContext)
 
   // Toggle collection view
   const onViewChange = (view) => {
@@ -67,15 +68,20 @@ function MyCollection({ web3, delegate }) {
     return () => {}
   }
 
+  // TODO: keep view same after connect/disconnect
   useEffect(() => {
-    const userAddress = window.ethereum.selectedAddress
-    fetchMyCollection(userAddress).then((collection) => {
-      dispatch({ type: 'SET_GRAPH_DATA', value: collection })
-    })
-    fetchMyOffers(userAddress).then((bids) => {
-      dispatch({ type: 'SET_MY_OFFER_DATA', value: bids })
-    })
-  }, [])
+    const userAddress = account
+    if (userAddress !== '0x0') {
+      fetchMyCollection(userAddress).then((collection) => {
+        dispatch({ type: 'SET_GRAPH_DATA', value: collection })
+      })
+      fetchMyOffers(userAddress).then((bids) => {
+        dispatch({ type: 'SET_MY_OFFER_DATA', value: bids })
+      })
+    } else {
+      dispatch({ type: 'CLEAR_STATE' })
+    }
+  }, [account])
 
   console.log('offerMade', state)
 
