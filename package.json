@@ -31,7 +31,6 @@
     "react-player": "^2.9.0",
     "react-router": "^6.7.0",
     "react-router-dom": "^6.7.0",
-    "react-scripts": "5.0.1",
     "react-use": "^17.4.0",
     "uuid": "^9.0.0",
     "web-vitals": "^3.1.1",
@@ -39,10 +38,9 @@
     "yarn": "^1.22.17"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "devchain": "node Truffle/scripts/devChain.js",
     "connect": "moralis-admin-cli connect-local-devchain",
     "watch:events": "moralis-admin-cli add-contract",
@@ -68,6 +66,8 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^3.0.1",
+    "vite": "^4.0.4",
     "husky": "^8.0.3",
     "prettier": "2.8.3",
     "pretty-quick": "^3.1.3"

@@ -1,8 +1,8 @@
 import Fuse from 'fuse.js'
 
-const localData = require('../db/data.json')
-const fuseIndex = require('../db/fuse-index.json')
-const numIndex = require('../db/num_index.json')
+import localData from '../db/data.json'
+import fuseIndex from '../db/fuse-index.json'
+import numIndex from '../db/num_index.json'
 const myIndex = Fuse.parseIndex(fuseIndex)
 const localDataFuse = generateFuseIndexFromLocalDb()
 

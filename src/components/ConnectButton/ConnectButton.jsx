@@ -2,8 +2,7 @@ import React, { useCallback, useContext } from 'react'
 import { getEllipsisTxt } from 'helpers/formatters'
 import { AccountContext } from 'context/AccountContext'
 import { handleConnect } from 'helpers/metamask'
-
-const { default: PrimaryButton } = require('uikit/Buttons/Buttons')
+import PrimaryButton from 'uikit/Buttons/Buttons'
 
 const ConnectButton = (text = 'Connect') => {
   const { account, setAccount } = useContext(AccountContext)
