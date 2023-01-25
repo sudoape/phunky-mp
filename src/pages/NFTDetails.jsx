@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { useSubgraphData } from '../../hooks/useSubgraphData'
+import { useSubgraphData } from '../hooks/useSubgraphData'
 import styled from '@emotion/styled'
 import { Image, Input, Modal } from 'antd'
 
@@ -9,14 +9,14 @@ import CommonContainer from 'uikit/CommonContainer/CommonContainer'
 import BigNumber from 'uikit/BigNumber/BigNumber'
 import TraitBox from 'uikit/TraitBox/TraitBox'
 import { getEllipsisTxt } from 'helpers/formatters'
-import { Flex } from '../../uikit/Flex/Flex'
-import PrimaryButton from '../../uikit/Buttons/Buttons'
+import { Flex } from '../uikit/Flex/Flex'
+import PrimaryButton from '../uikit/Buttons/Buttons'
 import fallbackImg from 'helpers/fallbackImg'
-import { getApeByID } from '../../db'
+import { getApeByID } from '../db'
 
-import { buyPhunkyApe, bidOnPhunkyApe } from '../../contracts/contractUtil'
-import Spinners from '../Spinners/Spinners'
-import ConfettiContainer from '../ConfettiContainer/ConfettiContainer'
+import { buyPhunkyApe, bidOnPhunkyApe } from '../contracts/contractUtil'
+import Spinners from '../components/Spinners/Spinners'
+import ConfettiContainer from '../components/ConfettiContainer/ConfettiContainer'
 
 import BN from 'bn.js'
 

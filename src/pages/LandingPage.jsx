@@ -11,8 +11,8 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 
-import CommonContainer from '../../uikit/CommonContainer/CommonContainer'
-import { PrimaryButton } from '../../uikit/Buttons/Buttons'
+import CommonContainer from '../uikit/CommonContainer/CommonContainer'
+import { PrimaryButton } from '../uikit/Buttons/Buttons'
 
 const LandingPage = () => {
   return (
