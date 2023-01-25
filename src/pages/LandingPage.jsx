@@ -1,18 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
-import ReactPlayer from 'react-player'
-import { Image } from 'antd'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faYoutube,
-  faInstagram,
-  faDiscord,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons'
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
+import ReactPlayer from "react-player";
+import { Image } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube, faInstagram, faDiscord, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
-import CommonContainer from '../uikit/CommonContainer/CommonContainer'
-import { PrimaryButton } from '../uikit/Buttons/Buttons'
+import CommonContainer from "../uikit/CommonContainer/CommonContainer";
+import { PrimaryButton } from "../uikit/Buttons/Buttons";
 
 const LandingPage = () => {
   return (
@@ -25,10 +20,10 @@ const LandingPage = () => {
               src="https://ik.imagekit.io/nldjkvbypwl/notYugalabs_2Wup2mc_Diw.png?updatedAt=1640903602465"
               alt=""
               style={{
-                width: '180px',
-                height: 'auto',
-                paddingTop: '1.5rem',
-                marginBottom: '-40px',
+                width: "180px",
+                height: "auto",
+                paddingTop: "1.5rem",
+                marginBottom: "-40px",
               }}
             />
           </HeaderLogo>
@@ -65,18 +60,16 @@ const LandingPage = () => {
               yacht club
             </CTAText>
             <CTAButton>
-              <Link to="/marketplace" style={{ textDecoration: 'none' }}>
+              <Link to="/marketplace" style={{ textDecoration: "none" }}>
                 <PrimaryButton text="Enter marketplace" fat />
               </Link>
             </CTAButton>
           </CTA>
         </Content>
         <ProjectDescription>
-          A limitless NFT collection where the token itself doubles as a
-          statement that we are sick
+          A limitless NFT collection where the token itself doubles as a statement that we are sick
           <br />
-          and tired of the red tape mentality perpetuated by the right facing
-          Blue Chips.
+          and tired of the red tape mentality perpetuated by the right facing Blue Chips.
         </ProjectDescription>
       </CommonContainer>
       <Footer>
@@ -86,8 +79,8 @@ const LandingPage = () => {
             src="https://ik.imagekit.io/nldjkvbypwl/payc_logo_Djgp2I0OZ8p.png?updatedAt=1640924429847"
             alt=""
             style={{
-              width: '200px',
-              height: 'auto',
+              width: "200px",
+              height: "auto",
             }}
           />
         </FooterLogo>
@@ -110,26 +103,26 @@ const LandingPage = () => {
         </FooterLinks>
       </Footer>
     </Landing>
-  )
-}
+  );
+};
 
 const Landing = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const Header = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   position: relative;
   z-index: 10;
-`
+`;
 
 const HeaderLogo = styled.div`
   grid-column-start: 2;
   display: flex;
   justify-content: center;
-`
+`;
 
 const SocialContainer = styled.div`
   display: flex;
@@ -145,12 +138,12 @@ const SocialContainer = styled.div`
   a {
     padding: 20px 0 20px 20px;
   }
-`
+`;
 
 const Content = styled.div`
   display: flex;
   position: relative;
-`
+`;
 
 const CTA = styled.div`
   position: absolute;
@@ -162,7 +155,7 @@ const CTA = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-`
+`;
 
 const CTAText = styled.div`
   font-size: 1.7em;
@@ -171,38 +164,38 @@ const CTAText = styled.div`
   text-transform: uppercase;
   font-style: italic;
   text-align: right;
-`
+`;
 
 const CTAButton = styled.div`
   width: 90%;
   padding: 1rem 0 1.5rem 0;
   border-bottom: 1px solid white;
-`
+`;
 
 const ProjectDescription = styled.div`
   padding: 3rem 15px;
   font-size: 1rem;
   font-weight: 400;
-`
+`;
 
 const Footer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid white;
   padding: 3rem 0;
-`
+`;
 
 const FooterLogo = styled.div`
   grid-column-start: 2;
   display: flex;
   justify-content: center;
-`
+`;
 
 const FooterLinks = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`
+`;
 
 const CopyRight = styled.div`
   display: flex;
@@ -210,6 +203,6 @@ const CopyRight = styled.div`
   text-align: right;
   font-size: 0.65rem;
   color: #bfc500;
-`
+`;
 
-export default LandingPage
+export default LandingPage;

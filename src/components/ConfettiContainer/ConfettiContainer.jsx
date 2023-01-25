@@ -1,9 +1,9 @@
-import React from 'react'
-import { useWindowSize } from 'react-use'
-import Confetti from 'react-confetti'
+import React from "react";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
 
 const ConfettiContainer = ({ dispatch, isLocal, onComplete }) => {
-  const { width, height } = useWindowSize()
+  const { width, height } = useWindowSize();
   return (
     <Confetti
       width={width}
@@ -14,14 +14,14 @@ const ConfettiContainer = ({ dispatch, isLocal, onComplete }) => {
       recycle={false}
       onConfettiComplete={(confetti) => {
         if (isLocal) {
-          onComplete()
+          onComplete();
         } else {
-          dispatch({ type: 'TURN_CONFETTI_OFF' })
+          dispatch({ type: "TURN_CONFETTI_OFF" });
         }
-        confetti.reset()
+        confetti.reset();
       }}
     />
-  )
-}
+  );
+};
 
-export default ConfettiContainer
+export default ConfettiContainer;

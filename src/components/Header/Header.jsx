@@ -1,9 +1,9 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from '@emotion/styled'
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styled from "@emotion/styled";
 
-import AccountButton from '../AccountButton/AccountButton'
-import { Dropdown, Image } from 'antd'
+import AccountButton from "../AccountButton/AccountButton";
+import { Dropdown, Image } from "antd";
 
 const Header = ({ delegate, web3 }) => {
   const menu = () => (
@@ -12,7 +12,7 @@ const Header = ({ delegate, web3 }) => {
       <NavLink to="/collection">My Collection</NavLink>
       <NavLink to="/faq">FAQ</NavLink>
     </NavMenu>
-  )
+  );
 
   return (
     <AppHeader>
@@ -21,16 +21,12 @@ const Header = ({ delegate, web3 }) => {
           preview={false}
           src="https://ik.imagekit.io/nldjkvbypwl/notYugalabs_2Wup2mc_Diw.png?updatedAt=1640903602465"
           alt=""
-          style={{ width: '100px', height: 'auto' }}
+          style={{ width: "100px", height: "auto" }}
         />
       </StyledNavLink>
       <HeaderActions>
         {window.innerWidth > 700 && (
-          <Menu
-            theme="light"
-            mode="horizontal"
-            defaultSelectedKeys={['nftMarket']}
-          >
+          <Menu theme="light" mode="horizontal" defaultSelectedKeys={["nftMarket"]}>
             <NavLink to="/marketplace">Marketplace</NavLink>
             <NavLink to="/collection">My Collection</NavLink>
             <NavLink to="/faq">FAQ</NavLink>
@@ -38,7 +34,7 @@ const Header = ({ delegate, web3 }) => {
         )}
 
         {window.innerWidth <= 700 && (
-          <Dropdown overlay={menu} trigger={['click']}>
+          <Dropdown overlay={menu} trigger={["click"]}>
             <div>🐵</div>
           </Dropdown>
         )}
@@ -48,24 +44,24 @@ const Header = ({ delegate, web3 }) => {
         </AccountContainer>
       </HeaderActions>
     </AppHeader>
-  )
-}
+  );
+};
 
 const AppHeader = styled.header`
   padding: 1rem 0;
   display: flex;
   justify-content: space-between;
-`
+`;
 const HeaderActions = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-`
+`;
 const StyledNavLink = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Menu = styled.menu`
   display: flex;
@@ -88,14 +84,14 @@ const Menu = styled.menu`
       color: #bfc500;
     }
   }
-`
+`;
 
 const AccountContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-left: 1rem;
-`
+`;
 
 const NavMenu = styled.div`
   display: flex;
@@ -120,6 +116,6 @@ const NavMenu = styled.div`
       color: #bfc500;
     }
   }
-`
+`;
 
-export default Header
+export default Header;

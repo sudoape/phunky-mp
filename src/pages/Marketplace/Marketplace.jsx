@@ -1,68 +1,66 @@
-import React, { useState, useReducer, useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { useSubgraphData } from '../../hooks/useSubgraphData'
-import { reducer, getInitialState } from './MarketplaceReducer'
-import styled from '@emotion/styled'
+import React, { useState, useReducer, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useSubgraphData } from "../../hooks/useSubgraphData";
+import { reducer, getInitialState } from "./MarketplaceReducer";
+import styled from "@emotion/styled";
 
-import Filter from './Filter'
-import CommonContainer from '../../uikit/CommonContainer/CommonContainer'
-import Header from '../../components/Header/Header'
-import PageTitle from '../../uikit/PageTitle/PageTitle'
-import NFTCard from '../../components/NFTCard/NFTCard'
-import Spinners from '../../components/Spinners/Spinners'
-import ConfettiContainer from '../../components/ConfettiContainer/ConfettiContainer'
-import NFTLoadingCards from '../../components/NFTLoadingCards/NFTLoadingCards'
-import { PillGroup, Pill } from '../../uikit/Pills/Pills'
-import SortDropdown from '../../uikit/SortDropdown/SortDropdown'
-import { Flex } from '../../uikit/Flex/Flex'
+import Filter from "./Filter";
+import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
+import Header from "../../components/Header/Header";
+import PageTitle from "../../uikit/PageTitle/PageTitle";
+import NFTCard from "../../components/NFTCard/NFTCard";
+import Spinners from "../../components/Spinners/Spinners";
+import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContainer";
+import NFTLoadingCards from "../../components/NFTLoadingCards/NFTLoadingCards";
+import { PillGroup, Pill } from "../../uikit/Pills/Pills";
+import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
+import { Flex } from "../../uikit/Flex/Flex";
 
 function Marketplace({ web3, delegate }) {
   // example: logged to console the mock subgraph data on rinkeby
-  const marketDataHook = useSubgraphData()
+  const marketDataHook = useSubgraphData();
   // Filter Region
-  const [state, dispatch] = useReducer(reducer, getInitialState())
+  const [state, dispatch] = useReducer(reducer, getInitialState());
   // Filter Region End
   // Forwarding to token details
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const goToNFT = (tokenId) => {
-    navigate(`/details/${tokenId}`)
-  }
+    navigate(`/details/${tokenId}`);
+  };
 
   // Toggle market view
   const onViewChange = (view) => {
-    dispatch({ type: 'SET_VIEW', value: view })
-  }
+    dispatch({ type: "SET_VIEW", value: view });
+  };
 
   // Used to trigger loading states.
   useEffect(() => {
     if (state.isFuseQueryLoading) {
-      dispatch({ type: 'SET_FUSE_DATA' })
+      dispatch({ type: "SET_FUSE_DATA" });
     }
-  }, [state.isFuseQueryLoading])
+  }, [state.isFuseQueryLoading]);
 
   useEffect(() => {
-    dispatch({ type: 'SET_FUSE_QUERY_LOADING', value: false })
-  }, [state.galleryData])
+    dispatch({ type: "SET_FUSE_QUERY_LOADING", value: false });
+  }, [state.galleryData]);
 
   // Sorting
-  const [selectedSort, setSelectedSort] = useState('price_asc')
-  useEffect(() => {}, [selectedSort])
+  const [selectedSort, setSelectedSort] = useState("price_asc");
+  useEffect(() => {}, [selectedSort]);
 
   // Set subgraph data to reducer
   useEffect(() => {
     if (marketDataHook.subgraphData.data) {
       dispatch({
-        type: 'SET_SUBGRAPH_DATA',
+        type: "SET_SUBGRAPH_DATA",
         value: marketDataHook.subgraphData,
-      })
+      });
     }
-  }, [marketDataHook.subgraphData])
+  }, [marketDataHook.subgraphData]);
 
   return (
     <>
-      {state.isPlayingConfetti ? (
-        <ConfettiContainer dispatch={dispatch} />
-      ) : null}
+      {state.isPlayingConfetti ? <ConfettiContainer dispatch={dispatch} /> : null}
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
       <CommonContainer>
         <Header delegate={delegate} web3={web3} />
@@ -71,9 +69,9 @@ function Marketplace({ web3, delegate }) {
           <Flex container align="center" justify="space-between">
             <PillGroup>
               <Pill
-                active={state.selectedView === 'for_sale'}
+                active={state.selectedView === "for_sale"}
                 text="For Sale"
-                onClick={() => onViewChange('for_sale')}
+                onClick={() => onViewChange("for_sale")}
               />
               {/* <Pill
                 active={state.selectedView === 'has_bids'}
@@ -81,16 +79,13 @@ function Marketplace({ web3, delegate }) {
                 onClick={() => onViewChange('has_bids')}
               /> */}
               <Pill
-                active={state.selectedView === 'view_all'}
+                active={state.selectedView === "view_all"}
                 text="View All (limit 300)"
-                onClick={() => onViewChange('view_all')}
+                onClick={() => onViewChange("view_all")}
               />
             </PillGroup>
             <Flex>
-              <SortDropdown
-                selectedSort={selectedSort}
-                setSelectedSort={setSelectedSort}
-              />
+              <SortDropdown selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
             </Flex>
           </Flex>
         </PageHeaderContainer>
@@ -103,12 +98,12 @@ function Marketplace({ web3, delegate }) {
               state.galleryData
                 ?.slice(0, 300)
                 ?.sort((a, b) => {
-                  if (selectedSort === 'price_asc') {
-                    return +a?.item?.minValue - +b?.item?.minValue
-                  } else if (selectedSort === 'price_desc') {
-                    return +b?.item?.minValue - +a?.item?.minValue
-                  } else if (selectedSort === 'recent') {
-                    return true
+                  if (selectedSort === "price_asc") {
+                    return +a?.item?.minValue - +b?.item?.minValue;
+                  } else if (selectedSort === "price_desc") {
+                    return +b?.item?.minValue - +a?.item?.minValue;
+                  } else if (selectedSort === "recent") {
+                    return true;
                   }
                 })
                 ?.map((ape, index) => (
@@ -125,10 +120,10 @@ function Marketplace({ web3, delegate }) {
         </MarketPlaceContainer>
       </CommonContainer>
     </>
-  )
+  );
 }
 
-const mobileWidth = 700
+const mobileWidth = 700;
 
 const PageHeaderContainer = styled.div`
   display: grid;
@@ -144,7 +139,7 @@ const PageHeaderContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-`
+`;
 
 const MarketPlaceContainer = styled.div`
   display: grid;
@@ -154,7 +149,7 @@ const MarketPlaceContainer = styled.div`
   @media (max-width: ${mobileWidth}px) {
     grid-template-columns: none;
   }
-`
+`;
 
 const GridContainer = styled.div`
   display: grid;
@@ -172,6 +167,6 @@ const GridContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
-export default Marketplace
+export default Marketplace;

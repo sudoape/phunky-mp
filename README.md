@@ -6,7 +6,7 @@ An open source marketplace built by the phunky ape community. We have built this
 
 # ⭐️ `Star us`
 
-If you like to get phunky, please star us :) 
+If you like to get phunky, please star us :)
 
 # 🚀 Quick Start
 
@@ -23,10 +23,8 @@ cd payc-marketplace
 yarn install
 ```
 
-Note: 
-Images have been ommitted from git tracking to avoid bloat. Populate public/ipfs with the collection's images (0.png, 1.png, 2.png). 
-
-
+Note:
+Images have been ommitted from git tracking to avoid bloat. Populate public/ipfs with the collection's images (0.png, 1.png, 2.png).
 
 🚴‍♂️ Run your App:
 

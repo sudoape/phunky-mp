@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
-import { paycSubGraphAPI } from '../consts'
+import { useEffect, useState } from "react";
+import { paycSubGraphAPI } from "../consts";
 
 export const useSubgraphData = (web3) => {
-  const [subgraphData, setSubgraphData] = useState({})
+  const [subgraphData, setSubgraphData] = useState({});
 
   const fetchSubgraphData = async () => {
     const result = await fetch(paycSubGraphAPI, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: `{
@@ -34,16 +34,16 @@ export const useSubgraphData = (web3) => {
           }
       }`,
       }),
-    })
-    const jsonData = await result.json()
-    return jsonData
-  }
+    });
+    const jsonData = await result.json();
+    return jsonData;
+  };
 
   const fetchSubgraphByHexId = async (hexId) => {
     const result = await fetch(paycSubGraphAPI, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: `{
@@ -69,16 +69,16 @@ export const useSubgraphData = (web3) => {
           }
         }`,
       }),
-    })
-    const jsonData = await result.json()
-    return jsonData
-  }
+    });
+    const jsonData = await result.json();
+    return jsonData;
+  };
 
   const fetchMyCollection = async (ownerAddress) => {
     const result = await fetch(paycSubGraphAPI, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: `{
@@ -95,16 +95,16 @@ export const useSubgraphData = (web3) => {
           }
         }`,
       }),
-    })
-    const jsonData = await result.json()
-    return jsonData
-  }
+    });
+    const jsonData = await result.json();
+    return jsonData;
+  };
 
   const fetchMyOffers = async (ownerAddress) => {
     const result = await fetch(paycSubGraphAPI, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: `{
@@ -120,18 +120,18 @@ export const useSubgraphData = (web3) => {
           }
         }`,
       }),
-    })
-    const jsonData = await result.json()
-    return jsonData
-  }
+    });
+    const jsonData = await result.json();
+    return jsonData;
+  };
 
   useEffect(() => {
     const updateSubgraphData = async () => {
-      const data = await fetchSubgraphData()
-      setSubgraphData(data)
-    }
-    updateSubgraphData()
-  }, [])
+      const data = await fetchSubgraphData();
+      setSubgraphData(data);
+    };
+    updateSubgraphData();
+  }, []);
 
   return {
     subgraphData,
@@ -139,5 +139,5 @@ export const useSubgraphData = (web3) => {
     fetchSubgraphByHexId,
     fetchMyCollection,
     fetchMyOffers,
-  }
-}
+  };
+};

@@ -1,40 +1,37 @@
-import React, { useEffect } from 'react'
-import styled from '@emotion/styled'
-import { useNavigate } from 'react-router'
-import { SecondaryButton } from '../../../../uikit/Buttons/Buttons'
+import React, { useEffect } from "react";
+import styled from "@emotion/styled";
+import { useNavigate } from "react-router";
+import { SecondaryButton } from "../../../../uikit/Buttons/Buttons";
 
 const handleEnter = (e, dispatch, i, submitInputQuery) => {
-  const inputs = document.querySelectorAll(`input`)
+  const inputs = document.querySelectorAll(`input`);
 
-  if (e.key === 'Backspace') {
-    inputs[i].value = ''
-    if (i !== 0) inputs[i - 1].focus()
+  if (e.key === "Backspace") {
+    inputs[i].value = "";
+    if (i !== 0) inputs[i - 1].focus();
 
-    dispatch({ type: 'SET_ID_QUERY', value: inputs[i].value, index: i })
-  } else if (e.key === 'Enter') {
+    dispatch({ type: "SET_ID_QUERY", value: inputs[i].value, index: i });
+  } else if (e.key === "Enter") {
     // On Enter
-    submitInputQuery()
-    e.preventDefault()
+    submitInputQuery();
+    e.preventDefault();
   } else {
-    if (i === inputs.length - 1 && inputs[i].value !== '') {
+    if (i === inputs.length - 1 && inputs[i].value !== "") {
       // Last input prevent from typing
-      e.preventDefault()
-    } else if (
-      (e.keyCode >= 48 && e.keyCode <= 57) ||
-      (e.keyCode >= 96 && e.keyCode <= 105)
-    ) {
+      e.preventDefault();
+    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
       // Numbers only
-      inputs[i].value = e.key
-      if (i !== inputs.length - 1) inputs[i + 1].focus()
+      inputs[i].value = e.key;
+      if (i !== inputs.length - 1) inputs[i + 1].focus();
 
-      dispatch({ type: 'SET_ID_QUERY', value: inputs[i].value, index: i })
-      e.preventDefault()
+      dispatch({ type: "SET_ID_QUERY", value: inputs[i].value, index: i });
+      e.preventDefault();
     } else if (e.keyCode > 64 && e.keyCode < 91) {
       // Prevent Letters
-      e.preventDefault()
+      e.preventDefault();
     }
   }
-}
+};
 
 const PAYCInputBox = ({ name, dispatch, i, submitInputQuery }) => {
   return (
@@ -42,25 +39,25 @@ const PAYCInputBox = ({ name, dispatch, i, submitInputQuery }) => {
       name={name}
       type="text"
       onKeyDown={(e) => {
-        handleEnter(e, dispatch, i, submitInputQuery)
+        handleEnter(e, dispatch, i, submitInputQuery);
       }}
       maxLength={1}
       autoComplete="off"
     />
-  )
-}
+  );
+};
 
 const PAYCNumSearchInput = ({ state, dispatch }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const submitInputQuery = () => {
-    const currentQuery = state.id.join('')
-    navigate(`/details/${currentQuery}`)
-  }
+    const currentQuery = state.id.join("");
+    navigate(`/details/${currentQuery}`);
+  };
 
   useEffect(() => {
     // reset query on mount of component
-    dispatch({ type: 'RESET_ID_QUERY' })
-  }, [])
+    dispatch({ type: "RESET_ID_QUERY" });
+  }, []);
 
   return (
     <ApeSearchFieldSet>
@@ -69,28 +66,28 @@ const PAYCNumSearchInput = ({ state, dispatch }) => {
         <ApeSearchInputContainer id="ape">
           <PAYCInputBox
             id="first"
-            name={'num-1'}
+            name={"num-1"}
             dispatch={dispatch}
             i={0}
             submitInputQuery={submitInputQuery}
           />
           <PAYCInputBox
             id="second"
-            name={'num-2'}
+            name={"num-2"}
             dispatch={dispatch}
             i={1}
             submitInputQuery={submitInputQuery}
           />
           <PAYCInputBox
             id="third"
-            name={'num-3'}
+            name={"num-3"}
             dispatch={dispatch}
             i={2}
             submitInputQuery={submitInputQuery}
           />
           <PAYCInputBox
             id="fourth"
-            name={'num-4'}
+            name={"num-4"}
             dispatch={dispatch}
             i={3}
             submitInputQuery={submitInputQuery}
@@ -99,8 +96,8 @@ const PAYCNumSearchInput = ({ state, dispatch }) => {
       </ApeSearch>
       <SecondaryButton onClick={submitInputQuery} text="GO" />
     </ApeSearchFieldSet>
-  )
-}
+  );
+};
 
 const ApeSearch = styled.div`
   legend {
@@ -113,19 +110,19 @@ const ApeSearch = styled.div`
     margin-bottom: 0px;
     margin-right: 4px;
   }
-`
+`;
 const ApeSearchFieldSet = styled.fieldset`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-`
+`;
 
 const ApeSearchInputContainer = styled.div`
   display: flex;
   flex: 2;
   margin-right: 20px;
-`
+`;
 
 const ApeSearchInput = styled.input`
   display: flex;
@@ -146,6 +143,6 @@ const ApeSearchInput = styled.input`
     border: 2px solid #bfc500;
     background: black;
   }
-`
+`;
 
-export default PAYCNumSearchInput
+export default PAYCNumSearchInput;

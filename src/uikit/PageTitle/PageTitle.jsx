@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from "react";
+import styled from "@emotion/styled";
 
 const PageTitle = ({ title }) => {
-  return <StyledTitle>{title}</StyledTitle>
-}
+  return <StyledTitle>{title}</StyledTitle>;
+};
 
-const mobileWidth = 700
+const mobileWidth = 700;
 
 const StyledTitle = styled.h2`
   margin: 2rem 0;
@@ -19,6 +19,6 @@ const StyledTitle = styled.h2`
   @media (max-width: ${mobileWidth}px) {
     margin: 0;
   }
-`
+`;
 
-export default PageTitle
+export default PageTitle;
