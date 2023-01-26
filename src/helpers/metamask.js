@@ -25,6 +25,11 @@ function handleAccountDisconnect(setAccount) {
 // MetaMask will reject any additional requests while the first is still
 // pending.
 function handleConnect(currentAccount, setCurrentAccount) {
+  if (!window.ethereum) {
+    // Nothing to do here... no ethereum provider found
+    console.log("Metamask not installed");
+    return;
+  }
   window.ethereum
     .request({ method: "eth_requestAccounts" })
     .then((accounts) => handleAccountsChanged(accounts, currentAccount, setCurrentAccount))
