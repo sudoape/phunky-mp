@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-// import 'antd/dist/reset.css'
 import React, { useReducer } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import "./style.css";
 
-import MyCollection from "pages/MyCollection/MyCollection";
+import MyCollection from "./pages/MyCollection/MyCollection";
 import FAQ from "./pages/FAQ";
 import LandingPage from "./pages/LandingPage";
 import Marketplace from "./pages/Marketplace/Marketplace";

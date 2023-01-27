@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import Web3 from "web3";
-import { web3ProviderURL } from "consts";
+import { web3ProviderURL } from "./consts";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
-import { AccountContext } from "context/AccountContext";
-import detectEthereumProvider from "@metamask/detect-provider";
+import { AccountContext } from "./context/AccountContext";
 import {
   handleChainChanged,
   handleAccountsChanged,
   handleAccountDisconnect,
-} from "helpers/metamask";
+} from "./helpers/metamask";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const web3 = new Web3(web3ProviderURL);
 
@@ -38,8 +38,8 @@ const Application = () => {
       }
       window.ethereum
         .request({ method: "eth_accounts" })
-        .then((accounts) => handleAccountsChanged(accounts, account, setAccount))
-        .catch((err) => {
+        .then((accounts: string[]) => handleAccountsChanged(accounts, account, setAccount))
+        .catch((err: Error) => {
           // Some unexpected error.
           // For backwards compatibility reasons, if no accounts are available,
           // eth_accounts will return an empty array.
@@ -47,7 +47,7 @@ const Application = () => {
           setAccount("0x0");
         });
       window.ethereum.on("chainChanged", handleChainChanged);
-      window.ethereum.on("accountsChanged", (accounts) => {
+      window.ethereum.on("accountsChanged", (accounts: string[]) => {
         handleAccountsChanged(accounts, account, setAccount);
       });
       // window.ethereum.on('connect', getAndSetAccount);
@@ -55,19 +55,20 @@ const Application = () => {
         handleAccountDisconnect(setAccount);
       });
       return () => {
-        // Return function of a non-async useEffect will clean up on component leaving screen, or from re-reneder to due dependency change
-        window.ethereum.off("chainChanged", handleChainChanged);
-        window.ethereum.off("accountsChanged", (accounts) => {
+        // Return function of a non-async useEffect will clean up on component leaving screen,
+        // or from re-reneder to due dependency change
+        window.ethereum.removeListener("chainChanged", handleChainChanged);
+        window.ethereum.removeListener("accountsChanged", (accounts: string[]) => {
           handleAccountsChanged(accounts, account, setAccount);
         });
-        window.ethereum.off("disconnect", () => {
+        window.ethereum.removeListener("disconnect", () => {
           handleAccountDisconnect(setAccount);
         });
       };
     },
-    [
-      /* empty array to avoid re-request on every render, but if you have state related to a connect button, put here*/
-    ],
+    // [
+    /* empty array to avoid re-request on every render, but if you have state related to a connect button, put here*/
+    // ],
   );
 
   return (
@@ -77,9 +78,11 @@ const Application = () => {
   );
 };
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root") as Element);
 root.render(
   // <React.StrictMode>
-  <Application />,
-  // <React.StrictMode>
+  <ChakraProvider>
+    <Application />
+  </ChakraProvider>,
+  // </React.StrictMode>,
 );

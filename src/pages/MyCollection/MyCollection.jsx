@@ -14,7 +14,7 @@ import MyCurrentListingModal from "../../components/Modals/MyCurrentListingModal
 import OffersReceivedModal from "../../components/Modals/OffersReceivedModal";
 import MyOffersModal from "../../components/Modals/MyOffersModal";
 import Spinners from "../../components/Spinners/Spinners";
-import { AccountContext } from "context/AccountContext";
+import { AccountContext } from "../../context/AccountContext";
 
 function MyCollection({ web3, delegate }) {
   const { fetchMyCollection, fetchMyOffers } = useSubgraphData();

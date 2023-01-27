@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { getEllipsisTxt } from "helpers/formatters";
-import { AccountContext } from "context/AccountContext";
-import { handleConnect } from "helpers/metamask";
-import PrimaryButton from "uikit/Buttons/Buttons";
+import { getEllipsisTxt } from "../../helpers/formatters";
+import { AccountContext } from "../../context/AccountContext";
+import { handleConnect } from "../../helpers/metamask";
+import PrimaryButton from "../../uikit/Buttons/Buttons";
 
 const ConnectButton = () => {
   const { account, setAccount } = useContext(AccountContext);

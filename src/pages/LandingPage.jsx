@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import ReactPlayer from "react-player";
 import { Image } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYoutube, faInstagram, faDiscord, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import CommonContainer from "../uikit/CommonContainer/CommonContainer";
 import { PrimaryButton } from "../uikit/Buttons/Buttons";

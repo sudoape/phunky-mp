@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Image } from "antd";
-import fallbackImg from "helpers/fallbackImg";
+import fallbackImg from "../../helpers/fallbackImg";
 import { buyPhunkyApe } from "../../contracts/contractUtil";
 import BN from "bn.js";
 

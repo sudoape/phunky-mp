@@ -4,14 +4,14 @@ import { useSubgraphData } from "../hooks/useSubgraphData";
 import styled from "@emotion/styled";
 import { Image, Input, Modal } from "antd";
 
-import Header from "components/Header/Header";
-import CommonContainer from "uikit/CommonContainer/CommonContainer";
-import BigNumber from "uikit/BigNumber/BigNumber";
-import TraitBox from "uikit/TraitBox/TraitBox";
-import { getEllipsisTxt } from "helpers/formatters";
+import Header from "../components/Header/Header";
+import CommonContainer from "../uikit/CommonContainer/CommonContainer";
+import BigNumber from "../uikit/BigNumber/BigNumber";
+import TraitBox from "../uikit/TraitBox/TraitBox";
+import { getEllipsisTxt } from "../helpers/formatters";
 import { Flex } from "../uikit/Flex/Flex";
 import PrimaryButton from "../uikit/Buttons/Buttons";
-import fallbackImg from "helpers/fallbackImg";
+import fallbackImg from "../helpers/fallbackImg";
 import { getApeByID } from "../db";
 
 import { buyPhunkyApe, bidOnPhunkyApe } from "../contracts/contractUtil";
