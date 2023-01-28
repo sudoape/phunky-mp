@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
 import React, { useReducer } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import "./style.css";
+import { Box, Container } from "@chakra-ui/react";
+// import "./style.css";
 
 import MyCollection from "./pages/MyCollection/MyCollection";
 import FAQ from "./pages/FAQ";
@@ -10,24 +10,26 @@ import Marketplace from "./pages/Marketplace/Marketplace";
 import NFTDetails from "./pages/NFTDetails";
 import ScrollToTop from "./helpers/scrollToTop";
 import { getInitialState, reducer } from "./reducer";
+import Web3 from "web3";
+import { Txn } from "./types/types";
 
-const App = ({ web3 }) => {
+const App = ({ web3 }: { web3: Web3 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState());
 
   // TODO move this shit out to a util
-  const addTxn = (txn) => {
+  const addTxn = (txn: Txn) => {
     dispatch({ type: "ADD_TXN", value: txn });
   };
 
-  const txnError = (txn) => {
+  const txnError = (txn: Txn) => {
     dispatch({ type: "ERROR_TXN", value: txn });
   };
 
-  const txnSuccess = (txn) => {
+  const txnSuccess = (txn: Txn) => {
     dispatch({ type: "SUCCESS_TXN", value: txn });
   };
 
-  const removeTxn = (txn) => {
+  const removeTxn = (txn: Txn) => {
     dispatch({ type: "REMOVE_TXN", value: txn });
   };
 
@@ -45,10 +47,10 @@ const App = ({ web3 }) => {
   };
 
   return (
-    <Layout>
+    <Box bg="black" color="white" minH="100vh">
       <HashRouter>
         <ScrollToTop>
-          <Container>
+          <Container maxW="1200px" mx="auto" minH="100%">
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route
@@ -65,28 +67,9 @@ const App = ({ web3 }) => {
           </Container>
         </ScrollToTop>
       </HashRouter>
-      <Footer />
-    </Layout>
+      <Box h="15px" /> {/*bg="#bfc500">*/}
+    </Box>
   );
 };
-
-const Layout = styled.div`
-  height: 100vh;
-  overflow: auto;
-  background-color: black;
-  color: white;
-`;
-
-const Container = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  display: block;
-  min-height: 100%;
-`;
-
-const Footer = styled.footer`
-  height: 15px;
-  background: #bfc500;
-`;
 
 export default App;

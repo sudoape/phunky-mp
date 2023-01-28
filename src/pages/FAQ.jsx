@@ -4,11 +4,8 @@ import styled from "@emotion/styled";
 import CommonContainer from "../uikit/CommonContainer/CommonContainer";
 import Header from "../components/Header/Header";
 import PageTitle from "../uikit/PageTitle/PageTitle";
-import Web3 from "web3";
-import { web3ProviderURL } from "../consts";
 
-const FAQ = () => {
-  const web3 = new Web3(web3ProviderURL);
+const FAQ = ({ web3 }) => {
   return (
     <CommonContainer>
       <Header web3={web3} />

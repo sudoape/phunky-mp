@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 import { ethers } from "ethers";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 
