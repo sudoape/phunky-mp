@@ -13,6 +13,8 @@ import {
   handleAccountDisconnect,
 } from "./helpers/metamask";
 import { ChakraProvider } from "@chakra-ui/react";
+import theme from "./theme";
+import Fonts from "./components/font-face";
 
 const web3 = new Web3(web3ProviderURL);
 
@@ -81,7 +83,8 @@ const Application = () => {
 const root = createRoot(document.getElementById("root") as Element);
 root.render(
   // <React.StrictMode>
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
+    <Fonts />
     <Application />
   </ChakraProvider>,
   // </React.StrictMode>,
