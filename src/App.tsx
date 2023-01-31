@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { Box, Container } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 
 import MyCollection from "./pages/MyCollection/MyCollection";
 import FAQ from "./pages/FAQ";
@@ -11,7 +11,7 @@ import ScrollToTop from "./helpers/scrollToTop";
 import { getInitialState, reducer } from "./reducer";
 import Web3 from "web3";
 import { Txn } from "./types/types";
-import customTheme from "./theme";
+import Footer from "./components/footer";
 
 const App = ({ web3 }: { web3: Web3 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState());
@@ -49,7 +49,7 @@ const App = ({ web3 }: { web3: Web3 }) => {
   return (
     <HashRouter>
       <ScrollToTop>
-        <Container maxW="1200px" mx="auto" minH="100%">
+        <Container maxW="1200px" mx="auto" minH="100%" px={0}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route
@@ -65,7 +65,7 @@ const App = ({ web3 }: { web3: Web3 }) => {
           </Routes>
         </Container>
       </ScrollToTop>
-      <Box h="15px" bg={customTheme.colors.brand} />
+      <Footer paddingInline="1rem" />
     </HashRouter>
   );
 };
