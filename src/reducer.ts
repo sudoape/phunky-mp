@@ -3,16 +3,18 @@ import { Txn } from "./types/types";
 interface State {
   isConfettiOn: boolean;
   isTxnListOpen: boolean;
+  isGlobalLoadingStatus: boolean;
   txns: Txn[];
 }
 
 const initialState = {
   isConfettiOn: false,
   isTxnListOpen: false,
+  isGlobalLoadingStatus: false,
   txns: [],
 };
 
-type ACTIONTYPE =
+type TransactionAction =
   | { type: "SET_GLOBAL_LOADING_STATUS"; value: boolean }
   | { type: "ADD_TXN"; value: Txn }
   | { type: "ERROR_TXN"; value: Txn }
@@ -20,7 +22,7 @@ type ACTIONTYPE =
   | { type: "REMOVE_TXN"; value: Txn }
   | { type: "TOGGLE_TXN_LIST" };
 
-function reducer(state: State, action: ACTIONTYPE) {
+function reducer(state: State, action: TransactionAction) {
   switch (action.type) {
     case "SET_GLOBAL_LOADING_STATUS":
       return { ...state, isGlobalLoadingStatus: action.value };

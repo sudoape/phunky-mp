@@ -57,6 +57,7 @@ export const Footer = (props: StackProps) => (
       p="3rem 0"
       borderTop="1px"
       borderTopColor="grey.700"
+      marginTop="3rem"
       {...props}>
       <FooterLogo gridColumn={2} justify="center" />
       <Flex flexDir="column" boxSize="1fr" align="flex-end">

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import { PrimaryButton } from "../../../uikit/Buttons/Buttons";
 import PAYCNumSearchInput from "./PAYCNumSearchInput";
+import { TraitEnum } from "../../../types/types";
 
 // Option Constants With Header as First Item
 const bgOtions = [
@@ -198,7 +199,7 @@ const mouthOptions = [
   "Tongue Out",
 ];
 
-const onOptionHeaderClicked = (filterType, dispatch) => {
+const onOptionHeaderClicked = (filterType: TraitEnum, dispatch) => {
   dispatch({ type: "TOGGLE_FILTER", value: filterType });
 };
 

@@ -15,8 +15,15 @@ import NFTLoadingCards from "../../components/NFTLoadingCards/NFTLoadingCards";
 import { PillGroup, Pill } from "../../uikit/Pills/Pills";
 import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
 import { Flex } from "../../uikit/Flex/Flex";
+import { ViewEnum } from "../../types/types";
+import Web3 from "web3";
 
-function Marketplace({ web3, delegate }) {
+interface MarketplaceProps {
+  web3: Web3;
+  delegate: unknown; //TODO: Add to context to fix this
+}
+
+function Marketplace({ web3, delegate }: MarketplaceProps) {
   // example: logged to console the mock subgraph data on rinkeby
   const marketDataHook = useSubgraphData();
   // Filter Region
@@ -24,12 +31,12 @@ function Marketplace({ web3, delegate }) {
   // Filter Region End
   // Forwarding to token details
   const navigate = useNavigate();
-  const goToNFT = (tokenId) => {
+  const goToNFT = (tokenId: string) => {
     navigate(`/details/${tokenId}`);
   };
 
   // Toggle market view
-  const onViewChange = (view) => {
+  const onViewChange = (view: ViewEnum) => {
     dispatch({ type: "SET_VIEW", value: view });
   };
 
@@ -46,7 +53,7 @@ function Marketplace({ web3, delegate }) {
 
   // Sorting
   const [selectedSort, setSelectedSort] = useState("price_asc");
-  useEffect(() => {}, [selectedSort]);
+  // useEffect(() => {}, [selectedSort]); // what is the point of this?
 
   // Set subgraph data to reducer
   useEffect(() => {
@@ -69,9 +76,9 @@ function Marketplace({ web3, delegate }) {
           <Flex container align="center" justify="space-between">
             <PillGroup>
               <Pill
-                active={state.selectedView === "for_sale"}
+                active={state.selectedView === ViewEnum.ForSale}
                 text="For Sale"
-                onClick={() => onViewChange("for_sale")}
+                onClick={() => onViewChange(ViewEnum.ForSale)}
               />
               {/* <Pill
                 active={state.selectedView === 'has_bids'}
@@ -79,9 +86,9 @@ function Marketplace({ web3, delegate }) {
                 onClick={() => onViewChange('has_bids')}
               /> */}
               <Pill
-                active={state.selectedView === "view_all"}
+                active={state.selectedView === ViewEnum.ViewAll}
                 text="View All (limit 300)"
-                onClick={() => onViewChange("view_all")}
+                onClick={() => onViewChange(ViewEnum.ViewAll)}
               />
             </PillGroup>
             <Flex>
@@ -103,10 +110,11 @@ function Marketplace({ web3, delegate }) {
                   } else if (selectedSort === "price_desc") {
                     return +b?.item?.minValue - +a?.item?.minValue;
                   } else if (selectedSort === "recent") {
+                    // TODO: This isnt' implemented
                     return true;
                   }
                 })
-                ?.map((ape, index) => (
+                ?.map((ape, index: string) => (
                   <NFTCard
                     nft={ape.item}
                     key={index}
