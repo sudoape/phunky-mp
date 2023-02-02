@@ -17,6 +17,7 @@ import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
 import { Flex } from "../../uikit/Flex/Flex";
 import { ViewEnum } from "../../types/types";
 import Web3 from "web3";
+import BN from "bn.js";
 
 interface MarketplaceProps {
   web3: Web3;
@@ -106,13 +107,16 @@ function Marketplace({ web3, delegate }: MarketplaceProps) {
                 ?.slice(0, 300)
                 ?.sort((a, b) => {
                   if (selectedSort === "price_asc") {
-                    return +a?.item?.minValue - +b?.item?.minValue;
+                    return new BN(a?.item?.minValue || "0").cmp(new BN(b?.item?.minValue || "0"));
                   } else if (selectedSort === "price_desc") {
-                    return +b?.item?.minValue - +a?.item?.minValue;
+                    return new BN(b?.item?.minValue || "0").cmp(new BN(a?.item?.minValue || "0"));
                   } else if (selectedSort === "recent") {
-                    // TODO: This isnt' implemented
-                    return true;
+                    return (
+                      parseInt(b?.item?.blockNumberListedForSale || "0") -
+                      parseInt(a?.item?.blockNumberListedForSale || "0")
+                    );
                   }
+                  return 0;
                 })
                 ?.map((ape, index: string) => (
                   <NFTCard

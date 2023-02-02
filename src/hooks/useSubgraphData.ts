@@ -31,6 +31,7 @@ export const useSubgraphData = () => {
             isForSale
             minValue
             currentOwner
+            blockNumberListedForSale
             phunkyApeBids{
               id
               bidAmount
