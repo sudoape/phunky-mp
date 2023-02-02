@@ -64,7 +64,7 @@ function getInitialState() {
   return initialState;
 }
 
-type MarketplaceAction =
+export type MarketplaceAction =
   | { type: "SELECT"; key: TraitEnum; value: string }
   | { type: "SET_ID_QUERY"; value: string; index: number }
   | { type: "TOGGLE_FILTER"; value: TraitEnum }
