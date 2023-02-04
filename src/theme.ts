@@ -55,6 +55,7 @@ const theme = extendTheme(
     colors: {
       brand: {
         main: "#bfc500", // "#121619",
+        bg: "#121619",
       },
       grey: {
         700: "#2D3748",

@@ -1,6 +1,16 @@
-import ReactPlayer from "react-player";
 import { Link as RouterLink } from "react-router-dom";
-import { Flex, Spacer, Image, Link, Box, Grid, Text, Button, FlexProps } from "@chakra-ui/react";
+import {
+  Flex,
+  Spacer,
+  Image,
+  Link,
+  Box,
+  Grid,
+  Text,
+  Button,
+  FlexProps,
+  Container,
+} from "@chakra-ui/react";
 import { getThemeBgColor } from "../helpers/theme";
 import { DiscordIcon, TwitterIcon } from "../components/icons";
 
@@ -9,38 +19,48 @@ const LandingPage = () => {
   // get the bg color, and set the fadeout to it
   const themeBgColor = getThemeBgColor();
   return (
-    <Flex direction="column" justify="center" mt={6} padding="0 2rem">
+    <>
       <Header />
-      <Flex position="relative" justify="center">
-        <Box>
-          <ReactPlayer
-            playing
-            loop
-            muted
-            url="https://ik.imagekit.io/nldjkvbypwl/flipped_FNa-Twypl.mp4?updatedAt=1640903473924"
-            width="100%"
-            height="auto"
-          />
-        </Box>
-        {/* another box on top of the player for fadeout */}
-        <Box
-          width="100%"
-          bgGradient={`linear(to-b, ${themeBgColor}, transparent 40%, transparent 70%, ${themeBgColor})`}
-          position="absolute"
-          top={0}
-          bottom={0}
-        />
-        <WelcomeBox
-          themeBgColor={themeBgColor}
-          props={{ position: "absolute", right: 0, bottom: 0 }}
-        />
-      </Flex>
-      <Box p="3rem 15px">
-        A limitless NFT collection where the token itself doubles as a statement that we are sick
-        <br />
-        and tired of the red tape mentality perpetuated by the right facing Blue Chips.
+      <Box as="section">
+        <Container maxW="100%" px={0}>
+          <Box position="relative" maxH="480px" overflow="hidden">
+            <video
+              autoPlay
+              muted
+              loop
+              style={{
+                maxHeight: "580px",
+                width: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}>
+              <source
+                src="https://ik.imagekit.io/nldjkvbypwl/flipped_FNa-Twypl.mp4?updatedAt=1640903473924"
+                type="video/mp4"
+              />
+            </video>
+            {/* another box on top of the player for fadeout */}
+            <Box
+              width="100%"
+              bgGradient={`linear(to-b, ${themeBgColor}, transparent 20%, transparent 80%, ${themeBgColor})`}
+              position="absolute"
+              top={0}
+              bottom={0}
+            />
+            <WelcomeBox
+              themeBgColor={themeBgColor}
+              props={{ position: "absolute", right: 0, bottom: 0 }}
+            />
+          </Box>
+          <Flex p="3rem 15px" justify="center" textAlign="center">
+            A limitless NFT collection where the token itself doubles as a statement that we are
+            sick
+            <br />
+            and tired of the red tape mentality perpetuated by the right facing Blue Chips.
+          </Flex>
+        </Container>
       </Box>
-    </Flex>
+    </>
   );
 };
 
@@ -57,8 +77,8 @@ const SocialContainer = () => (
 );
 
 const Header = () => (
-  <Grid templateColumns="repeat(3, 1fr)" zIndex={10}>
-    <Box display="flex" justifyContent="center" gridColumn={2}>
+  <Grid templateColumns="repeat(3, 1fr)" px="6" my="6" zIndex={10}>
+    <Box display="flex" justifyContent="center" gridColumn={2} zIndex={11}>
       <Image
         src="https://ik.imagekit.io/nldjkvbypwl/notYugalabs_2Wup2mc_Diw.png?updatedAt=1640903602465"
         alt=""
@@ -75,8 +95,8 @@ const WelcomeBox = ({ themeBgColor, props }: { themeBgColor: string; props: Flex
     bg={themeBgColor}
     direction="column"
     align="flex-end"
-    padding="24px 0 0 5rem"
-    width="360px"
+    padding="2rem 2rem 0 5rem"
+    width="400px"
     {...props}>
     <Text
       fontSize="1.7em"

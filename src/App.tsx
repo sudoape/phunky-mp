@@ -49,21 +49,13 @@ const App = ({ web3 }: { web3: Web3 }) => {
   return (
     <HashRouter>
       <ScrollToTop>
-        <Container maxW="1200px" mx="auto" minH="100%" px={0}>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route
-              path="/marketplace/*"
-              element={<Marketplace web3={web3} delegate={delegate} />}
-            />
-            <Route
-              path="/collection/*"
-              element={<MyCollection web3={web3} delegate={delegate} />}
-            />
-            <Route path="/faq" element={<FAQ web3={web3} />} />
-            <Route path="/details/:id" element={<NFTDetails web3={web3} />} />
-          </Routes>
-        </Container>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/marketplace/*" element={<Marketplace web3={web3} delegate={delegate} />} />
+          <Route path="/collection/*" element={<MyCollection web3={web3} delegate={delegate} />} />
+          <Route path="/faq" element={<FAQ web3={web3} />} />
+          <Route path="/details/:id" element={<NFTDetails web3={web3} />} />
+        </Routes>
       </ScrollToTop>
       <Footer paddingInline="1rem" />
     </HashRouter>
