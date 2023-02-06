@@ -110,7 +110,7 @@ const WelcomeBox = ({ themeBgColor, props }: { themeBgColor: string; props: Flex
       yacht club
     </Text>
     <Spacer />
-    <Button variant="primary" marginY={4} size="lg">
+    <Button marginY={4} size="lg">
       <Link as={RouterLink} to="/marketplace" style={{ textDecoration: "none" }}>
         Enter Marketplace
       </Link>

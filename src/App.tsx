@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { Container } from "@chakra-ui/react";
 
 import MyCollection from "./pages/MyCollection/MyCollection";
 import FAQ from "./pages/FAQ";
