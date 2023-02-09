@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-import { SecondaryButton } from "../../uikit/Buttons/Buttons";
 import { withdraw } from "../../contracts/contractUtil";
 import { cryptoPhunksMarketAbi } from "../../contracts/abi/cryptoPhunksMarketABI";
 import { useEffect, useState } from "react";
@@ -9,6 +7,7 @@ import ConnectButton from "../ConnectButton/ConnectButton";
 import { AccountContext } from "../../context/AccountContext";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
+import { Button, HStack } from "@chakra-ui/react";
 
 function AccountButton({ web3 }: { web3: Web3 }) {
   const { account } = useContext(AccountContext);
@@ -29,18 +28,11 @@ function AccountButton({ web3 }: { web3: Web3 }) {
   });
 
   return (
-    <AccountContainer>
+    <HStack spacing="5">
       <ConnectButton />
-      <SecondaryButton
-        text={`🚰 ${withdrawAmt}`}
-        onClick={async () => await withdraw(web3)}></SecondaryButton>
-    </AccountContainer>
+      <Button onClick={async () => await withdraw(web3)}>🚰 {withdrawAmt}</Button>
+    </HStack>
   );
 }
-
-const AccountContainer = styled.div`
-  display: flex;
-  width: 100%;
-`;
 
 export default AccountButton;

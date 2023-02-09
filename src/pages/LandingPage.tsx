@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link as NavLink } from "react-router-dom";
 import {
   Flex,
   Spacer,
@@ -20,7 +20,7 @@ const LandingPage = () => {
   const themeBgColor = getThemeBgColor();
   return (
     <>
-      <Header />
+      <LandingPageHeader />
       <Box as="section">
         <Container maxW="100%" px={0}>
           <Box position="relative" maxH="480px" overflow="hidden">
@@ -76,7 +76,7 @@ const SocialContainer = () => (
   </Flex>
 );
 
-const Header = () => (
+const LandingPageHeader = () => (
   <Grid templateColumns="repeat(3, 1fr)" px="6" my="6" zIndex={10}>
     <Box display="flex" justifyContent="center" gridColumn={2} zIndex={11}>
       <Image
@@ -95,8 +95,10 @@ const WelcomeBox = ({ themeBgColor, props }: { themeBgColor: string; props: Flex
     bg={themeBgColor}
     direction="column"
     align="flex-end"
-    padding="2rem 2rem 0 5rem"
+    padding="2rem 2rem 1.5rem 5rem"
     width="400px"
+    height="220px"
+    justify="space-between"
     {...props}>
     <Text
       fontSize="1.7em"
@@ -109,12 +111,9 @@ const WelcomeBox = ({ themeBgColor, props }: { themeBgColor: string; props: Flex
       Phunky ape <br />
       yacht club
     </Text>
-    <Spacer />
-    <Button marginY={4} size="lg">
-      <Link as={RouterLink} to="/marketplace" style={{ textDecoration: "none" }}>
-        Enter Marketplace
-      </Link>
-    </Button>
+    <NavLink to="/marketplace">
+      <Button size="lg">Enter Marketplace</Button>
+    </NavLink>
   </Flex>
 );
 
