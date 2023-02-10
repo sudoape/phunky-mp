@@ -1,4 +1,5 @@
-import { Txn } from "./types/types";
+import { useReducer } from "react";
+import { Txn } from "../types/types";
 
 interface State {
   isConfettiOn: boolean;
@@ -54,8 +55,24 @@ function reducer(state: State, action: TransactionAction) {
   }
 }
 
-function getInitialState() {
-  return initialState;
-}
+export const useTxnState = () => useReducer(reducer, initialState);
 
-export { reducer, getInitialState };
+export const addTxn = (dispatch: React.Dispatch<TransactionAction>) => (txn: Txn) => {
+  dispatch({ type: "ADD_TXN", value: txn });
+};
+
+export const txnError = (dispatch: React.Dispatch<TransactionAction>) => (txn: Txn) => {
+  dispatch({ type: "ERROR_TXN", value: txn });
+};
+
+export const txnSuccess = (dispatch: React.Dispatch<TransactionAction>) => (txn: Txn) => {
+  dispatch({ type: "SUCCESS_TXN", value: txn });
+};
+
+export const removeTxn = (dispatch: React.Dispatch<TransactionAction>) => (txn: Txn) => {
+  dispatch({ type: "REMOVE_TXN", value: txn });
+};
+
+export const toggleTxnContainer = (dispatch: React.Dispatch<TransactionAction>) => () => {
+  dispatch({ type: "TOGGLE_TXN_LIST" });
+};

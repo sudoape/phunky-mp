@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import AccountButton from "../AccountButton/AccountButton";
 import { Dropdown, Image } from "antd";
 
-const Header = ({ delegate, web3 }) => {
+const Header = ({ web3 }) => {
   const menu = () => (
     <NavMenu>
       <NavLink to="/marketplace">Marketplace</NavLink>

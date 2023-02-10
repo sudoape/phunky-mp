@@ -21,10 +21,9 @@ import BN from "bn.js";
 
 interface MarketplaceProps {
   web3: Web3;
-  delegate: unknown; //TODO: Add to context to fix this
 }
 
-function Marketplace({ web3, delegate }: MarketplaceProps) {
+function Marketplace({ web3 }: MarketplaceProps) {
   // example: logged to console the mock subgraph data on rinkeby
   const marketDataHook = useSubgraphData();
   // Filter Region
@@ -71,7 +70,7 @@ function Marketplace({ web3, delegate }: MarketplaceProps) {
       {state.isPlayingConfetti ? <ConfettiContainer dispatch={dispatch} /> : null}
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
       <CommonContainer>
-        <Header delegate={delegate} web3={web3} />
+        <Header web3={web3} />
         <PageHeaderContainer>
           <PageTitle title="Marketplace" />
           <Flex container align="center" justify="space-between">
