@@ -15,7 +15,7 @@ import {
   txnError,
   txnSuccess,
   useTxnState,
-} from "./hooks/useTxnState";
+} from "./reducer";
 
 const App = ({ web3 }: { web3: Web3 }) => {
   const [state, dispatch] = useTxnState();

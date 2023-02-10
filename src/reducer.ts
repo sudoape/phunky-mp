@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Txn } from "../types/types";
+import { Txn } from "./types/types";
 
 interface State {
   isConfettiOn: boolean;
