@@ -3,7 +3,6 @@ import {
   Flex,
   Spacer,
   Image,
-  Link,
   Box,
   Grid,
   Text,
@@ -12,7 +11,7 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { getThemeBgColor } from "../helpers/theme";
-import { DiscordIcon, TwitterIcon } from "../components/icons";
+import { SocialLinks } from "../components/social-links";
 
 const LandingPage = () => {
   // const containerPx = theme.components.Container.baseStyle.px;
@@ -67,12 +66,7 @@ const LandingPage = () => {
 const SocialContainer = () => (
   <Flex gap={3} align="flex-end">
     <Spacer />
-    <Link href="https://discord.com/invite/xkh9AEbgNH" target="_blank">
-      <DiscordIcon />
-    </Link>
-    <Link href="https://twitter.com/phunkyApeYC" target="_blank">
-      <TwitterIcon />
-    </Link>
+    <SocialLinks />
   </Flex>
 );
 

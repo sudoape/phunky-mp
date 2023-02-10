@@ -1,40 +1,5 @@
-import {
-  Text,
-  Grid,
-  Flex,
-  FlexProps,
-  HStack,
-  Icon,
-  Image,
-  Link,
-  StackProps,
-} from "@chakra-ui/react";
-import { DiscordIcon, TwitterIcon } from "./icons";
-
-const links = [
-  {
-    FooterIcon: DiscordIcon,
-    label: "discord",
-    href: "https://discord.com/invite/xkh9AEbgNH",
-  },
-  {
-    FooterIcon: TwitterIcon,
-    label: "twitter",
-    href: "https://twitter.com/phunkyApeYC",
-  },
-];
-
-type FooterLinkProps = {
-  FooterIcon?: typeof Icon;
-  href?: string;
-  label?: string;
-};
-
-const FooterLink = ({ FooterIcon, href, label }: FooterLinkProps) => (
-  <Link p="0.5rem" display="inline-block" href={href} aria-label={label} isExternal>
-    <Icon as={FooterIcon} />
-  </Link>
-);
+import { Text, Grid, Flex, FlexProps, HStack, Image, StackProps } from "@chakra-ui/react";
+import { SocialLinks } from "./social-links";
 
 const FooterLogo = (props: FlexProps) => (
   <Flex {...props}>
@@ -62,9 +27,7 @@ export const Footer = (props: StackProps) => (
       <FooterLogo gridColumn={2} justify="center" />
       <Flex flexDir="column" boxSize="1fr" align="flex-end">
         <HStack py="0.6rem" justify="center">
-          {links.map((link) => {
-            return <FooterLink key={link.href} {...link} />;
-          })}
+          <SocialLinks />
         </HStack>
         <Text fontSize="0.65rem" color="yellow" textAlign="end">
           © 2023 NOT Yuga Labs LLC
