@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 
 import Filter from "./Filter";
 import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header";
 import PageTitle from "../../uikit/PageTitle/PageTitle";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import Spinners from "../../components/Spinners/Spinners";
@@ -69,8 +69,8 @@ function Marketplace({ web3 }: MarketplaceProps) {
     <>
       {state.isPlayingConfetti ? <ConfettiContainer dispatch={dispatch} /> : null}
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
+      <Header web3={web3} />
       <CommonContainer>
-        <Header web3={web3} />
         <PageHeaderContainer>
           <PageTitle title="Marketplace" />
           <Flex container align="center" justify="space-between">

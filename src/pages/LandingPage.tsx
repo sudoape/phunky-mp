@@ -77,6 +77,7 @@ const LandingPageHeader = () => (
         src="https://ik.imagekit.io/nldjkvbypwl/notYugalabs_2Wup2mc_Diw.png?updatedAt=1640903602465"
         alt=""
         width="180px"
+        objectFit="contain"
         marginBottom={-8}
       />
     </Box>
