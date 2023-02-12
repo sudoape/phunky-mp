@@ -28,7 +28,7 @@ function AccountButton({ web3 }: { web3: Web3 }) {
   });
 
   return (
-    <HStack spacing="5">
+    <HStack spacing="3">
       <ConnectButton />
       <Button onClick={async () => await withdraw(web3)}>🚰 {withdrawAmt}</Button>
     </HStack>

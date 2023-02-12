@@ -1,10 +1,16 @@
-function handleChainChanged(_chainId) {
+import { CreateToastFnReturn } from "@chakra-ui/react";
+
+function handleChainChanged() {
   // We recommend reloading the page, unless you must do otherwise
   window.location.reload();
 }
 
 // For now, 'eth_accounts' will continue to always return an array
-function handleAccountsChanged(accounts, account, setAccount) {
+function handleAccountsChanged(
+  accounts: string[],
+  account: string,
+  setAccount: (address: string) => void,
+) {
   if (accounts.length === 0) {
     // MetaMask is locked or the user has not connected any accounts
     console.log("Please connect to MetaMask.");
@@ -16,7 +22,9 @@ function handleAccountsChanged(accounts, account, setAccount) {
   }
 }
 
-function handleAccountDisconnect(setAccount) {
+// Metamask doesn't actually support disconnect. (Literally why?)
+// TODO: replace with a package that supports disconnect.
+function handleAccountDisconnect(setAccount: (address: string) => void) {
   setAccount("0x0");
 }
 
@@ -24,7 +32,11 @@ function handleAccountDisconnect(setAccount) {
 // any buttons the user can click to initiate the request.
 // MetaMask will reject any additional requests while the first is still
 // pending.
-function handleConnect(currentAccount, setCurrentAccount) {
+function handleConnect(
+  currentAccount: string,
+  setCurrentAccount: (address: string) => void,
+  toast: CreateToastFnReturn,
+) {
   if (!window.ethereum) {
     // Nothing to do here... no ethereum provider found
     console.log("Metamask not installed");
@@ -32,15 +44,17 @@ function handleConnect(currentAccount, setCurrentAccount) {
   }
   window.ethereum
     .request({ method: "eth_requestAccounts" })
-    .then((accounts) => handleAccountsChanged(accounts, currentAccount, setCurrentAccount))
+    .then((accounts: string[]) =>
+      handleAccountsChanged(accounts, currentAccount, setCurrentAccount),
+    )
     .catch((err) => {
-      if (err.code === 4001) {
-        // EIP-1193 userRejectedRequest error
-        // If this happens, the user rejected the connection request.
-        console.log("Please connect to MetaMask.");
-      } else {
-        console.error(err);
-      }
+      toast({
+        title: "Oops, something went wrong...",
+        description: (err as { message: string })?.message,
+        status: "error",
+        position: "top",
+        isClosable: true,
+      });
     });
 }
 
