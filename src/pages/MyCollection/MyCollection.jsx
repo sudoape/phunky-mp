@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useSubgraphData } from "../../hooks/useSubgraphData";
 import styled from "@emotion/styled";
 
@@ -14,12 +14,12 @@ import MyCurrentListingModal from "../../components/Modals/MyCurrentListingModal
 import OffersReceivedModal from "../../components/Modals/OffersReceivedModal";
 import MyOffersModal from "../../components/Modals/MyOffersModal";
 import Spinners from "../../components/Spinners/Spinners";
-import { AccountContext } from "../../context/AccountContext";
+import { useAccount } from "wagmi";
 
 function MyCollection({ web3, delegate }) {
   const { fetchMyCollection, fetchMyOffers } = useSubgraphData();
   const [state, dispatch] = useReducer(reducer, getInitialState());
-  const { account } = useContext(AccountContext);
+  const { address } = useAccount();
 
   // Toggle collection view
   const onViewChange = (view) => {
@@ -70,7 +70,7 @@ function MyCollection({ web3, delegate }) {
 
   // TODO: keep view same after connect/disconnect
   useEffect(() => {
-    const userAddress = account;
+    const userAddress = address;
     if (userAddress !== "0x0") {
       fetchMyCollection(userAddress).then((collection) => {
         dispatch({ type: "SET_GRAPH_DATA", value: collection });
@@ -81,7 +81,7 @@ function MyCollection({ web3, delegate }) {
     } else {
       dispatch({ type: "CLEAR_STATE" });
     }
-  }, [account]);
+  }, [address]);
 
   console.log("offerMade", state);
 
@@ -89,7 +89,7 @@ function MyCollection({ web3, delegate }) {
     <>
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
       <CommonContainer>
-        <Header delegate={delegate} web3={web3} />
+        <Header web3={web3} />
         <PageHeaderContainer>
           <PageTitle title="My Collection" />
           <Flex container align="center" justify="space-between">

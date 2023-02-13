@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
@@ -6,17 +5,41 @@ import Web3 from "web3";
 import { web3ProviderURL } from "./consts";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
-import { AccountContext } from "./context/AccountContext";
-import {
-  handleChainChanged,
-  handleAccountsChanged,
-  handleAccountDisconnect,
-} from "./helpers/metamask";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
 import Fonts from "./components/font-face";
+import { WagmiConfig, createClient, configureChains, mainnet, goerli } from "wagmi";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
 
+import { InjectedConnector } from "wagmi/connectors/injected";
+
+// TODO: completely replace this
 const web3 = new Web3(web3ProviderURL);
+
+const { chains, provider, webSocketProvider } = configureChains(
+  [mainnet, goerli],
+  [
+    alchemyProvider({ apiKey: web3ProviderURL.substring(web3ProviderURL.lastIndexOf("/") + 1) }),
+    publicProvider(),
+  ],
+);
+
+// Set up client
+const client = createClient({
+  autoConnect: true,
+  connectors: [
+    new InjectedConnector({
+      chains,
+      options: {
+        name: "Injected",
+        shimDisconnect: false,
+      },
+    }),
+  ],
+  provider,
+  webSocketProvider,
+});
 
 Sentry.init({
   dsn: "https://e79c03ee5546443993243b72dd081237@o4504510885527552.ingest.sentry.io/4504510899683328",
@@ -28,64 +51,14 @@ Sentry.init({
   tracesSampleRate: 0.5,
 });
 
-const Application = () => {
-  const [account, setAccount] = useState("0x0");
-
-  useEffect(
-    () => {
-      if (!window.ethereum) {
-        // Nothing to do here... no ethereum provider found
-        console.log("Please install MetaMask!");
-        return;
-      }
-      window.ethereum
-        .request({ method: "eth_accounts" })
-        .then((accounts: string[]) => handleAccountsChanged(accounts, account, setAccount))
-        .catch((err: Error) => {
-          // Some unexpected error.
-          // For backwards compatibility reasons, if no accounts are available,
-          // eth_accounts will return an empty array.
-          console.error(err);
-          setAccount("0x0");
-        });
-      window.ethereum.on("chainChanged", handleChainChanged);
-      window.ethereum.on("accountsChanged", (accounts: string[]) => {
-        handleAccountsChanged(accounts, account, setAccount);
-      });
-      // window.ethereum.on('connect', getAndSetAccount);
-      window.ethereum.on("disconnect", () => {
-        handleAccountDisconnect(setAccount);
-      });
-      return () => {
-        // Return function of a non-async useEffect will clean up on component leaving screen,
-        // or from re-reneder to due dependency change
-        window.ethereum.removeListener("chainChanged", handleChainChanged);
-        window.ethereum.removeListener("accountsChanged", (accounts: string[]) => {
-          handleAccountsChanged(accounts, account, setAccount);
-        });
-        window.ethereum.removeListener("disconnect", () => {
-          handleAccountDisconnect(setAccount);
-        });
-      };
-    },
-    // [
-    /* empty array to avoid re-request on every render, but if you have state related to a connect button, put here*/
-    // ],
-  );
-
-  return (
-    <AccountContext.Provider value={{ account, setAccount }}>
-      <App web3={web3} />
-    </AccountContext.Provider>
-  );
-};
-
 const root = createRoot(document.getElementById("root") as Element);
 root.render(
   // <React.StrictMode>
   <ChakraProvider theme={theme}>
-    <Fonts />
-    <Application />
+    <WagmiConfig client={client}>
+      <Fonts />
+      <App web3={web3} />
+    </WagmiConfig>
   </ChakraProvider>,
   // </React.StrictMode>,
 );
