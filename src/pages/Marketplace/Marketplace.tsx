@@ -69,7 +69,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
     <>
       {state.isPlayingConfetti ? <ConfettiContainer dispatch={dispatch} /> : null}
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
-      <Header web3={web3} />
+      <Header />
       <CommonContainer>
         <PageHeaderContainer>
           <PageTitle title="Marketplace" />

@@ -6,6 +6,7 @@ import ConnectButton from "../ConnectButton/ConnectButton";
 import { Button, HStack } from "@chakra-ui/react";
 import { useAccount, useContractRead } from "wagmi";
 import { BigNumberish, ethers } from "ethers";
+import { FaEthereum } from "react-icons/fa";
 
 function AccountButton() {
   const { address, isConnected } = useAccount();
@@ -19,7 +20,7 @@ function AccountButton() {
     enabled: isConnected,
     args: [address],
     onSuccess(data) {
-      setWithdrawAmt(ethers.utils.formatEther(data as BigNumberish) + " ≡");
+      setWithdrawAmt(ethers.utils.formatEther(data as BigNumberish));
     },
     onError(error) {
       console.log("Error", error);
@@ -30,8 +31,13 @@ function AccountButton() {
     <HStack spacing="3">
       <ConnectButton />
       {isConnected && (
-        <Button isLoading={isLoading} onClick={() => withdraw?.()}>
-          🚰 {withdrawAmt}
+        <Button
+          variant="solid"
+          isLoading={isLoading}
+          leftIcon={<FaEthereum style={{ paddingBottom: "0.1rem" }} />}
+          onClick={() => withdraw?.()}
+          isDisabled={parseInt(withdrawAmt) == 0}>
+          {withdrawAmt}
         </Button>
       )}
     </HStack>

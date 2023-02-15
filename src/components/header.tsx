@@ -15,7 +15,6 @@ import { useScroll } from "framer-motion";
 import AccountButton from "./AccountButton/AccountButton";
 import { MobileNavButton } from "./mobile-nav";
 import { getThemeTextColor } from "../helpers/theme";
-import Web3 from "web3";
 
 interface MainNavLinkProps {
   href: string;
@@ -45,11 +44,7 @@ const MainNavLink = ({ href, label }: MainNavLinkProps) => {
   );
 };
 
-interface HeaderContentProps {
-  web3: Web3;
-}
-
-const HeaderContent = ({ web3 }: HeaderContentProps) => {
+const HeaderContent = () => {
   return (
     <>
       <Flex w="100%" h="100%" px="6" align="center" justify="space-between">
@@ -69,7 +64,7 @@ const HeaderContent = ({ web3 }: HeaderContentProps) => {
             <MainNavLink href="/faq" label="FAQ" />
           </HStack>
           <Flex marginLeft={8}>
-            <AccountButton web3={web3} />
+            <AccountButton />
           </Flex>
           <MobileNavButton aria-label="Mobile Menu" marginInlineStart="1rem" />
         </Flex>
@@ -78,11 +73,7 @@ const HeaderContent = ({ web3 }: HeaderContentProps) => {
   );
 };
 
-interface HeaderProps extends HTMLChakraProps<"header"> {
-  web3: Web3;
-}
-
-function Header({ web3: web3, ...props }: HeaderProps) {
+function Header(props: HTMLChakraProps<"header">) {
   const { maxW = "8xl", maxWidth = "8xl" } = props;
   const ref = useRef<HTMLHeadingElement>(null);
   const [y, setY] = useState(0);
@@ -107,7 +98,7 @@ function Header({ web3: web3, ...props }: HeaderProps) {
       width="full"
       {...props}>
       <Box height="4.5rem" mx="auto" maxW={maxW} maxWidth={maxWidth}>
-        <HeaderContent web3={web3} />
+        <HeaderContent />
       </Box>
     </chakra.header>
   );
