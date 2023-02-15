@@ -70,8 +70,13 @@ const ConnectButton = () => {
   const connector = connectors[0];
   return (
     <>
-      <Button disabled={!connector.ready} onClick={() => connect({ connector })}>
-        {isLoading && connector.id === pendingConnector?.id ? "Connecting..." : "Connect"}
+      <Button
+        variant="solid"
+        disabled={!connector.ready}
+        isLoading={isLoading && connector.id === pendingConnector?.id}
+        loadingText="Connecting"
+        onClick={() => connect({ connector })}>
+        Connect
       </Button>
     </>
   );

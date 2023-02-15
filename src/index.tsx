@@ -33,7 +33,7 @@ const client = createClient({
       chains,
       options: {
         name: "Injected",
-        shimDisconnect: false,
+        shimDisconnect: true,
       },
     }),
   ],
