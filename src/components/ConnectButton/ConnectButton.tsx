@@ -16,19 +16,14 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import makeBlockie from "ethereum-blockies-base64";
 import { getThemeBgColor } from "../../helpers/theme";
 import { useAccount, useConnect, useDisconnect, useEnsAvatar, useEnsName } from "wagmi";
-import { useEffect } from "react";
 
 const ConnectButton = () => {
+  const toast = useToast();
   const { address, isConnected } = useAccount();
   const { data: ensAvatar } = useEnsAvatar({ address });
   const { data: ensName } = useEnsName({ address });
-  const { connect, connectors, error, isLoading, pendingConnector } = useConnect();
-  const { disconnect } = useDisconnect();
-  const toast = useToast();
-  const bg = getThemeBgColor();
-
-  useEffect(() => {
-    if (error) {
+  const { connect, connectors, isLoading, pendingConnector } = useConnect({
+    onError(error) {
       toast({
         title: "Oops, something went wrong...",
         description: (error as { message: string })?.message,
@@ -36,8 +31,10 @@ const ConnectButton = () => {
         position: "top",
         isClosable: true,
       });
-    }
-  }, [error]);
+    },
+  });
+  const { disconnect } = useDisconnect();
+  const bg = getThemeBgColor();
 
   if (isConnected) {
     const blockie = makeBlockie(`${address}`);
@@ -71,10 +68,8 @@ const ConnectButton = () => {
   return (
     <>
       <Button
-        variant="solid"
         disabled={!connector.ready}
         isLoading={isLoading && connector.id === pendingConnector?.id}
-        loadingText="Connecting"
         onClick={() => connect({ connector })}>
         Connect
       </Button>

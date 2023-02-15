@@ -1,4 +1,4 @@
-import { withdraw } from "../../contracts/contractUtil";
+import { useWithdraw } from "../../contracts/contractUtil";
 import { cryptoPhunksMarketAbi } from "../../contracts/abi/cryptoPhunksMarketABI";
 import { useState } from "react";
 import { paycMarketPlaceContractAddr } from "../../consts";
@@ -6,11 +6,11 @@ import ConnectButton from "../ConnectButton/ConnectButton";
 import { Button, HStack } from "@chakra-ui/react";
 import { useAccount, useContractRead } from "wagmi";
 import { BigNumberish, ethers } from "ethers";
-import Web3 from "web3";
 
-function AccountButton({ web3 }: { web3: Web3 }) {
+function AccountButton() {
   const { address, isConnected } = useAccount();
   const [withdrawAmt, setWithdrawAmt] = useState("");
+  const { isLoading, withdraw } = useWithdraw();
 
   useContractRead({
     address: paycMarketPlaceContractAddr,
@@ -29,7 +29,11 @@ function AccountButton({ web3 }: { web3: Web3 }) {
   return (
     <HStack spacing="3">
       <ConnectButton />
-      {isConnected && <Button onClick={async () => await withdraw(web3)}>🚰 {withdrawAmt}</Button>}
+      {isConnected && (
+        <Button isLoading={isLoading} onClick={() => withdraw?.()}>
+          🚰 {withdrawAmt}
+        </Button>
+      )}
     </HStack>
   );
 }

@@ -1,6 +1,7 @@
 import { cryptoPhunksMarketAbi } from "./abi/cryptoPhunksMarketABI";
 import { phunkyApeYachtClub721Abi } from "./abi/phunkyApeYachtClub721ABI";
 import { paycMarketPlaceContractAddr, paycSubGraphAPI, payc721ContractAddr } from "../consts";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import BN from "bn.js";
 
 // TODO there is probably a lot of refactoring / drying up we can do on this files
@@ -117,23 +118,6 @@ export async function bidOnPhunkyApe(
   } catch (error) {
     onError(nft);
   }
-}
-
-export async function withdraw(web3) {
-  const contract = new web3.eth.Contract(cryptoPhunksMarketAbi, paycMarketPlaceContractAddr);
-  const withdraw_byte_str = await contract.methods.withdraw().encodeABI();
-  const approveTx = {
-    from: window.ethereum.selectedAddress,
-    to: paycMarketPlaceContractAddr,
-    data: withdraw_byte_str,
-    value: web3.utils.toHex(0),
-  };
-
-  await window.ethereum.request({
-    method: "eth_sendTransaction",
-    params: [approveTx],
-  });
-  return;
 }
 
 export async function withdrawBidForPayc(web3, phunkyApeId) {
@@ -338,3 +322,26 @@ export async function acceptBid(nft, acceptAmountInEther, phunkyApeId, web3, onS
     onError(nft);
   }
 }
+
+// wgami functions
+
+const mpContractConfig = {
+  address: paycMarketPlaceContractAddr,
+  abi: cryptoPhunksMarketAbi,
+};
+
+export const useWithdraw = () => {
+  const { config } = usePrepareContractWrite({
+    ...mpContractConfig,
+    functionName: "withdraw",
+  });
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+
+  return {
+    isLoading,
+    isSuccess,
+    data,
+    withdraw: write,
+  };
+};
