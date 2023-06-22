@@ -14,23 +14,45 @@ import {
 } from "@chakra-ui/react";
 import { getThemeBgColor } from "../helpers/theme";
 import { SocialLinks } from "../components/social-links";
+import { useEffect, useState } from "react";
 
 const LandingPage = () => {
   // const containerPx = theme.components.Container.baseStyle.px;
   // get the bg color, and set the fadeout to it
   const themeBgColor = getThemeBgColor();
+
+  // keep a state of the video to load the page only after it's loaded
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const videoElement = document.getElementById("myVideo");
+    videoElement?.addEventListener("loadeddata", handleVideoLoad);
+    return () => {
+      videoElement?.removeEventListener("loadeddata", handleVideoLoad);
+    };
+  }, []);
+
+  const handleVideoLoad = () => {
+    setVideoLoaded(true);
+  };
+
   return (
     <Container
       maxW={{ base: "100%", sm: "540px", md: "720px", lg: "960px", xl: "1140px" }}
       width="100%"
       px="15px"
-      mx="auto">
+      mx="auto"
+      style={{
+        opacity: videoLoaded ? 1 : 0,
+        transition: "opacity 400ms ease 0s, transform 400ms ease 0s",
+      }}>
       <Flex mx="-15px" flexWrap="wrap">
         <LandingPageHeader />
         <Box as="section">
-          <Container maxW="100%" px={0}>
+          <Box maxW="100%" px={0}>
             <Box position="relative" width="100%">
               <video
+                id="myVideo"
                 autoPlay
                 muted
                 loop
@@ -48,7 +70,7 @@ const LandingPage = () => {
                 props={{ position: { lg: "absolute" }, right: 0, bottom: 0 }}
               />
             </Box>
-          </Container>
+          </Box>
           <Flex p="3rem 15px" justify="right" textAlign="right">
             A limitless NFT collection where the token itself doubles as a statement that we are
             sick
