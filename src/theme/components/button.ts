@@ -18,7 +18,5 @@ export const PaycButton = defineStyleConfig({
   variants: { primary },
   defaultProps: {
     variant: "primary",
-    // size: "md",
-    // colorScheme: "gray",
   },
 });

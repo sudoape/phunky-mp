@@ -19,7 +19,7 @@ import { useAccount } from "wagmi";
 function MyCollection({ web3, delegate }) {
   const { fetchMyCollection, fetchMyOffers } = useSubgraphData();
   const [state, dispatch] = useReducer(reducer, getInitialState());
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
 
   // Toggle collection view
   const onViewChange = (view) => {
@@ -71,7 +71,8 @@ function MyCollection({ web3, delegate }) {
   // TODO: keep view same after connect/disconnect
   useEffect(() => {
     const userAddress = address;
-    if (userAddress !== "0x0") {
+    console.log(`User address: ${userAddress}`);
+    if (isConnected) {
       fetchMyCollection(userAddress).then((collection) => {
         dispatch({ type: "SET_GRAPH_DATA", value: collection });
       });
