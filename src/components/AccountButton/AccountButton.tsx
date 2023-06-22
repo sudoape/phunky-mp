@@ -10,7 +10,7 @@ import { FaEthereum } from "react-icons/fa";
 
 function AccountButton() {
   const { address, isConnected } = useAccount();
-  const [withdrawAmt, setWithdrawAmt] = useState("");
+  const [withdrawAmt, setWithdrawAmt] = useState("0.0");
   const { isLoading, withdraw } = useWithdraw();
 
   useContractRead({

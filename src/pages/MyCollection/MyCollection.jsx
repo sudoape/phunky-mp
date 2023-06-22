@@ -89,8 +89,8 @@ function MyCollection({ web3, delegate }) {
   return (
     <>
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
+      <Header web3={web3} />
       <CommonContainer>
-        <Header web3={web3} />
         <PageHeaderContainer>
           <PageTitle title="My Collection" />
           <Flex container align="center" justify="space-between">

@@ -12,9 +12,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useScroll } from "framer-motion";
-import AccountButton from "./AccountButton/AccountButton";
-import { MobileNavButton } from "./mobile-nav";
-import { getThemeTextColor } from "../helpers/theme";
+import AccountButton from "../AccountButton/AccountButton";
+import { MobileNavButton } from "../mobile-nav";
 
 interface MainNavLinkProps {
   href: string;
@@ -25,19 +24,26 @@ interface MainNavLinkProps {
 const MainNavLink = ({ href, label }: MainNavLinkProps) => {
   const location = useLocation();
   const active = location.pathname.startsWith(href);
-  const textColor = getThemeTextColor();
 
   return (
     <NavLink to={href}>
       <Button
+        px="0.5rem"
+        m="10px"
         h={12}
-        variant="ghost"
-        // colorScheme="grey"
-        color={active ? textColor : "grey.400"}
-        borderRadius={active ? "4px 4px 0px 0px" : "4px"}
+        variant="link"
+        color="white"
+        borderRadius={active ? "2px 2px 0px 0px" : "2px"}
         borderBottomWidth="2px"
         borderBottomColor={active ? "white" : "transparent"}
-        borderBottomStyle="solid">
+        borderBottomStyle="solid"
+        fontSize="8px"
+        fontStyle="italic"
+        fontWeight="500"
+        letterSpacing="1.2px"
+        textAlign="end"
+        textTransform="uppercase"
+        _hover={{ color: "brand.main", borderBottomColor: active ? "brand.main" : "transparent" }}>
         {label}
       </Button>
     </NavLink>
@@ -47,18 +53,19 @@ const MainNavLink = ({ href, label }: MainNavLinkProps) => {
 const HeaderContent = () => {
   return (
     <>
-      <Flex w="100%" h="100%" px="6" align="center" justify="space-between">
+      <Flex id="nav" w="100%" h="100%" px="6" my="0.5rem" align="center" justify="space-between">
         <Flex align="center">
           <Link as={NavLink} to="/" display="block" aria-label="Back to homepage">
             <Image
               src="https://ik.imagekit.io/nldjkvbypwl/notYugalabs_2Wup2mc_Diw.png?updatedAt=1640903602465"
               alt=""
-              style={{ width: "80px", height: "auto" }}
+              py="0.3rem"
+              style={{ width: "120px", height: "auto" }}
             />
           </Link>
         </Flex>
         <Flex justify="flex-end" w="100%" align="center" color="gray.400" maxW="1100px">
-          <HStack spacing="4" display={{ base: "none", md: "flex" }}>
+          <HStack spacing="0" display={{ base: "none", md: "flex" }}>
             <MainNavLink href="/marketplace" label="Marketplace" />
             <MainNavLink href="/collection" label="My Collection" />
             <MainNavLink href="/faq" label="FAQ" />

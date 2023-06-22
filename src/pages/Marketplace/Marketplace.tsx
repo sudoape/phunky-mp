@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 
 import Filter from "./Filter";
 import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
-import Header from "../../components/header";
+import Header from "../../components/Header/Header";
 import PageTitle from "../../uikit/PageTitle/PageTitle";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import Spinners from "../../components/Spinners/Spinners";

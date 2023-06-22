@@ -7,11 +7,13 @@ import PageTitle from "../uikit/PageTitle/PageTitle";
 
 const FAQ = ({ web3 }) => {
   return (
-    <CommonContainer>
+    <>
       <Header web3={web3} />
-      <PageTitle title="FAQ" />
-      <Container>SOON™</Container>
-    </CommonContainer>
+      <CommonContainer>
+        <PageTitle title="FAQ" />
+        <Container>SOON™</Container>
+      </CommonContainer>
+    </>
   );
 };
 
