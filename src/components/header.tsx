@@ -92,7 +92,7 @@ function Header(props: HTMLChakraProps<"header">) {
       pos="sticky"
       top="0"
       zIndex="3"
-      bg={useColorModeValue("white", "#121619")}
+      bg={useColorModeValue("white", "black")}
       left="0"
       right="0"
       width="full"

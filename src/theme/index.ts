@@ -3,7 +3,7 @@ import { extendTheme, withDefaultColorScheme, ThemeConfig } from "@chakra-ui/rea
 import { colors } from "./colors";
 
 // Component style overrides
-import { Button } from "./components/button";
+import { PaycButton } from "./components/button";
 import { semanticTokens } from "./semantic-tokens";
 
 // color mode config
@@ -21,7 +21,11 @@ const overrides = {
   semanticTokens,
   colors,
   components: {
-    Button,
+    Button: PaycButton,
+  },
+  fonts: {
+    heading: "Montserrat, sans-serif",
+    body: "Montserrat, sans-serif",
   },
 };
 

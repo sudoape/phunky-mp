@@ -1,4 +1,14 @@
-import { Text, Grid, Flex, FlexProps, HStack, Image, StackProps } from "@chakra-ui/react";
+import {
+  Text,
+  Grid,
+  Flex,
+  FlexProps,
+  HStack,
+  Image,
+  Container,
+  Box,
+  Divider,
+} from "@chakra-ui/react";
 import { SocialLinks } from "./social-links";
 
 const FooterLogo = (props: FlexProps) => (
@@ -8,34 +18,33 @@ const FooterLogo = (props: FlexProps) => (
       alt=""
       width="200px"
       height="auto"
-      border="2px"
-      borderColor="brand.main"
     />
   </Flex>
 );
 
-export const Footer = (props: StackProps) => (
-  <>
-    <Grid
-      templateColumns="repeat(3, 1fr)"
-      alignItems="center"
-      p="3rem 0"
-      borderTop="1px"
-      borderTopColor="grey.700"
-      marginTop="3rem"
-      {...props}>
-      <FooterLogo gridColumn={2} justify="center" />
-      <Flex flexDir="column" boxSize="1fr" align="flex-end">
-        <HStack py="0.6rem" justify="center">
-          <SocialLinks />
-        </HStack>
-        <Text fontSize="0.65rem" color="yellow" textAlign="end">
-          © 2023 NOT Yuga Labs LLC
-        </Text>
-      </Flex>
-    </Grid>
-    {/*<Box h="1rem" bg="brand.main" />*/}
-  </>
+export const Footer = () => (
+  <Box p="0" position="absolute" bottom="0" width="100%">
+    <Container maxWidth="90%">
+      <Divider width="104%" marginLeft="-2%" opacity="1" bg="white"></Divider>
+      <Grid
+        templateColumns="repeat(3, 1fr)"
+        alignItems="center"
+        p="25px 0"
+        marginTop="1rem"
+        paddingInline="1rem">
+        <FooterLogo gridColumn={2} justify="center" />
+        <Flex flexDir="column" boxSize="1fr" align="flex-end">
+          <HStack py="0.6rem" justify="center">
+            <SocialLinks />
+          </HStack>
+          <Text fontSize="0.65rem" color="yellow" textAlign="end">
+            © 2023 NOT Yuga Labs LLC
+          </Text>
+        </Flex>
+      </Grid>
+    </Container>
+    <Box h="15px" bg="brand.main" />
+  </Box>
 );
 
 export default Footer;

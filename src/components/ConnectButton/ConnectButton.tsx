@@ -68,6 +68,7 @@ const ConnectButton = () => {
   return (
     <>
       <Button
+        padding="0.5rem"
         disabled={!connector.ready}
         isLoading={isLoading && connector.id === pendingConnector?.id}
         onClick={() => connect({ connector })}>

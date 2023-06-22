@@ -9,6 +9,8 @@ import {
   Button,
   FlexProps,
   Container,
+  Divider,
+  keyframes,
 } from "@chakra-ui/react";
 import { getThemeBgColor } from "../helpers/theme";
 import { SocialLinks } from "../components/social-links";
@@ -18,48 +20,44 @@ const LandingPage = () => {
   // get the bg color, and set the fadeout to it
   const themeBgColor = getThemeBgColor();
   return (
-    <>
-      <LandingPageHeader />
-      <Box as="section">
-        <Container maxW="100%" px={0}>
-          <Box position="relative" maxH="480px" overflow="hidden">
-            <video
-              autoPlay
-              muted
-              loop
-              style={{
-                maxHeight: "580px",
-                width: "100%",
-                objectFit: "cover",
-                objectPosition: "center",
-              }}>
-              <source
-                src="https://ik.imagekit.io/nldjkvbypwl/flipped_FNa-Twypl.mp4?updatedAt=1640903473924"
-                type="video/mp4"
+    <Container
+      maxW={{ base: "100%", sm: "540px", md: "720px", lg: "960px", xl: "1140px" }}
+      width="100%"
+      px="15px"
+      mx="auto">
+      <Flex mx="-15px" flexWrap="wrap">
+        <LandingPageHeader />
+        <Box as="section">
+          <Container maxW="100%" px={0}>
+            <Box position="relative" width="100%">
+              <video
+                autoPlay
+                muted
+                loop
+                style={{
+                  width: "100%",
+                  objectFit: "contain",
+                }}>
+                <source
+                  src="https://ik.imagekit.io/nldjkvbypwl/flipped_FNa-Twypl.mp4?updatedAt=1640903473924"
+                  type="video/mp4"
+                />
+              </video>
+              <WelcomeBox
+                themeBgColor={themeBgColor}
+                props={{ position: { lg: "absolute" }, right: 0, bottom: 0 }}
               />
-            </video>
-            {/* another box on top of the player for fadeout */}
-            <Box
-              width="100%"
-              bgGradient={`linear(to-b, ${themeBgColor}, transparent 20%, transparent 80%, ${themeBgColor})`}
-              position="absolute"
-              top={0}
-              bottom={0}
-            />
-            <WelcomeBox
-              themeBgColor={themeBgColor}
-              props={{ position: "absolute", right: 0, bottom: 0 }}
-            />
-          </Box>
-          <Flex p="3rem 15px" justify="center" textAlign="center">
+            </Box>
+          </Container>
+          <Flex p="3rem 15px" justify="right" textAlign="right">
             A limitless NFT collection where the token itself doubles as a statement that we are
             sick
             <br />
             and tired of the red tape mentality perpetuated by the right facing Blue Chips.
           </Flex>
-        </Container>
-      </Box>
-    </>
+        </Box>
+      </Flex>
+    </Container>
   );
 };
 
@@ -71,45 +69,75 @@ const SocialContainer = () => (
 );
 
 const LandingPageHeader = () => (
-  <Grid templateColumns="repeat(3, 1fr)" px="6" my="6" zIndex={10}>
+  <Grid templateColumns="repeat(3, 1fr)" px="6" zIndex={10} width="100%">
     <Box display="flex" justifyContent="center" gridColumn={2} zIndex={11}>
       <Image
         src="https://ik.imagekit.io/nldjkvbypwl/notYugalabs_2Wup2mc_Diw.png?updatedAt=1640903602465"
         alt=""
         width="180px"
         objectFit="contain"
-        marginBottom={-8}
+        marginBottom={-10}
+        paddingTop="1.5rem"
       />
     </Box>
     <SocialContainer />
   </Grid>
 );
 
+const blinker = keyframes`
+  0% {
+    color: white; // Initial color
+  }
+  50% {
+    color: #686868; // Mid-animation color
+  }
+  100% {
+    color: white; // Final color (same as initial color)
+  }
+`;
+
 const WelcomeBox = ({ themeBgColor, props }: { themeBgColor: string; props: FlexProps }) => (
-  <Flex
+  <Grid
     bg={themeBgColor}
-    direction="column"
-    align="flex-end"
-    padding="2rem 2rem 1.5rem 5rem"
-    width="400px"
-    height="220px"
-    justify="space-between"
+    templateColumns="24% 76%"
+    gap="0"
+    padding="1.5rem 0 0 0"
+    alignItems="center"
     {...props}>
-    <Text
-      fontSize="1.7em"
-      lineHeight="1.2"
-      fontWeight="800"
-      textTransform="uppercase"
-      fontStyle="italic"
-      textAlign="right">
-      Welcome to the <br />
-      Phunky ape <br />
-      yacht club
-    </Text>
-    <NavLink to="/marketplace">
-      <Button size="lg">Enter Marketplace</Button>
-    </NavLink>
-  </Flex>
+    <Box margin="auto">
+      <Text
+        fontWeight="500"
+        lineHeight="0.6em"
+        letterSpacing="0.05em"
+        fontSize="0.7em"
+        fontStyle="italic"
+        transform="translateX(-10%) rotate(-90deg)"
+        width="max-content"
+        animation={`${blinker} 1.3s linear infinite`}>
+        ← SCROLL DOWN
+      </Text>
+    </Box>
+    <Box marginRight="1rem">
+      <Text
+        fontSize="1.7em"
+        lineHeight="1.2"
+        fontWeight="800"
+        textTransform="uppercase"
+        fontStyle="italic"
+        textAlign="right"
+        marginBottom="1rem">
+        Welcome to <br />
+        the Phunky ape <br />
+        yacht club
+      </Text>
+      <NavLink to="/marketplace">
+        <Button width="100%" height="3.5rem" marginBottom="1.5rem">
+          Enter Marketplace
+        </Button>
+      </NavLink>
+      <Divider opacity="1" bg="white"></Divider>
+    </Box>
+  </Grid>
 );
 
 export default LandingPage;
