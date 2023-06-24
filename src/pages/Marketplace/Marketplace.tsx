@@ -14,10 +14,10 @@ import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContai
 import NFTLoadingCards from "../../components/NFTLoadingCards/NFTLoadingCards";
 import { PillGroup, Pill } from "../../uikit/Pills/Pills";
 import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
-import { Flex } from "../../uikit/Flex/Flex";
 import { ViewEnum } from "../../types/types";
 import Web3 from "web3";
 import BN from "bn.js";
+import { Flex } from "@chakra-ui/react";
 
 interface MarketplaceProps {
   web3: Web3;
@@ -73,7 +73,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
       <CommonContainer>
         <PageHeaderContainer>
           <PageTitle title="Marketplace" />
-          <Flex container align="center" justify="space-between">
+          <Flex align="center" justify="space-between">
             <PillGroup>
               <Pill
                 active={state.selectedView === ViewEnum.ForSale}

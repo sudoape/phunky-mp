@@ -14,8 +14,28 @@ const primary = defineStyle((props: StyleFunctionProps) => ({
   color: "black",
 }));
 
+const pill = defineStyle((props: StyleFunctionProps) => ({
+  ...theme.components.Button.variants?.solid(props),
+  border: "1px",
+  whiteSpace: "normal", // allow text to wrap
+  borderColor: "#bfc500",
+  borderRadius: "2rem",
+  cursor: "pointer",
+  color: "#bfc500 !important",
+  bg: "black",
+  fontSize: "0.8rem",
+  fontWeight: "500",
+  width: "100%",
+  transition: "all 0.3s",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  _hover: { bg: "black" },
+  _active: { bg: "#bfc500", color: "black !important" },
+}));
+
 export const PaycButton = defineStyleConfig({
-  variants: { primary },
+  variants: { primary, pill },
   defaultProps: {
     variant: "primary",
   },
