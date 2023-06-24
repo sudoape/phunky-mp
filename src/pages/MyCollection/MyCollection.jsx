@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 
 import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
 import Header from "../../components/Header/Header";
-import PageTitle from "../../uikit/PageTitle/PageTitle";
 import { PillGroup, Pill } from "../../uikit/Pills/Pills";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import { reducer, getInitialState } from "./MyCollectionReducer";
@@ -15,6 +14,7 @@ import OffersReceivedModal from "../../components/Modals/OffersReceivedModal";
 import MyOffersModal from "../../components/Modals/MyOffersModal";
 import Spinners from "../../components/Spinners/Spinners";
 import { useAccount } from "wagmi";
+import PageHeaderContainer from "../../components/PageHeaderContainer/PageHeaderContainer";
 
 function MyCollection({ web3, delegate }) {
   const { fetchMyCollection, fetchMyOffers } = useSubgraphData();
@@ -92,7 +92,7 @@ function MyCollection({ web3, delegate }) {
       <Header web3={web3} />
       <CommonContainer>
         <PageHeaderContainer>
-          <PageTitle title="My Collection" />
+          My Collection
           <Flex container align="center" justify="space-between">
             <PillGroup>
               <Pill
@@ -168,21 +168,6 @@ function MyCollection({ web3, delegate }) {
 }
 
 const mobileWidth = 700;
-
-const PageHeaderContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 9fr;
-  grid-gap: 1rem;
-
-  h1 {
-    color: white;
-    margin: 0 20px;
-  }
-  @media (max-width: ${mobileWidth}px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
 
 const CollectionContainer = styled.div`
   display: flex;

@@ -2,22 +2,21 @@ import React, { useState, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSubgraphData } from "../../hooks/useSubgraphData";
 import { reducer, getInitialState } from "./MarketplaceReducer";
-import styled from "@emotion/styled";
 
 import Filter from "./Filter";
 import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
 import Header from "../../components/Header/Header";
-import PageTitle from "../../uikit/PageTitle/PageTitle";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import Spinners from "../../components/Spinners/Spinners";
 import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContainer";
 import NFTLoadingCards from "../../components/NFTLoadingCards/NFTLoadingCards";
-import { PillGroup, Pill } from "../../uikit/Pills/Pills";
+import { PillGroup } from "../../uikit/Pills/Pills";
 import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
 import { ViewEnum } from "../../types/types";
 import Web3 from "web3";
 import BN from "bn.js";
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex, Grid } from "@chakra-ui/react";
+import PageHeaderContainer from "../../components/PageHeaderContainer/PageHeaderContainer";
 
 interface MarketplaceProps {
   web3: Web3;
@@ -72,24 +71,26 @@ function Marketplace({ web3 }: MarketplaceProps) {
       <Header />
       <CommonContainer>
         <PageHeaderContainer>
-          <PageTitle title="Marketplace" />
+          Marketplace
           <Flex align="center" justify="space-between">
             <PillGroup>
-              <Pill
-                active={state.selectedView === ViewEnum.ForSale}
-                text="For Sale"
-                onClick={() => onViewChange(ViewEnum.ForSale)}
-              />
+              <Button
+                variant="pill"
+                isActive={state.selectedView === ViewEnum.ForSale}
+                onClick={() => onViewChange(ViewEnum.ForSale)}>
+                For Sale
+              </Button>
               {/* <Pill
                 active={state.selectedView === 'has_bids'}
                 text="Has Bids"
                 onClick={() => onViewChange('has_bids')}
               /> */}
-              <Pill
-                active={state.selectedView === ViewEnum.ViewAll}
-                text="View All (limit 300)"
-                onClick={() => onViewChange(ViewEnum.ViewAll)}
-              />
+              <Button
+                variant="pill"
+                isActive={state.selectedView === ViewEnum.ViewAll}
+                onClick={() => onViewChange(ViewEnum.ViewAll)}>
+                View All (limit 300)
+              </Button>
             </PillGroup>
             <Flex>
               <SortDropdown selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
@@ -134,50 +135,38 @@ function Marketplace({ web3 }: MarketplaceProps) {
   );
 }
 
-const mobileWidth = 700;
+interface MarketplaceContainerProps {
+  children: React.ReactNode;
+}
 
-const PageHeaderContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 9fr;
-  grid-gap: 1rem;
+const MarketPlaceContainer = ({ children }: MarketplaceContainerProps) => (
+  <Grid gridGap="1rem" gridTemplateColumns={{ base: "none", md: "3fr 9fr" }} paddingBottom="2rem">
+    {children}
+  </Grid>
+);
 
-  h1 {
-    color: white;
-    margin: 0 20px;
-  }
+interface GridContainerProps {
+  children: React.ReactNode;
+}
 
-  @media (max-width: ${mobileWidth}px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-const MarketPlaceContainer = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 3fr 9fr;
-  padding-bottom: 2rem;
-  @media (max-width: ${mobileWidth}px) {
-    grid-template-columns: none;
-  }
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-gap: 1.4rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
-  height: calc(100vh - 208px);
-  overflow-y: scroll;
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
+const GridContainer = ({ children }: GridContainerProps) => (
+  <Grid
+    gap="1.4rem"
+    templateColumns="repeat(4, 1fr)"
+    templateRows="auto auto 1fr"
+    height="calc(100vh - 208px)"
+    overflowY="scroll"
+    css={{
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
+      /* Hide scrollbar for IE, Edge and Firefox */
+      "&-ms-overflow-style": "none" /* IE and Edge */,
+      "scrollbar-width": "none" /* Firefox */,
+    }}>
+    {children}
+  </Grid>
+);
 
 export default Marketplace;

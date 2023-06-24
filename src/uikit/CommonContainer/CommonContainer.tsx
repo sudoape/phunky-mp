@@ -7,7 +7,7 @@ interface CommonContainerProps {
 
 const CommonContainer = ({ children }: CommonContainerProps) => {
   return (
-    <Box width="100%" maxW="1200px" mx="auto" px="2rem">
+    <Box width="100%" maxW="1200px" mx="auto" px={{ base: "1rem", sm: "2rem" }}>
       {children}
     </Box>
   );

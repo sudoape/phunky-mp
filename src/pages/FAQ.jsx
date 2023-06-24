@@ -1,16 +1,15 @@
-import React from "react";
 import styled from "@emotion/styled";
 
 import CommonContainer from "../uikit/CommonContainer/CommonContainer";
 import Header from "../components/Header/Header";
-import PageTitle from "../uikit/PageTitle/PageTitle";
+import { Text } from "@chakra-ui/react";
 
 const FAQ = ({ web3 }) => {
   return (
     <>
       <Header web3={web3} />
       <CommonContainer>
-        <PageTitle title="FAQ" />
+        <Text textStyle="h2">FAQ</Text>
         <Container>SOON™</Container>
       </CommonContainer>
     </>

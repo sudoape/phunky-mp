@@ -16,6 +16,7 @@ const primary = defineStyle((props: StyleFunctionProps) => ({
 
 const pill = defineStyle((props: StyleFunctionProps) => ({
   ...theme.components.Button.variants?.solid(props),
+  p: { base: "4px 8px", sm: "8px 16px" },
   border: "1px",
   whiteSpace: "normal", // allow text to wrap
   borderColor: "#bfc500",
@@ -30,6 +31,7 @@ const pill = defineStyle((props: StyleFunctionProps) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  height: "auto",
   _hover: { bg: "black" },
   _active: { bg: "#bfc500", color: "black !important" },
 }));

@@ -5,6 +5,7 @@ import { colors } from "./colors";
 // Component style overrides
 import { PaycButton } from "./components/button";
 import { semanticTokens } from "./semantic-tokens";
+import { textStyles } from "./text/textStyles";
 
 // color mode config
 const config: ThemeConfig = {
@@ -20,6 +21,7 @@ const overrides = {
   // component overrides
   semanticTokens,
   colors,
+  textStyles,
   components: {
     Button: PaycButton,
   },

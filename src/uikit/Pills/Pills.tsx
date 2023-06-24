@@ -2,6 +2,7 @@ import { MouseEventHandler, ReactNode } from "react";
 import { Button, Flex, Grid, GridProps, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 
+// TODO: Fully deprecate the Pill component here. Keep PillGroup
 const mobileWidth = "700px";
 
 interface PillProps {

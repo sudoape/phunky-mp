@@ -1,6 +1,6 @@
 import { Menu, Dropdown } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
-import { Pill } from "../Pills/Pills";
+import { Button } from "@chakra-ui/react";
+import { AiOutlineFilter } from "react-icons/ai";
 
 const SORT_VALUES = [
   { key: "price_asc", value: "Price: Low to High" },
@@ -31,7 +31,9 @@ const SortDropdown = ({ selectedSort, setSelectedSort }) => {
   // console.log(SORT_VALUES.find((item) => item.key === selectedSort))
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
-      <Pill text={getPillText()} icon={<FilterOutlined />} />
+      <Button variant="pill" leftIcon={<AiOutlineFilter />}>
+        {getPillText()}
+      </Button>
     </Dropdown>
   );
 };
