@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 
-import { PrimaryButton } from "../../../uikit/Buttons/Buttons";
 import PAYCNumSearchInput from "./PAYCNumSearchInput";
 import { TraitEnum } from "../../../types/types";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Button,
+  Flex,
+  Box,
+  VStack,
+  Checkbox,
+} from "@chakra-ui/react";
+import { MarketplaceAction, MarketplaceState } from "../MarketplaceReducer";
 
 // Option Constants With Header as First Item
-const bgOtions = [
+const bgOptions = [
   "Background",
   "Aquamarine",
   "Army Green",
@@ -199,117 +211,159 @@ const mouthOptions = [
   "Tongue Out",
 ];
 
-const onOptionHeaderClicked = (filterType: TraitEnum, dispatch) => {
-  dispatch({ type: "TOGGLE_FILTER", value: filterType });
-};
-
-const onOptionClicked = (option, filterType, dispatch) => {
-  dispatch({ type: "SELECT", key: filterType, value: option });
-};
-
-const onClearFilters = (dispatch) => {
+const onClearFilters = (dispatch: React.Dispatch<MarketplaceAction>) => {
   dispatch({ type: "RESET" });
 };
 
-const onToggleHideFilters = (dispatch) => {
+const onToggleHideFilters = (dispatch: React.Dispatch<MarketplaceAction>) => {
   dispatch({ type: "TOGGLE_HIDE_FILTERS" });
 };
 
 const mobileWidth = 700;
 
-const DropDown = ({ state, displayValue, options, filterType, dispatch }) => {
+interface DropDownProps {
+  options: string[];
+  filterType: TraitEnum;
+  dispatch: React.Dispatch<MarketplaceAction>;
+  dropdownStates: {
+    [filterType: string]: string[];
+  };
+  setDropdownStates: React.Dispatch<
+    React.SetStateAction<{
+      [filterType: string]: string[];
+    }>
+  >;
+}
+
+const DropDown = ({
+  options,
+  filterType,
+  dispatch,
+  dropdownStates,
+  setDropdownStates,
+}: DropDownProps) => {
+  const handleOptionClicked = (filterType: TraitEnum, option: string) => {
+    const newState = {
+      ...dropdownStates,
+      [filterType]: dropdownStates[filterType].includes(option)
+        ? dropdownStates[filterType].filter((item) => item !== option)
+        : [...dropdownStates[filterType], option],
+    };
+
+    setDropdownStates(newState);
+    dispatch({ type: "SELECT", key: filterType, value: newState[filterType] });
+  };
+
   return (
-    <>
-      <DropDownHeader onClick={() => onOptionHeaderClicked(filterType, dispatch)}>
-        <DropDownTitle>{displayValue || options[0]}</DropDownTitle>
-        <DropDownArrow open={state.selectorIsOpen && state.selectedFilter === filterType} />
-      </DropDownHeader>
-      {state.selectorIsOpen && state.selectedFilter === filterType && (
-        <DropDownListContainer>
-          <DropDownList>
-            {options.map(
-              (option, idx) =>
-                idx !== 0 && (
-                  <ListItem
-                    onClick={() => onOptionClicked(option, filterType, dispatch)}
-                    key={Math.random()}>
-                    {option}
-                  </ListItem>
-                ),
-            )}
-          </DropDownList>
-        </DropDownListContainer>
-      )}
-    </>
+    <AccordionItem>
+      <h2>
+        <AccordionButton>
+          <Box as="span" flex="1" textAlign="left">
+            {options[0]}
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+      </h2>
+      <AccordionPanel pb={4}>
+        <VStack align="start" spacing={2}>
+          {options.map(
+            (option, idx) =>
+              idx !== 0 && (
+                <Checkbox
+                  key={Math.random()}
+                  value={`${idx}`}
+                  onChange={() => handleOptionClicked(filterType, option)}>
+                  {option}
+                </Checkbox>
+              ),
+          )}
+        </VStack>
+      </AccordionPanel>
+    </AccordionItem>
   );
 };
 
-const Filter = ({ state, dispatch }) => {
+interface FilterProps {
+  state: MarketplaceState;
+  dispatch: React.Dispatch<MarketplaceAction>;
+}
+
+// TODO: Remove repeating code
+const Filter = ({ state, dispatch }: FilterProps) => {
+  const [dropdownStates, setDropdownStates] = useState<{ [filterType: string]: string[] }>({
+    [TraitEnum.Bg]: [],
+    [TraitEnum.Clothes]: [],
+    [TraitEnum.Earring]: [],
+    [TraitEnum.Eyes]: [],
+    [TraitEnum.Fur]: [],
+    [TraitEnum.Hat]: [],
+    [TraitEnum.Mouth]: [],
+  });
+
   return (
     <Main>
       {!state.hideFilters && (
-        <DropDownContainer>
+        <Accordion defaultIndex={[0]} allowMultiple>
           <DropDown
-            state={state}
-            displayValue={state.bg}
-            options={bgOtions}
-            filterType={"bg"}
+            options={bgOptions}
+            filterType={TraitEnum.Bg}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
           <DropDown
-            state={state}
-            displayValue={state.clothes}
             options={clothesOptions}
-            filterType={"clothes"}
+            filterType={TraitEnum.Clothes}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
           <DropDown
-            state={state}
-            displayValue={state.earring}
             options={earringOptions}
-            filterType={"earring"}
+            filterType={TraitEnum.Earring}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
           <DropDown
-            state={state}
-            displayValue={state.eyes}
             options={eyesOptions}
-            filterType={"eyes"}
+            filterType={TraitEnum.Eyes}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
           <DropDown
-            state={state}
-            displayValue={state.fur}
             options={furOptions}
-            filterType={"fur"}
+            filterType={TraitEnum.Fur}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
           <DropDown
-            state={state}
-            displayValue={state.hat}
             options={hatOptions}
-            filterType={"hat"}
+            filterType={TraitEnum.Hat}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
           <DropDown
-            state={state}
-            displayValue={state.mouth}
             options={mouthOptions}
-            filterType={"mouth"}
+            filterType={TraitEnum.Mouth}
             dispatch={dispatch}
+            dropdownStates={dropdownStates}
+            setDropdownStates={setDropdownStates}
           />
-        </DropDownContainer>
+        </Accordion>
       )}
       {!state.hideFilters && <PAYCNumSearchInput state={state} dispatch={dispatch} />}
-      <ButtonContainer>
+      <Flex width="100%">
         {window.innerWidth <= mobileWidth && (
-          <PrimaryButton
-            onClick={() => onToggleHideFilters(dispatch)}
+          <Button onClick={() => onToggleHideFilters(dispatch)}>
             text={state.hideFilters ? "Show" : "Hide"}
-          />
+          </Button>
         )}
-        <PrimaryButton onClick={() => onClearFilters(dispatch)} text="Reset Filters" />
-      </ButtonContainer>
+        <Button onClick={() => onClearFilters(dispatch)}>Reset Filters</Button>
+      </Flex>
     </Main>
   );
 };
@@ -324,106 +378,6 @@ const Main = styled("div")`
     margin: 2rem 0;
     padding-right: 0;
   }
-`;
-
-const DropDownContainer = styled("div")`
-  width: 100%;
-  @media (max-width: ${mobileWidth}px) {
-    max-height: 10vh;
-    overflow-y: auto;
-  }
-`;
-
-const DropDownHeader = styled("div")`
-  padding: 0 0 5px;
-  margin: 0 0 20px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
-  border-bottom: 0.1rem solid #bfc500;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const DropDownTitle = styled.div`
-  font-weight: 500;
-  font-size: 0.8rem;
-  font-style: italic;
-  text-transform: uppercase;
-  color: #bfc500;
-`;
-
-const DropDownArrow = styled.div`
-  position: relative;
-  height: 10px;
-  width: 10px;
-
-  :before,
-  :after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 0.1rem;
-    height: 100%;
-    transition: all 0.25s;
-  }
-
-  :before {
-    left: -10px;
-    transform: ${(p) => (p.open ? "rotate(45deg)" : "rotate(-45deg)")};
-    background-color: #bfc500;
-  }
-
-  :after {
-    left: -4px;
-    transform: ${(p) => (p.open ? "rotate(-45deg)" : "rotate(45deg)")};
-    background-color: #bfc500;
-  }
-`;
-
-const DropDownListContainer = styled("div")`
-  width: 100%;
-  position: relative;
-  top: -20px;
-  z-index: 10;
-`;
-
-const DropDownList = styled("ul")`
-  width: 100%;
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  background: #bfc500;
-  border: none;
-  box-sizing: border-box;
-  color: black;
-  font-size: 0.8rem;
-  font-weight: 500;
-  height: 150px;
-  overflow-y: scroll;
-  cursor: pointer;
-`;
-
-const ListItem = styled("li")`
-  list-style: none;
-  cursor: pointer;
-  padding: 0 22px;
-  display: block;
-  line-height: 60px;
-  transition: all 0.25s;
-  font-size: 8px;
-  letter-spacing: 1px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: black;
-
-  :hover {
-    background: #929600;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
 `;
 
 export default Filter;

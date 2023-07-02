@@ -11,13 +11,13 @@ import {
 } from "../../../types/types";
 
 export interface MarketplaceState {
-  bg: string;
-  clothes: string;
-  earring: string;
-  eyes: string;
-  fur: string;
-  hat: string;
-  mouth: string;
+  bg: string[];
+  clothes: string[];
+  earring: string[];
+  eyes: string[];
+  fur: string[];
+  hat: string[];
+  mouth: string[];
   id: string[];
   selectedFilter: string;
   selectorIsOpen: boolean;
@@ -35,14 +35,16 @@ export interface MarketplaceState {
   isPlayingConfetti: boolean;
 }
 
+// FIXME: when changing view between 'For Sale' and 'View All'
+// The filters are not applied until a new trait value is clicked
 const initialState: MarketplaceState = {
-  bg: "",
-  clothes: "",
-  earring: "",
-  eyes: "",
-  fur: "",
-  hat: "",
-  mouth: "",
+  bg: [],
+  clothes: [],
+  earring: [],
+  eyes: [],
+  fur: [],
+  hat: [],
+  mouth: [],
   id: ["", "", "", ""],
   selectedFilter: "",
   selectorIsOpen: false,
@@ -65,7 +67,7 @@ function getInitialState() {
 }
 
 export type MarketplaceAction =
-  | { type: "SELECT"; key: TraitEnum; value: string }
+  | { type: "SELECT"; key: TraitEnum; value: string[] }
   | { type: "SET_ID_QUERY"; value: string; index: number }
   | { type: "TOGGLE_FILTER"; value: TraitEnum }
   | { type: "SET_VIEW"; value: ViewEnum }
@@ -82,14 +84,15 @@ export type MarketplaceAction =
 // Market Place Reducer
 const reducer: Reducer<MarketplaceState, MarketplaceAction> = (state, action) => {
   switch (action.type) {
-    case "SELECT":
+    case "SELECT": {
       return {
         ...state,
-        [action.key]: action.value !== "none" ? action.value : "",
+        [action.key]: action.value[0] !== "none" ? action.value : [], // FIXME
         selectedFilter: "",
         selectorIsOpen: false,
         isFuseQueryLoading: true,
       };
+    }
     case "SET_ID_QUERY": {
       const currentIdQuery = state.id;
       currentIdQuery[action.index] = action.value;

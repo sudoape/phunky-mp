@@ -24,7 +24,7 @@ export enum ViewEnum {
 }
 
 export interface Attribute {
-  traitType: string;
+  trait_type: TraitEnum;
   value: string;
 }
 
