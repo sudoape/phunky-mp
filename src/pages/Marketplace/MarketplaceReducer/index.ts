@@ -10,14 +10,9 @@ import {
   SubgraphItemNormalized,
 } from "../../../types/types";
 
-export interface MarketplaceState {
-  bg: string[];
-  clothes: string[];
-  earring: string[];
-  eyes: string[];
-  fur: string[];
-  hat: string[];
-  mouth: string[];
+type EnumKeyFields = { [key in TraitEnum]: string[] };
+
+export interface MarketplaceState extends EnumKeyFields {
   id: string[];
   selectedFilter: string;
   selectorIsOpen: boolean;
@@ -67,7 +62,7 @@ function getInitialState() {
 }
 
 export type MarketplaceAction =
-  | { type: "SELECT"; key: TraitEnum; value: string[] }
+  | { type: "SELECT"; key: TraitEnum; value: string }
   | { type: "SET_ID_QUERY"; value: string; index: number }
   | { type: "TOGGLE_FILTER"; value: TraitEnum }
   | { type: "SET_VIEW"; value: ViewEnum }
@@ -85,9 +80,25 @@ export type MarketplaceAction =
 const reducer: Reducer<MarketplaceState, MarketplaceAction> = (state, action) => {
   switch (action.type) {
     case "SELECT": {
+      const key = action.key as TraitEnum;
+      const existingValues = state[key];
+      let updatedValues: string[];
+
+      if (action.value == "none") {
+        updatedValues = [];
+      } else {
+        if (existingValues.includes(action.value)) {
+          // Remove the value if it already exists
+          updatedValues = existingValues.filter((value) => value !== action.value);
+        } else {
+          // Add the value to the list
+          updatedValues = [...existingValues, action.value];
+        }
+      }
+
       return {
         ...state,
-        [action.key]: action.value[0] !== "none" ? action.value : [], // FIXME
+        [key]: updatedValues,
         selectedFilter: "",
         selectorIsOpen: false,
         isFuseQueryLoading: true,

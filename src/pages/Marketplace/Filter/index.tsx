@@ -225,33 +225,12 @@ interface DropDownProps {
   options: string[];
   filterType: TraitEnum;
   dispatch: React.Dispatch<MarketplaceAction>;
-  dropdownStates: {
-    [filterType: string]: string[];
-  };
-  setDropdownStates: React.Dispatch<
-    React.SetStateAction<{
-      [filterType: string]: string[];
-    }>
-  >;
+  state: MarketplaceState;
 }
 
-const DropDown = ({
-  options,
-  filterType,
-  dispatch,
-  dropdownStates,
-  setDropdownStates,
-}: DropDownProps) => {
+const DropDown = ({ options, filterType, dispatch, state }: DropDownProps) => {
   const handleOptionClicked = (filterType: TraitEnum, option: string) => {
-    const newState = {
-      ...dropdownStates,
-      [filterType]: dropdownStates[filterType].includes(option)
-        ? dropdownStates[filterType].filter((item) => item !== option)
-        : [...dropdownStates[filterType], option],
-    };
-
-    setDropdownStates(newState);
-    dispatch({ type: "SELECT", key: filterType, value: newState[filterType] });
+    dispatch({ type: "SELECT", key: filterType, value: option });
   };
 
   return (
@@ -273,7 +252,7 @@ const DropDown = ({
                   key={Math.random()}
                   value={`${idx}`}
                   onChange={() => handleOptionClicked(filterType, option)}
-                  isChecked={dropdownStates[filterType].includes(option)}
+                  isChecked={state[filterType].includes(option)}
                   colorScheme="brand">
                   {option}
                 </Checkbox>
@@ -292,15 +271,6 @@ interface FilterProps {
 
 // TODO: Remove repeating code
 const Filter = ({ state, dispatch }: FilterProps) => {
-  const [dropdownStates, setDropdownStates] = useState<{ [filterType: string]: string[] }>(
-    // initialize the state by having an empty list for each trait type
-    () =>
-      Object.values(TraitEnum).reduce((state, trait) => {
-        // Spread the current state object to avoid mutation
-        return { ...state, [trait]: [] };
-      }, {} as { [key in TraitEnum]: string[] }),
-  );
-
   const dropdownOptions = [
     { options: bgOptions, filterType: TraitEnum.Bg },
     { options: clothesOptions, filterType: TraitEnum.Clothes },
@@ -321,8 +291,7 @@ const Filter = ({ state, dispatch }: FilterProps) => {
               options={dropdown.options}
               filterType={dropdown.filterType}
               dispatch={dispatch}
-              dropdownStates={dropdownStates}
-              setDropdownStates={setDropdownStates}
+              state={state}
             />
           ))}
         </Accordion>

@@ -14,7 +14,7 @@ export enum TraitEnum {
   Fur = "fur",
   Hat = "hat",
   Mouth = "mouth",
-  None = "none",
+  // None = "none",
 }
 
 export enum ViewEnum {
