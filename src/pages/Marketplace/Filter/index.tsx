@@ -272,7 +272,9 @@ const DropDown = ({
                 <Checkbox
                   key={Math.random()}
                   value={`${idx}`}
-                  onChange={() => handleOptionClicked(filterType, option)}>
+                  onChange={() => handleOptionClicked(filterType, option)}
+                  isChecked={dropdownStates[filterType].includes(option)}
+                  colorScheme="brand">
                   {option}
                 </Checkbox>
               ),
@@ -290,69 +292,39 @@ interface FilterProps {
 
 // TODO: Remove repeating code
 const Filter = ({ state, dispatch }: FilterProps) => {
-  const [dropdownStates, setDropdownStates] = useState<{ [filterType: string]: string[] }>({
-    [TraitEnum.Bg]: [],
-    [TraitEnum.Clothes]: [],
-    [TraitEnum.Earring]: [],
-    [TraitEnum.Eyes]: [],
-    [TraitEnum.Fur]: [],
-    [TraitEnum.Hat]: [],
-    [TraitEnum.Mouth]: [],
-  });
+  const [dropdownStates, setDropdownStates] = useState<{ [filterType: string]: string[] }>(
+    // initialize the state by having an empty list for each trait type
+    () =>
+      Object.values(TraitEnum).reduce((state, trait) => {
+        // Spread the current state object to avoid mutation
+        return { ...state, [trait]: [] };
+      }, {} as { [key in TraitEnum]: string[] }),
+  );
+
+  const dropdownOptions = [
+    { options: bgOptions, filterType: TraitEnum.Bg },
+    { options: clothesOptions, filterType: TraitEnum.Clothes },
+    { options: earringOptions, filterType: TraitEnum.Earring },
+    { options: eyesOptions, filterType: TraitEnum.Eyes },
+    { options: furOptions, filterType: TraitEnum.Fur },
+    { options: hatOptions, filterType: TraitEnum.Hat },
+    { options: mouthOptions, filterType: TraitEnum.Mouth },
+  ];
 
   return (
     <Main>
       {!state.hideFilters && (
         <Accordion defaultIndex={[0]} allowMultiple>
-          <DropDown
-            options={bgOptions}
-            filterType={TraitEnum.Bg}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
-          <DropDown
-            options={clothesOptions}
-            filterType={TraitEnum.Clothes}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
-          <DropDown
-            options={earringOptions}
-            filterType={TraitEnum.Earring}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
-          <DropDown
-            options={eyesOptions}
-            filterType={TraitEnum.Eyes}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
-          <DropDown
-            options={furOptions}
-            filterType={TraitEnum.Fur}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
-          <DropDown
-            options={hatOptions}
-            filterType={TraitEnum.Hat}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
-          <DropDown
-            options={mouthOptions}
-            filterType={TraitEnum.Mouth}
-            dispatch={dispatch}
-            dropdownStates={dropdownStates}
-            setDropdownStates={setDropdownStates}
-          />
+          {dropdownOptions.map((dropdown, index) => (
+            <DropDown
+              key={index}
+              options={dropdown.options}
+              filterType={dropdown.filterType}
+              dispatch={dispatch}
+              dropdownStates={dropdownStates}
+              setDropdownStates={setDropdownStates}
+            />
+          ))}
         </Accordion>
       )}
       {!state.hideFilters && <PAYCNumSearchInput state={state} dispatch={dispatch} />}
@@ -362,6 +334,7 @@ const Filter = ({ state, dispatch }: FilterProps) => {
             text={state.hideFilters ? "Show" : "Hide"}
           </Button>
         )}
+        {/* TODO: make this clear the checkboxes too */}
         <Button onClick={() => onClearFilters(dispatch)}>Reset Filters</Button>
       </Flex>
     </Main>

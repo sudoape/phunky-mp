@@ -115,26 +115,12 @@ const reducer: Reducer<MarketplaceState, MarketplaceAction> = (state, action) =>
       }
     }
     case "SET_VIEW": {
-      let nextMarketPlaceData: Fuse.FuseResult<Item>[] = [];
-      const phunkyApeListed = state.phunkyApeListedDB?.search("goat") || [];
-      const phunkyApeBids = state.phunkyApeBidsDB?.search("goat") || [];
-
-      if (action.value === ViewEnum.ForSale) {
-        nextMarketPlaceData = phunkyApeListed;
-      } else if (action.value === ViewEnum.HasBids) {
-        nextMarketPlaceData = phunkyApeBids;
-      } else {
-        nextMarketPlaceData = getAllApes();
-      }
-
       const newViewState = {
-        ...initialState,
+        ...state, // keep the filters when changing view
         phunkyApeListedDB: state.phunkyApeListedDB,
         phunkyApeBidsDB: state.phunkyApeBidsDB,
-        phunkyApeListed: phunkyApeListed.map((res) => res.item),
-        phunkyApeBids: phunkyApeBids.map((res) => res.item),
         selectedView: action.value,
-        galleryData: nextMarketPlaceData,
+        isFuseQueryLoading: true, // set to true to search based on state
       };
 
       return newViewState;
