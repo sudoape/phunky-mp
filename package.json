@@ -5,53 +5,47 @@
   "homepage": "./",
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@fortawesome/fontawesome-svg-core": "^6.2.1",
-    "@fortawesome/free-brands-svg-icons": "^6.2.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@metamask/detect-provider": "^2.0.0",
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/react": "^2.7.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@openzeppelin/contracts": "^4.8.1",
     "@sentry/react": "^7.31.1",
     "@sentry/tracing": "^7.31.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "@walletconnect/web3-provider": "^1.6.6",
     "antd": "^5.1.5",
     "bn.js": "^5.2.0",
     "dotenv": "^16.0.1",
     "eslint": "^8.32.0",
+    "ethereum-blockies-base64": "^1.0.2",
+    "ethers": "^5",
+    "framer-motion": "^10.12.16",
     "fuse.js": "^6.5.3",
-    "moralis": "^2.11.1",
     "react": "^18.2.0",
-    "react-blockies": "^1.4.1",
     "react-confetti": "^6.0.1",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
     "react-player": "^2.9.0",
     "react-router": "^6.7.0",
     "react-router-dom": "^6.7.0",
     "react-use": "^17.4.0",
     "uuid": "^9.0.0",
+    "wagmi": "^0.11.5",
     "web-vitals": "^3.1.1",
     "web3": "^1.8.1",
     "yarn": "^1.22.17"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "devchain": "node Truffle/scripts/devChain.js",
     "connect": "moralis-admin-cli connect-local-devchain",
     "watch:events": "moralis-admin-cli add-contract",
     "deploy": "node Truffle/scripts/deployContract.js",
     "prepare": "husky install"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -66,6 +60,8 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
     "@vitejs/plugin-react": "^3.0.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -73,6 +69,7 @@
     "husky": "^8.0.3",
     "prettier": "^2.8.3",
     "pretty-quick": "^3.1.3",
+    "typescript": "^4.9.4",
     "vite": "^4.0.4"
   },
   "overrides": {

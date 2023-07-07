@@ -1,11 +1,25 @@
 import { useEffect, useState } from "react";
 import { paycSubGraphAPI } from "../consts";
+import { SubgraphBid, SubgraphItem } from "../types/types";
 
-export const useSubgraphData = (web3) => {
-  const [subgraphData, setSubgraphData] = useState({});
+// wrap fetch with generics support
+async function fetchData<T>(url: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(url, options);
+  return response.json() as Promise<T>;
+}
+
+export interface SubgraphData {
+  data: {
+    phunkyApes: SubgraphItem[];
+    bids: SubgraphBid[];
+  };
+}
+
+export const useSubgraphData = () => {
+  const [subgraphData, setSubgraphData] = useState<SubgraphData>({} as SubgraphData);
 
   const fetchSubgraphData = async () => {
-    const result = await fetch(paycSubGraphAPI, {
+    return await fetchData<SubgraphData>(paycSubGraphAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,6 +31,7 @@ export const useSubgraphData = (web3) => {
             isForSale
             minValue
             currentOwner
+            blockNumberListedForSale
             phunkyApeBids{
               id
               bidAmount
@@ -35,12 +50,10 @@ export const useSubgraphData = (web3) => {
       }`,
       }),
     });
-    const jsonData = await result.json();
-    return jsonData;
   };
 
-  const fetchSubgraphByHexId = async (hexId) => {
-    const result = await fetch(paycSubGraphAPI, {
+  const fetchSubgraphByHexId = async (hexId: string) => {
+    return await fetchData<SubgraphData>(paycSubGraphAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,12 +83,10 @@ export const useSubgraphData = (web3) => {
         }`,
       }),
     });
-    const jsonData = await result.json();
-    return jsonData;
   };
 
-  const fetchMyCollection = async (ownerAddress) => {
-    const result = await fetch(paycSubGraphAPI, {
+  const fetchMyCollection = async (ownerAddress: string) => {
+    return await fetchData<SubgraphData>(paycSubGraphAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,12 +107,10 @@ export const useSubgraphData = (web3) => {
         }`,
       }),
     });
-    const jsonData = await result.json();
-    return jsonData;
   };
 
-  const fetchMyOffers = async (ownerAddress) => {
-    const result = await fetch(paycSubGraphAPI, {
+  const fetchMyOffers = async (ownerAddress: string) => {
+    return await fetchData<SubgraphData>(paycSubGraphAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -121,8 +130,6 @@ export const useSubgraphData = (web3) => {
         }`,
       }),
     });
-    const jsonData = await result.json();
-    return jsonData;
   };
 
   useEffect(() => {

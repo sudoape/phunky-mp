@@ -1,8 +1,19 @@
-import React from "react";
+import { Dispatch } from "react";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
+import { MarketplaceAction } from "pages/Marketplace/MarketplaceReducer";
 
-const ConfettiContainer = ({ dispatch, isLocal, onComplete }) => {
+interface ConfettiContainerProps {
+  dispatch: Dispatch<MarketplaceAction>;
+  isLocal?: boolean;
+  onComplete?: () => void;
+}
+
+const ConfettiContainer = ({
+  dispatch,
+  isLocal = false,
+  onComplete = () => null,
+}: ConfettiContainerProps) => {
   const { width, height } = useWindowSize();
   return (
     <Confetti
@@ -18,7 +29,7 @@ const ConfettiContainer = ({ dispatch, isLocal, onComplete }) => {
         } else {
           dispatch({ type: "TURN_CONFETTI_OFF" });
         }
-        confetti.reset();
+        confetti?.reset();
       }}
     />
   );

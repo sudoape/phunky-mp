@@ -1,6 +1,6 @@
 import { Modal, Button } from "antd";
-import { localDirectory } from "consts";
-import { withdrawBidForPayc } from "contracts/contractUtil";
+import { localDirectory } from "../../consts";
+import { withdrawBidForPayc } from "../../contracts/contractUtil";
 
 const MyOffersModal = ({ nft, web3, visible, dispatch, delegate }) => {
   const imgLocation = localDirectory + nft.num + ".png";

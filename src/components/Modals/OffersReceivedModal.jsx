@@ -2,7 +2,7 @@ import { Modal, Input, Spin, Button } from "antd";
 import BN from "bn.js";
 import { acceptBid } from "../../contracts/contractUtil";
 
-import { localDirectory } from "consts";
+import { localDirectory } from "../../consts";
 
 const OffersReceivedModal = ({ nft, visible, dispatch, web3, delegate }) => {
   const imgLocation = localDirectory + nft.num + ".png";

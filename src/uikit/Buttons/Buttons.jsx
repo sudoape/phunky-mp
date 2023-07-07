@@ -32,7 +32,7 @@ const StyledButtonPrimary = styled.button`
   }
 `;
 
-export const SecondaryButton = ({ onClick, text, children, fat = false }) => (
+export const SecondaryButton = ({ onClick, text, children = undefined, fat = false }) => (
   <StyledButtonSecondary fat={fat} onClick={onClick}>
     {text}
     <div style={{ width: ".5rem" }} />

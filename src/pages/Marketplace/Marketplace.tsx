@@ -2,21 +2,27 @@ import React, { useState, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSubgraphData } from "../../hooks/useSubgraphData";
 import { reducer, getInitialState } from "./MarketplaceReducer";
-import styled from "@emotion/styled";
 
 import Filter from "./Filter";
 import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
 import Header from "../../components/Header/Header";
-import PageTitle from "../../uikit/PageTitle/PageTitle";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import Spinners from "../../components/Spinners/Spinners";
 import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContainer";
 import NFTLoadingCards from "../../components/NFTLoadingCards/NFTLoadingCards";
-import { PillGroup, Pill } from "../../uikit/Pills/Pills";
+import { PillGroup } from "../../uikit/Pills/Pills";
 import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
-import { Flex } from "../../uikit/Flex/Flex";
+import { ViewEnum } from "../../types/types";
+import Web3 from "web3";
+import BN from "bn.js";
+import { Button, Flex, Grid } from "@chakra-ui/react";
+import PageHeaderContainer from "../../components/PageHeaderContainer/PageHeaderContainer";
 
-function Marketplace({ web3, delegate }) {
+interface MarketplaceProps {
+  web3: Web3;
+}
+
+function Marketplace({ web3 }: MarketplaceProps) {
   // example: logged to console the mock subgraph data on rinkeby
   const marketDataHook = useSubgraphData();
   // Filter Region
@@ -24,12 +30,12 @@ function Marketplace({ web3, delegate }) {
   // Filter Region End
   // Forwarding to token details
   const navigate = useNavigate();
-  const goToNFT = (tokenId) => {
+  const goToNFT = (tokenId: string) => {
     navigate(`/details/${tokenId}`);
   };
 
   // Toggle market view
-  const onViewChange = (view) => {
+  const onViewChange = (view: ViewEnum) => {
     dispatch({ type: "SET_VIEW", value: view });
   };
 
@@ -46,7 +52,7 @@ function Marketplace({ web3, delegate }) {
 
   // Sorting
   const [selectedSort, setSelectedSort] = useState("price_asc");
-  useEffect(() => {}, [selectedSort]);
+  // useEffect(() => {}, [selectedSort]); // what is the point of this?
 
   // Set subgraph data to reducer
   useEffect(() => {
@@ -62,27 +68,29 @@ function Marketplace({ web3, delegate }) {
     <>
       {state.isPlayingConfetti ? <ConfettiContainer dispatch={dispatch} /> : null}
       {state.isGlobalLoadingStatus ? <Spinners /> : null}
+      <Header />
       <CommonContainer>
-        <Header delegate={delegate} web3={web3} />
         <PageHeaderContainer>
-          <PageTitle title="Marketplace" />
-          <Flex container align="center" justify="space-between">
+          Marketplace
+          <Flex align="center" justify="space-between">
             <PillGroup>
-              <Pill
-                active={state.selectedView === "for_sale"}
-                text="For Sale"
-                onClick={() => onViewChange("for_sale")}
-              />
+              <Button
+                variant="pill"
+                isActive={state.selectedView === ViewEnum.ForSale}
+                onClick={() => onViewChange(ViewEnum.ForSale)}>
+                For Sale
+              </Button>
               {/* <Pill
                 active={state.selectedView === 'has_bids'}
                 text="Has Bids"
                 onClick={() => onViewChange('has_bids')}
               /> */}
-              <Pill
-                active={state.selectedView === "view_all"}
-                text="View All (limit 300)"
-                onClick={() => onViewChange("view_all")}
-              />
+              <Button
+                variant="pill"
+                isActive={state.selectedView === ViewEnum.ViewAll}
+                onClick={() => onViewChange(ViewEnum.ViewAll)}>
+                View All (limit 300)
+              </Button>
             </PillGroup>
             <Flex>
               <SortDropdown selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
@@ -99,14 +107,18 @@ function Marketplace({ web3, delegate }) {
                 ?.slice(0, 300)
                 ?.sort((a, b) => {
                   if (selectedSort === "price_asc") {
-                    return +a?.item?.minValue - +b?.item?.minValue;
+                    return new BN(a?.item?.minValue || "0").cmp(new BN(b?.item?.minValue || "0"));
                   } else if (selectedSort === "price_desc") {
-                    return +b?.item?.minValue - +a?.item?.minValue;
+                    return new BN(b?.item?.minValue || "0").cmp(new BN(a?.item?.minValue || "0"));
                   } else if (selectedSort === "recent") {
-                    return true;
+                    return (
+                      parseInt(b?.item?.blockNumberListedForSale || "0") -
+                      parseInt(a?.item?.blockNumberListedForSale || "0")
+                    );
                   }
+                  return 0;
                 })
-                ?.map((ape, index) => (
+                ?.map((ape, index: string) => (
                   <NFTCard
                     nft={ape.item}
                     key={index}
@@ -123,50 +135,38 @@ function Marketplace({ web3, delegate }) {
   );
 }
 
-const mobileWidth = 700;
+interface MarketplaceContainerProps {
+  children: React.ReactNode;
+}
 
-const PageHeaderContainer = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 9fr;
-  grid-gap: 1rem;
+const MarketPlaceContainer = ({ children }: MarketplaceContainerProps) => (
+  <Grid gridGap="1rem" gridTemplateColumns={{ base: "none", md: "3fr 9fr" }} paddingBottom="2rem">
+    {children}
+  </Grid>
+);
 
-  h1 {
-    color: white;
-    margin: 0 20px;
-  }
+interface GridContainerProps {
+  children: React.ReactNode;
+}
 
-  @media (max-width: ${mobileWidth}px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-const MarketPlaceContainer = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 3fr 9fr;
-  padding-bottom: 2rem;
-  @media (max-width: ${mobileWidth}px) {
-    grid-template-columns: none;
-  }
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-gap: 1.4rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
-  height: calc(100vh - 208px);
-  overflow-y: scroll;
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
+const GridContainer = ({ children }: GridContainerProps) => (
+  <Grid
+    gap="1.4rem"
+    templateColumns="repeat(4, 1fr)"
+    templateRows="auto auto 1fr"
+    height="calc(100vh - 208px)"
+    overflowY="scroll"
+    css={{
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
+      /* Hide scrollbar for IE, Edge and Firefox */
+      "&-ms-overflow-style": "none" /* IE and Edge */,
+      "scrollbar-width": "none" /* Firefox */,
+    }}>
+    {children}
+  </Grid>
+);
 
 export default Marketplace;
