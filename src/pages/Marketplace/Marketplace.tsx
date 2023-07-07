@@ -124,7 +124,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
                     key={index}
                     web3={web3}
                     dispatch={dispatch}
-                    onClick={() => goToNFT(ape.item.num)}
+                    onClick={() => goToNFT(ape.item.num.toString())}
                   />
                 ))
             )}
