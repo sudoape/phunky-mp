@@ -64,7 +64,6 @@ function getInitialState() {
 export type MarketplaceAction =
   | { type: "SELECT"; key: TraitEnum; value: string }
   | { type: "SET_ID_QUERY"; value: string; index: number }
-  | { type: "TOGGLE_FILTER"; value: TraitEnum }
   | { type: "SET_VIEW"; value: ViewEnum }
   | { type: "SET_FUSE_DATA" }
   | { type: "SET_FUSE_QUERY_LOADING"; value: boolean }
@@ -108,22 +107,6 @@ const reducer: Reducer<MarketplaceState, MarketplaceAction> = (state, action) =>
       const currentIdQuery = state.id;
       currentIdQuery[action.index] = action.value;
       return { ...state, id: currentIdQuery };
-    }
-    case "TOGGLE_FILTER": {
-      const isFilterValueDifferent = action.value !== state.selectedFilter;
-      // Case a new header is selected
-      if (isFilterValueDifferent) {
-        return { ...state, selectorIsOpen: true, selectedFilter: action.value };
-      } else {
-        // Case same header is selected
-        const nextOpenState = !state.selectorIsOpen;
-        const filterValue = nextOpenState === true ? action.value : "";
-        return {
-          ...state,
-          selectorIsOpen: nextOpenState,
-          selectedFilter: filterValue,
-        };
-      }
     }
     case "SET_VIEW": {
       const newViewState = {

@@ -284,7 +284,7 @@ const Filter = ({ state, dispatch }: FilterProps) => {
   return (
     <Main>
       {!state.hideFilters && (
-        <Accordion defaultIndex={[0]} allowMultiple>
+        <Accordion allowMultiple>
           {dropdownOptions.map((dropdown, index) => (
             <DropDown
               key={index}
