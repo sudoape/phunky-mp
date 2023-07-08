@@ -10,10 +10,10 @@ const spinners = "/assets/spinner.gif";
 const NFTCard = ({
   nft,
   onClick,
-  isLoading,
+  isLoading = null,
   web3,
   dispatch,
-  bids,
+  bids = null,
   disableBuyButton = false,
   enableMyOffer = false,
 }) => {
