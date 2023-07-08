@@ -1,16 +1,16 @@
 import Fuse from 'fuse.js'
 
 import localData_ from './data.json'
-import fuseIndex from './fuse-index.json'
+// import fuseIndex from './fuse-index.json'
 import numIndex_ from './num_index.json'
 import { Item, LocalData, NumIndex, SubgraphItemNormalized } from '../types/types'
 import { MarketplaceState } from 'pages/Marketplace/MarketplaceReducer'
-const myIndex = Fuse.parseIndex(fuseIndex)
+// const myIndex = Fuse.parseIndex(fuseIndex)
 
 const localData = localData_ as LocalData
 const numIndex = numIndex_ as unknown as NumIndex
 const localDataFuse = generateFuseIndex(localData)
-const fuse = createFuseDb(localData.items, myIndex)
+const fuse = createFuseDb(localData.items)
 
 function getItemTraitWithName(item: Item) {
   // to handle cases where a value may exist in multiple traits
@@ -45,7 +45,7 @@ function createFuseDb(data: Item[], index?: Fuse.FuseIndex<Item>) {
       }
       // tokenize: true,
     },
-    index && index
+    // index & index,
   )
 }
 
