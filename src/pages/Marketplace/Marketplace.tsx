@@ -118,13 +118,13 @@ function Marketplace({ web3 }: MarketplaceProps) {
                   }
                   return 0;
                 })
-                ?.map((ape, index: string) => (
+                ?.map((ape, index: number) => (
                   <NFTCard
                     nft={ape.item}
                     key={index}
                     web3={web3}
                     dispatch={dispatch}
-                    onClick={() => goToNFT(ape.item.num)}
+                    onClick={() => goToNFT(ape.item.num.toString())}
                   />
                 ))
             )}
