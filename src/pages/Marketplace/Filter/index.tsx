@@ -1,21 +1,21 @@
-import React, { useState } from "react";
 import styled from "@emotion/styled";
+import React from "react";
 
-import PAYCNumSearchInput from "./PAYCNumSearchInput";
-import { TraitEnum } from "../../../types/types";
 import {
   Accordion,
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
-  Button,
-  Flex,
+  AccordionItem,
+  AccordionPanel,
   Box,
-  VStack,
+  Button,
   Checkbox,
+  Flex,
+  VStack,
 } from "@chakra-ui/react";
+import { TraitEnum } from "../../../types/types";
 import { MarketplaceAction, MarketplaceState } from "../MarketplaceReducer";
+import PAYCNumSearchInput from "./PAYCNumSearchInput";
 
 // Option Constants With Header as First Item
 const bgOptions = [
@@ -31,7 +31,6 @@ const bgOptions = [
 ];
 const clothesOptions = [
   "Clothes",
-  "none",
   "Admirals Coat",
   "Bandolier",
   "Bayc T Black",
@@ -78,7 +77,6 @@ const clothesOptions = [
 ];
 const earringOptions = [
   "Earring",
-  "none",
   "Cross",
   "Diamond Stud",
   "Gold Hoop",
@@ -136,7 +134,6 @@ const furOptions = [
 ];
 const hatOptions = [
   "Hat",
-  "none",
   "Army Hat",
   "Baby's Bonnet",
   "Bandana Blue",
@@ -234,16 +231,31 @@ const DropDown = ({ options, filterType, dispatch, state }: DropDownProps) => {
   };
 
   return (
-    <AccordionItem>
+    <AccordionItem color="brand.main">
       <h2>
         <AccordionButton>
-          <Box as="span" flex="1" textAlign="left">
+          <Box as="span" flex="1" textAlign="left" color="brand.main">
             {options[0]}
           </Box>
-          <AccordionIcon />
+          <AccordionIcon color="brand.main" />
         </AccordionButton>
       </h2>
-      <AccordionPanel pb={4}>
+      <AccordionPanel
+        pb={4}
+        maxHeight="298px"
+        overflowY="auto"
+        css={{
+          "&::-webkit-scrollbar": {
+            width: "4px",
+          },
+          "&::-webkit-scrollbar-track": {
+            width: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "white",
+            borderRadius: "24px",
+          },
+        }}>
         <VStack align="start" spacing={2}>
           {options.map(
             (option, idx) =>
@@ -303,7 +315,6 @@ const Filter = ({ state, dispatch }: FilterProps) => {
             text={state.hideFilters ? "Show" : "Hide"}
           </Button>
         )}
-        {/* TODO: make this clear the checkboxes too */}
         <Button onClick={() => onClearFilters(dispatch)}>Reset Filters</Button>
       </Flex>
     </Main>
