@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   chakra,
   Flex,
@@ -9,9 +8,9 @@ import {
   Link,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useScroll } from "framer-motion";
 import AccountButton from "../AccountButton/AccountButton";
 import { MobileNavButton } from "../mobile-nav";
 
@@ -81,7 +80,6 @@ const HeaderContent = () => {
 };
 
 function Header(props: HTMLChakraProps<"header">) {
-  const { maxW = "8xl", maxWidth = "8xl" } = props;
   const ref = useRef<HTMLHeadingElement>(null);
   const [y, setY] = useState(0);
   const { height = 0 } = ref.current?.getBoundingClientRect() ?? {};
@@ -106,8 +104,6 @@ function Header(props: HTMLChakraProps<"header">) {
       px={{ base: "1rem", sm: "3rem" }}
       height="4.5rem"
       mx="auto"
-      maxW={maxW}
-      maxWidth={maxWidth}
       {...props}>
       <HeaderContent />
     </chakra.header>

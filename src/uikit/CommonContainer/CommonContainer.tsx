@@ -1,13 +1,14 @@
-import React, { ReactNode } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
 interface CommonContainerProps {
+  props?: BoxProps;
   children: ReactNode;
 }
 
-const CommonContainer = ({ children }: CommonContainerProps) => {
+const CommonContainer = ({ props, children }: CommonContainerProps) => {
   return (
-    <Box width="100%" maxW="1200px" mx="auto" px={{ base: "1rem", sm: "2rem" }}>
+    <Box width="100%" mx="auto" px={{ base: "1rem", sm: "2rem" }} {...props}>
       {children}
     </Box>
   );

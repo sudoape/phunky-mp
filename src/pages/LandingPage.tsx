@@ -1,20 +1,20 @@
-import { Link as NavLink } from "react-router-dom";
 import {
-  Flex,
-  Spacer,
-  Image,
   Box,
-  Grid,
-  Text,
   Button,
-  FlexProps,
   Container,
   Divider,
+  Flex,
+  FlexProps,
+  Grid,
+  Image,
+  Spacer,
+  Text,
   keyframes,
 } from "@chakra-ui/react";
-import { getThemeBgColor } from "../helpers/theme";
-import { SocialLinks } from "../components/social-links";
 import { useEffect, useState } from "react";
+import { Link as NavLink } from "react-router-dom";
+import { SocialLinks } from "../components/social-links";
+import { getThemeBgColor } from "../helpers/theme";
 
 const LandingPage = () => {
   // const containerPx = theme.components.Container.baseStyle.px;

@@ -11,6 +11,7 @@ import {
   Button,
   Checkbox,
   Flex,
+  Show,
   VStack,
 } from "@chakra-ui/react";
 import { TraitEnum } from "../../../types/types";
@@ -309,13 +310,15 @@ const Filter = ({ state, dispatch }: FilterProps) => {
         </Accordion>
       )}
       {!state.hideFilters && <PAYCNumSearchInput state={state} dispatch={dispatch} />}
-      <Flex width="100%">
-        {window.innerWidth <= mobileWidth && (
-          <Button onClick={() => onToggleHideFilters(dispatch)}>
-            text={state.hideFilters ? "Show" : "Hide"}
+      <Flex width="100%" paddingInline="2px">
+        <Show below="md">
+          <Button w="50%" onClick={() => onToggleHideFilters(dispatch)}>
+            {state.hideFilters ? "Show" : "Hide"}
           </Button>
-        )}
-        <Button onClick={() => onClearFilters(dispatch)}>Reset Filters</Button>
+        </Show>
+        <Button w={{ base: "50%", md: "100%" }} onClick={() => onClearFilters(dispatch)}>
+          Reset Filters
+        </Button>
       </Flex>
     </Main>
   );
