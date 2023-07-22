@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useSubgraphData } from "../../hooks/useSubgraphData";
 import { getInitialState, reducer } from "./MarketplaceReducer";
 
-import { Button, Flex, Grid } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import BN from "bn.js";
 import Web3 from "web3";
 import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContainer";
@@ -71,7 +71,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
       <Header />
       <CommonContainer>
         <PageHeaderContainer>
-          Marketplace
+          <Box width="375px">Marketplace</Box>
           <Flex align="center" justify="space-between">
             <PillGroup>
               <Button
@@ -140,9 +140,9 @@ interface MarketplaceContainerProps {
 }
 
 const MarketPlaceContainer = ({ children }: MarketplaceContainerProps) => (
-  <Grid gridGap="1rem" gridTemplateColumns={{ base: "none", md: "3fr 9fr" }} paddingBottom="2rem">
+  <Flex px="1rem" paddingBottom="2rem" flexDir="row" flexWrap={{ base: "wrap", lg: "inherit" }}>
     {children}
-  </Grid>
+  </Flex>
 );
 
 interface GridContainerProps {
@@ -154,8 +154,9 @@ const GridContainer = ({ children }: GridContainerProps) => (
     gap="1.4rem"
     templateColumns={{
       base: "repeat(auto-fill, minmax(135px, 1fr))",
-      md: "repeat(auto-fill, minmax(220px, 1fr))",
+      lg: "repeat(auto-fill, minmax(220px, 1fr))",
     }}
+    width="100%"
     templateRows="auto auto 1fr"
     height="calc(100vh - 208px)"
     overflowY="scroll"

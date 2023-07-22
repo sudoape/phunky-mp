@@ -64,7 +64,7 @@ const HeaderContent = () => {
           </Link>
         </Flex>
         <Flex justify="flex-end" w="100%" align="center" color="gray.400" maxW="1100px">
-          <HStack spacing="0" display={{ base: "none", md: "flex" }}>
+          <HStack spacing="0" display={{ base: "none", lg: "flex" }}>
             <MainNavLink href="/marketplace" label="Marketplace" />
             <MainNavLink href="/collection" label="My Collection" />
             <MainNavLink href="/faq" label="FAQ" />
@@ -101,7 +101,7 @@ function Header(props: HTMLChakraProps<"header">) {
       left="0"
       right="0"
       width="full"
-      px={{ base: "1rem", sm: "3rem" }}
+      px={{ base: "1rem", sm: "3rem", lg: "5rem" }}
       height="4.5rem"
       mx="auto"
       {...props}>

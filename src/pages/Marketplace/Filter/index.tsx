@@ -217,8 +217,6 @@ const onToggleHideFilters = (dispatch: React.Dispatch<MarketplaceAction>) => {
   dispatch({ type: "TOGGLE_HIDE_FILTERS" });
 };
 
-const mobileWidth = 700;
-
 interface DropDownProps {
   options: string[];
   filterType: TraitEnum;
@@ -295,7 +293,11 @@ const Filter = ({ state, dispatch }: FilterProps) => {
   ];
 
   return (
-    <Main>
+    <Flex
+      minWidth={{ base: "100%", lg: "375px" }}
+      flexDir="column"
+      paddingRight={{ base: 0, lg: "2rem" }}
+      margin={{ base: "2rem 0", lg: Flex.defaultProps?.margin }}>
       {!state.hideFilters && (
         <Accordion allowMultiple>
           {dropdownOptions.map((dropdown, index) => (
@@ -311,29 +313,17 @@ const Filter = ({ state, dispatch }: FilterProps) => {
       )}
       {!state.hideFilters && <PAYCNumSearchInput state={state} dispatch={dispatch} />}
       <Flex width="100%" paddingInline="2px">
-        <Show below="md">
+        <Show below="lg">
           <Button w="50%" onClick={() => onToggleHideFilters(dispatch)}>
             {state.hideFilters ? "Show" : "Hide"}
           </Button>
         </Show>
-        <Button w={{ base: "50%", md: "100%" }} onClick={() => onClearFilters(dispatch)}>
+        <Button w={{ base: "50%", lg: "100%" }} onClick={() => onClearFilters(dispatch)}>
           Reset Filters
         </Button>
       </Flex>
-    </Main>
+    </Flex>
   );
 };
-
-// Styles
-const Main = styled("div")`
-  display: flex;
-  flex-direction: column;
-  padding-right: 2rem;
-
-  @media (max-width: ${mobileWidth}px) {
-    margin: 2rem 0;
-    padding-right: 0;
-  }
-`;
 
 export default Filter;
