@@ -8,7 +8,8 @@ export const payc721ContractAddr =
 export const paycSubGraphAPI =
   //'https://api.studio.thegraph.com/query/18229/paycmarket/v2.5.7'
   "https://api.studio.thegraph.com/query/40817/paycmarket-subgraph-test/v2.5.9";
-export const localDirectory = "https://payc-images.s3.amazonaws.com/ipfs/";
+export const localDirectory =
+  "https://bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva.ipfs.dweb.link/";
 export const web3ProviderURL =
   //'https://eth-mainnet.alchemyapi.io/v2/FoyJ5k74vjxe1Wgn6vRgYMQikX-QhdML'
   "https://eth-goerli.g.alchemy.com/v2/VgiRs7LtGGVyLM4s63yH908_7Y7tGCc_";

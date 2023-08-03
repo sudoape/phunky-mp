@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { Image } from "antd";
-import fallbackImg from "../../helpers/fallbackImg";
-import { buyPhunkyApe } from "../../contracts/contractUtil";
 import BN from "bn.js";
+import { buyPhunkyApe } from "../../contracts/contractUtil";
+import fallbackImg from "../../helpers/fallbackImg";
 
 const spinners = "/assets/spinner.gif";
 
@@ -17,7 +16,10 @@ const NFTCard = ({
   disableBuyButton = false,
   enableMyOffer = false,
 }) => {
-  const imgLocation = "https://payc-images.s3.amazonaws.com/ipfs/" + nft.num + ".png";
+  const imgLocation =
+    "https://bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva.ipfs.dweb.link/" +
+    nft.num +
+    ".png";
   // min value comes in wei so we need to convert it into a Big Number and then to ETH for
   // display but keep the wei value for when we make the transctions to the contracts
   let maxBid = new BN("0");

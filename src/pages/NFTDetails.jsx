@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { useSubgraphData } from "../hooks/useSubgraphData";
 import styled from "@emotion/styled";
 import { Image, Input, Modal } from "antd";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useSubgraphData } from "../hooks/useSubgraphData";
 
 import Header from "../components/Header/Header";
-import CommonContainer from "../uikit/CommonContainer/CommonContainer";
-import BigNumber from "../uikit/BigNumber/BigNumber";
-import TraitBox from "../uikit/TraitBox/TraitBox";
-import { getEllipsisTxt } from "../helpers/formatters";
-import { Flex } from "../uikit/Flex/Flex";
-import PrimaryButton from "../uikit/Buttons/Buttons";
-import fallbackImg from "../helpers/fallbackImg";
 import { getApeByID } from "../db";
+import fallbackImg from "../helpers/fallbackImg";
+import { getEllipsisTxt } from "../helpers/formatters";
+import BigNumber from "../uikit/BigNumber/BigNumber";
+import PrimaryButton from "../uikit/Buttons/Buttons";
+import CommonContainer from "../uikit/CommonContainer/CommonContainer";
+import { Flex } from "../uikit/Flex/Flex";
+import TraitBox from "../uikit/TraitBox/TraitBox";
 
-import { buyPhunkyApe, bidOnPhunkyApe } from "../contracts/contractUtil";
-import Spinners from "../components/Spinners/Spinners";
 import ConfettiContainer from "../components/ConfettiContainer/ConfettiContainer";
+import Spinners from "../components/Spinners/Spinners";
+import { bidOnPhunkyApe, buyPhunkyApe } from "../contracts/contractUtil";
 
 import BN from "bn.js";
 
@@ -38,7 +38,7 @@ const NFTDetails = ({ web3 }) => {
   // TODO
   useEffect(() => {
     const ape = getApeByID(id);
-    ape.image = `https://payc-images.s3.amazonaws.com/ipfs/${ape.num}.png`;
+    ape.image = `https://bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva.ipfs.dweb.link/${ape.num}.png`;
     console.log(ape.image);
     setToken(ape);
   }, [id, token]);
