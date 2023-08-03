@@ -83,7 +83,7 @@ export const MobileNavButton = (props: IconButtonProps) => {
     <>
       <IconButton
         ref={btnRef}
-        display={{ base: "flex", lg: "none" }}
+        display={{ base: "flex", md: "none" }}
         onClick={onOpen}
         variant="outline"
         icon={<AiOutlineMenu />}

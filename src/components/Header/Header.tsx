@@ -64,7 +64,7 @@ const HeaderContent = () => {
           </Link>
         </Flex>
         <Flex justify="flex-end" w="100%" align="center" color="gray.400" maxW="1100px">
-          <HStack spacing="0" display={{ base: "none", lg: "flex" }}>
+          <HStack spacing="0" display={{ base: "none", md: "flex" }}>
             <MainNavLink href="/marketplace" label="Marketplace" />
             <MainNavLink href="/collection" label="My Collection" />
             <MainNavLink href="/faq" label="FAQ" />
