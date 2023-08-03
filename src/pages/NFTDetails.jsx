@@ -38,7 +38,7 @@ const NFTDetails = ({ web3 }) => {
   // TODO
   useEffect(() => {
     const ape = getApeByID(id);
-    ape.image = `https://bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva.ipfs.dweb.link/${ape.num}.png`;
+    ape.image = `https://ipfs.io/ipfs/bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva/${ape.num}.png`;
     console.log(ape.image);
     setToken(ape);
   }, [id, token]);

@@ -17,7 +17,7 @@ const NFTCard = ({
   enableMyOffer = false,
 }) => {
   const imgLocation =
-    "https://bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva.ipfs.dweb.link/" +
+    "https://ipfs.io/ipfs/bafybeifvc46kjao4mmdyqozoazvjhqfueaowbzjystkschwf4navb2ohva/" +
     nft.num +
     ".png";
   // min value comes in wei so we need to convert it into a Big Number and then to ETH for

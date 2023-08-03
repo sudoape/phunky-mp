@@ -89,7 +89,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
                 variant="pill"
                 isActive={state.selectedView === ViewEnum.ViewAll}
                 onClick={() => onViewChange(ViewEnum.ViewAll)}>
-                View All (limit 300)
+                View All (limit 100)
               </Button>
             </PillGroup>
             <Flex>
@@ -104,7 +104,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
               <NFTLoadingCards />
             ) : (
               state.galleryData
-                ?.slice(0, 300)
+                ?.slice(0, 100)
                 ?.sort((a, b) => {
                   if (selectedSort === "price_asc") {
                     return new BN(a?.item?.minValue || "0").cmp(new BN(b?.item?.minValue || "0"));
