@@ -29,6 +29,9 @@ const overrides = {
     heading: "Montserrat, sans-serif",
     body: "Montserrat, sans-serif",
   },
+  breakpoints: {
+    lg: "960px",
+  },
 };
 
 export default extendTheme(overrides, withDefaultColorScheme({ colorScheme: "brand" }));

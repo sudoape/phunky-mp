@@ -1,13 +1,13 @@
 import Fuse from "fuse.js";
 import { Reducer } from "react";
-import { getApes, getAllApes, createNewFuseDbFromApeIds } from "../../../db";
+import { createNewFuseDbFromApeIds, getAllApes, getApes } from "../../../db";
 import { SubgraphData } from "../../../hooks/useSubgraphData";
 import {
-  TraitEnum,
-  SubgraphItem,
-  ViewEnum,
   Item,
+  SubgraphItem,
   SubgraphItemNormalized,
+  TraitEnum,
+  ViewEnum,
 } from "../../../types/types";
 
 type EnumKeyFields = { [key in TraitEnum]: string[] };
@@ -83,16 +83,12 @@ const reducer: Reducer<MarketplaceState, MarketplaceAction> = (state, action) =>
       const existingValues = state[key];
       let updatedValues: string[];
 
-      if (action.value == "none") {
-        updatedValues = [];
+      if (existingValues.includes(action.value)) {
+        // Remove the value if it already exists
+        updatedValues = existingValues.filter((value) => value !== action.value);
       } else {
-        if (existingValues.includes(action.value)) {
-          // Remove the value if it already exists
-          updatedValues = existingValues.filter((value) => value !== action.value);
-        } else {
-          // Add the value to the list
-          updatedValues = [...existingValues, action.value];
-        }
+        // Add the value to the list
+        updatedValues = [...existingValues, action.value];
       }
 
       return {
@@ -242,4 +238,4 @@ const normalizeApe = (ape: SubgraphItem, isHex: boolean): SubgraphItemNormalized
   return { ...ape, phunkyApeId };
 };
 
-export { reducer, getInitialState };
+export { getInitialState, reducer };

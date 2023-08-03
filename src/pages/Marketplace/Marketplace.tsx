@@ -1,22 +1,22 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router";
 import { useSubgraphData } from "../../hooks/useSubgraphData";
-import { reducer, getInitialState } from "./MarketplaceReducer";
+import { getInitialState, reducer } from "./MarketplaceReducer";
 
-import Filter from "./Filter";
-import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
+import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+import BN from "bn.js";
+import Web3 from "web3";
+import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContainer";
 import Header from "../../components/Header/Header";
 import NFTCard from "../../components/NFTCard/NFTCard";
-import Spinners from "../../components/Spinners/Spinners";
-import ConfettiContainer from "../../components/ConfettiContainer/ConfettiContainer";
 import NFTLoadingCards from "../../components/NFTLoadingCards/NFTLoadingCards";
+import PageHeaderContainer from "../../components/PageHeaderContainer/PageHeaderContainer";
+import Spinners from "../../components/Spinners/Spinners";
+import { ViewEnum } from "../../types/types";
+import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
 import { PillGroup } from "../../uikit/Pills/Pills";
 import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
-import { ViewEnum } from "../../types/types";
-import Web3 from "web3";
-import BN from "bn.js";
-import { Button, Flex, Grid } from "@chakra-ui/react";
-import PageHeaderContainer from "../../components/PageHeaderContainer/PageHeaderContainer";
+import Filter from "./Filter";
 
 interface MarketplaceProps {
   web3: Web3;
@@ -71,7 +71,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
       <Header />
       <CommonContainer>
         <PageHeaderContainer>
-          Marketplace
+          <Box width="375px">Marketplace</Box>
           <Flex align="center" justify="space-between">
             <PillGroup>
               <Button
@@ -140,9 +140,9 @@ interface MarketplaceContainerProps {
 }
 
 const MarketPlaceContainer = ({ children }: MarketplaceContainerProps) => (
-  <Grid gridGap="1rem" gridTemplateColumns={{ base: "none", md: "3fr 9fr" }} paddingBottom="2rem">
+  <Flex px="1rem" paddingBottom="2rem" flexDir="row" flexWrap={{ base: "wrap", lg: "inherit" }}>
     {children}
-  </Grid>
+  </Flex>
 );
 
 interface GridContainerProps {
@@ -152,7 +152,11 @@ interface GridContainerProps {
 const GridContainer = ({ children }: GridContainerProps) => (
   <Grid
     gap="1.4rem"
-    templateColumns="repeat(4, 1fr)"
+    templateColumns={{
+      base: "repeat(auto-fill, minmax(135px, 1fr))",
+      lg: "repeat(auto-fill, minmax(220px, 1fr))",
+    }}
+    width="100%"
     templateRows="auto auto 1fr"
     height="calc(100vh - 208px)"
     overflowY="scroll"

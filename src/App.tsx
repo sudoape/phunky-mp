@@ -1,14 +1,14 @@
+import { Box } from "@chakra-ui/react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { Box, Container, Flex, VStack } from "@chakra-ui/react";
 
-import MyCollection from "./pages/MyCollection/MyCollection";
+import Web3 from "web3";
+import Footer from "./components/footer";
+import ScrollToTop from "./helpers/scrollToTop";
 import FAQ from "./pages/FAQ";
 import LandingPage from "./pages/LandingPage";
 import Marketplace from "./pages/Marketplace/Marketplace";
+import MyCollection from "./pages/MyCollection/MyCollection";
 import NFTDetails from "./pages/NFTDetails";
-import ScrollToTop from "./helpers/scrollToTop";
-import Web3 from "web3";
-import Footer from "./components/footer";
 import {
   addTxn,
   removeTxn,
@@ -17,6 +17,7 @@ import {
   txnSuccess,
   useTxnState,
 } from "./reducer";
+import CommonContainer from "./uikit/CommonContainer/CommonContainer";
 
 const App = ({ web3 }: { web3: Web3 }) => {
   const [state, dispatch] = useTxnState();
@@ -37,11 +38,10 @@ const App = ({ web3 }: { web3: Web3 }) => {
         minHeight="100vh"
         position="relative"
         paddingBottom={{ base: "200px", sm: "250px", lg: "300px" }}>
-        <Container maxW="1200px" marginLeft="auto" marginRight="auto" paddingInline="0">
+        <CommonContainer props={{ maxW: "1200px", px: 0 }}>
           <ScrollToTop>
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/marketplace/*" element={<Marketplace web3={web3} />} />
               <Route
                 path="/collection/*"
                 element={<MyCollection web3={web3} delegate={txnManager} />}
@@ -50,7 +50,11 @@ const App = ({ web3 }: { web3: Web3 }) => {
               <Route path="/details/:id" element={<NFTDetails web3={web3} />} />
             </Routes>
           </ScrollToTop>
-        </Container>
+        </CommonContainer>
+        {/* Marketplace page has a different container for more screen space */}
+        <Routes>
+          <Route path="/marketplace/*" element={<Marketplace web3={web3} />} />
+        </Routes>
         <Footer />
       </Box>
     </HashRouter>
