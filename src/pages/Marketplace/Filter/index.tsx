@@ -296,7 +296,19 @@ const Filter = ({ state, dispatch }: FilterProps) => {
     <Flex
       minWidth={{ base: "100%", lg: "375px" }}
       flexDir="column"
+      height="calc(100vh - 208px)"
+      overflowY="scroll"
+      css={{
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+        /* Hide scrollbar for IE, Edge and Firefox */
+        "&-ms-overflow-style": "none" /* IE and Edge */,
+        "scrollbar-width": "none" /* Firefox */,
+      }}
       paddingRight={{ base: 0, lg: "2rem" }}
+      paddingBottom={{ base: 0, lg: "2rem" }}
       margin={{ base: "2rem 0", lg: Flex.defaultProps?.margin }}>
       {!state.hideFilters && (
         <Accordion allowMultiple>
