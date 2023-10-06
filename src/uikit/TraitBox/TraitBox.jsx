@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from "react";
+import styled from "@emotion/styled";
 
 //TODO Implement trait rarity
 const TraitBox = ({ label, value, chance }) => {
@@ -11,8 +11,8 @@ const TraitBox = ({ label, value, chance }) => {
       </Value>
       {/*<Chance>{chance}</Chance>*/}
     </Container>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   display: flex;
@@ -25,14 +25,14 @@ const Container = styled.div`
   width: 149px;
   margin: 5px;
   padding: 10px;
-`
+`;
 
 const Label = styled.div`
   text-align: center;
   font-size: 0.7rem;
   text-transform: uppercase;
   color: #bfc500;
-`
+`;
 const Value = styled.div`
   text-align: center;
   padding-top: 0.25rem;
@@ -41,7 +41,7 @@ const Value = styled.div`
   text-overflow: ellipsis;
   width: 100%;
   //font-size: ;
-`
+`;
 // const Chance = styled.div``
 
-export default TraitBox
+export default TraitBox;

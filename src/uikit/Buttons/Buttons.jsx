@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from "react";
+import styled from "@emotion/styled";
 
 export const PrimaryButton = ({ onClick, text, children, fat = false }) => (
   <StyledButtonPrimary fat={fat} onClick={onClick}>
     {text}
-    <div style={{ width: '.5rem' }} />
+    <div style={{ width: ".5rem" }} />
     {children}
   </StyledButtonPrimary>
-)
+);
 
 const StyledButtonPrimary = styled.button`
   background-color: #bfc500;
@@ -16,7 +16,7 @@ const StyledButtonPrimary = styled.button`
   border-radius: 8px;
   font-weight: 700;
   font-size: 16px;
-  padding: ${(p) => (p.fat ? '16px' : '8px 16px')};
+  padding: ${(p) => (p.fat ? "16px" : "8px 16px")};
   margin: auto auto;
   transition: 0.3s;
   width: 100%;
@@ -30,15 +30,15 @@ const StyledButtonPrimary = styled.button`
     background: white;
     border-color: white;
   }
-`
+`;
 
-export const SecondaryButton = ({ onClick, text, children, fat = false }) => (
+export const SecondaryButton = ({ onClick, text, children = undefined, fat = false }) => (
   <StyledButtonSecondary fat={fat} onClick={onClick}>
     {text}
-    <div style={{ width: '.5rem' }} />
+    <div style={{ width: ".5rem" }} />
     {children}
   </StyledButtonSecondary>
-)
+);
 
 const StyledButtonSecondary = styled.button`
   background-color: #bfc500;
@@ -47,7 +47,7 @@ const StyledButtonSecondary = styled.button`
   border-radius: 8px;
   font-weight: 700;
   font-size: 16px;
-  padding: ${(p) => (p.fat ? '16px' : '8px 16px')};
+  padding: ${(p) => (p.fat ? "16px" : "8px 16px")};
   margin: auto auto;
   transition: 0.3s;
   margin: 20px;
@@ -63,6 +63,6 @@ const StyledButtonSecondary = styled.button`
     background: white;
     border-color: white;
   }
-`
+`;
 
-export default PrimaryButton
+export default PrimaryButton;
