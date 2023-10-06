@@ -92,7 +92,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
                 variant="pill"
                 isActive={state.selectedView === ViewEnum.ViewAll}
                 onClick={() => onViewChange(ViewEnum.ViewAll)}>
-                View All (limit 100)
+                View All
               </Button>
             </PillGroup>
             <Flex>
