@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { useSubgraphData } from "../../hooks/useSubgraphData";
 import { getInitialState, reducer } from "./MarketplaceReducer";
@@ -27,6 +27,9 @@ function Marketplace({ web3 }: MarketplaceProps) {
   const marketDataHook = useSubgraphData();
   // Filter Region
   const [state, dispatch] = useReducer(reducer, getInitialState());
+  // Initial number of items to display
+  const [visibleItemsCount, setVisibleItemsCount] = useState(30); // Initial number of items to display
+
   // Filter Region End
   // Forwarding to token details
   const navigate = useNavigate();
@@ -99,12 +102,14 @@ function Marketplace({ web3 }: MarketplaceProps) {
         </PageHeaderContainer>
         <MarketPlaceContainer>
           <Filter state={state} dispatch={dispatch} />
-          <GridContainer>
+          <GridContainer
+            visibleItemsCount={visibleItemsCount}
+            setVisibleItemsCount={setVisibleItemsCount}>
             {state.isFuseQueryLoading ? (
               <NFTLoadingCards />
             ) : (
               state.galleryData
-                ?.slice(0, 100)
+                ?.slice(0, visibleItemsCount)
                 ?.sort((a, b) => {
                   if (selectedSort === "price_asc") {
                     return new BN(a?.item?.minValue || "0").cmp(new BN(b?.item?.minValue || "0"));
@@ -146,31 +151,76 @@ const MarketPlaceContainer = ({ children }: MarketplaceContainerProps) => (
 );
 
 interface GridContainerProps {
+  visibleItemsCount: number;
+  setVisibleItemsCount: React.Dispatch<React.SetStateAction<number>>;
   children: React.ReactNode;
 }
 
-const GridContainer = ({ children }: GridContainerProps) => (
-  <Grid
-    gap="1.4rem"
-    templateColumns={{
-      base: "repeat(auto-fill, minmax(135px, 1fr))",
-      lg: "repeat(auto-fill, minmax(220px, 1fr))",
-    }}
-    width="100%"
-    templateRows="auto auto 1fr"
-    height="calc(100vh - 208px)"
-    overflowY="scroll"
-    css={{
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      "&::-webkit-scrollbar": {
-        display: "none",
-      },
-      /* Hide scrollbar for IE, Edge and Firefox */
-      "&-ms-overflow-style": "none" /* IE and Edge */,
-      "scrollbar-width": "none" /* Firefox */,
-    }}>
-    {children}
-  </Grid>
-);
+const GridContainer = ({
+  visibleItemsCount,
+  setVisibleItemsCount,
+  children,
+}: GridContainerProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Handles the scroll event and loads more items when the user has scrolled near the end of the container.
+   */
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (container) {
+        const scrollHeight = container.scrollHeight;
+        const scrollTop = container.scrollTop;
+        const clientHeight = container.clientHeight;
+        // load more items when the user has scrolled 500 pixels from the end of the container
+        if (scrollHeight - scrollTop <= clientHeight + 500) {
+          // User has scrolled near the end of the container
+          setVisibleItemsCount((prevCount) => prevCount + 20);
+        }
+      }
+    };
+
+    const gridContainer = containerRef.current;
+    if (gridContainer) {
+      gridContainer.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (gridContainer) {
+        gridContainer.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [visibleItemsCount]);
+
+  return (
+    <Grid
+      ref={containerRef}
+      gap="1.4rem"
+      templateColumns={{
+        base: "repeat(auto-fill, minmax(135px, 1fr))",
+        lg: "repeat(auto-fill, minmax(220px, 1fr))",
+      }}
+      width="100%"
+      templateRows="auto auto 1fr"
+      height="calc(100vh - 208px)"
+      overflowY="scroll"
+      css={{
+        paddingInlineEnd: "5px", // Adds space to the right of the content inside the grid container
+        "&::-webkit-scrollbar": {
+          width: "4px",
+        },
+        "&::-webkit-scrollbar-track": {
+          width: "6px",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "grey",
+          borderRadius: "24px",
+        },
+      }}>
+      {children}
+    </Grid>
+  );
+};
 
 export default Marketplace;

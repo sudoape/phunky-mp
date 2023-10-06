@@ -251,7 +251,7 @@ const DropDown = ({ options, filterType, dispatch, state }: DropDownProps) => {
             width: "6px",
           },
           "&::-webkit-scrollbar-thumb": {
-            background: "white",
+            background: "grey",
             borderRadius: "24px",
           },
         }}>
