@@ -296,7 +296,7 @@ const Filter = ({ state, dispatch }: FilterProps) => {
     <Flex
       minWidth={{ base: "100%", lg: "375px" }}
       flexDir="column"
-      height="calc(100vh - 208px)"
+      height="calc(100% - 208px)"
       overflowY="scroll"
       css={{
         /* Hide scrollbar for Chrome, Safari and Opera */
