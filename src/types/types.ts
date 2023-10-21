@@ -38,6 +38,7 @@ export interface Item extends SubgraphItemNormalized {
   attributes: Attribute[];
   image: string;
   num: number;
+  bidAmount: number;
   goat: string;
 }
 
