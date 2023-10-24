@@ -7,12 +7,14 @@ import Web3 from "web3";
 import { MouseEventHandler, useState } from "react";
 import { Box, Flex, Skeleton, Text, Image } from "@chakra-ui/react";
 
+type PartialItem = Partial<Item>;
+
 interface NFTCardProps {
-  nft: Item;
+  nft: PartialItem;
   onClick: MouseEventHandler<HTMLDivElement>;
   isLoading?: boolean | null;
-  web3: Web3;
-  dispatch: React.Dispatch<MarketplaceAction>;
+  web3?: Web3;
+  dispatch?: React.Dispatch<MarketplaceAction>;
   // bids?: any;
   disableBuyButton?: boolean;
   enableMyOffer?: boolean;
