@@ -14,6 +14,12 @@ const primary = defineStyle((props: StyleFunctionProps) => ({
   color: "black",
 }));
 
+// What was the point of this button?
+const secondary = defineStyle((props: StyleFunctionProps) => ({
+  ...primary(props), // inherit syles from primary
+  color: "black",
+}));
+
 const pill = defineStyle((props: StyleFunctionProps) => ({
   ...theme.components.Button.variants?.solid(props),
   p: { base: "4px 8px", sm: "8px 16px" },
@@ -37,7 +43,7 @@ const pill = defineStyle((props: StyleFunctionProps) => ({
 }));
 
 export const PaycButton = defineStyleConfig({
-  variants: { primary, pill },
+  variants: { primary, secondary, pill },
   defaultProps: {
     variant: "primary",
   },
