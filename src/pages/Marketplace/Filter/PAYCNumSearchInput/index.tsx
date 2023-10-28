@@ -18,8 +18,11 @@ const PAYCNumSearchInput = ({ state, dispatch }: PAYCNumSearchInputProps) => {
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, i: number) => {
     if (e.key === "Backspace") {
-      inputRefs[i].current.value = "";
-      if (i !== 0) inputRefs[i - 1].current?.focus();
+      const current = inputRefs[i].current;
+      if (current) {
+        current.value = "";
+        if (i !== 0) inputRefs[i - 1].current?.focus();
+      }
       e.preventDefault();
     } else if (e.key === "Enter") {
       // On Enter
@@ -28,17 +31,18 @@ const PAYCNumSearchInput = ({ state, dispatch }: PAYCNumSearchInputProps) => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
     let { value } = e.target;
     // Ensure the value is a single digit
     value = value.slice(-1);
-    inputRefs[index].current.value = value;
-
-    if (value.length === 1 && index < inputRefs.length - 1) {
-      inputRefs[index + 1].current?.focus();
+    const current = inputRefs[i].current;
+    if (current) {
+      current.value = value;
+      if (value.length === 1 && i < inputRefs.length - 1) {
+        inputRefs[i + 1].current?.focus();
+      }
+      dispatch({ type: "SET_ID_QUERY", value: value, index: i });
     }
-
-    dispatch({ type: "SET_ID_QUERY", value: value, index: index });
   };
 
   const navigate = useNavigate();

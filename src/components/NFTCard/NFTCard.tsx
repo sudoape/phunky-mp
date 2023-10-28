@@ -14,7 +14,7 @@ interface NFTCardProps {
   onClick: MouseEventHandler<HTMLDivElement>;
   isLoading?: boolean | null;
   web3?: Web3;
-  dispatch?: React.Dispatch<MarketplaceAction>;
+  dispatch: React.Dispatch<MarketplaceAction>;
   // bids?: any;
   disableBuyButton?: boolean;
   enableMyOffer?: boolean;
@@ -53,7 +53,7 @@ const NFTCard = ({
     <Box fontSize="12px">
       Highest Offer:{" "}
       {nft.phunkyApeBids && nft.phunkyApeBids.length
-        ? web3.utils.fromWei(maxBid.toString(), "ether")
+        ? web3?.utils.fromWei(maxBid.toString(), "ether")
         : "-"}
     </Box>
   );
@@ -67,7 +67,7 @@ const NFTCard = ({
   let bidEthPrice = "";
   if (nft.bidAmount) {
     const bid = new BN(nft.bidAmount);
-    bidEthPrice = web3.utils.fromWei(bid, "ether");
+    bidEthPrice = web3?.utils.fromWei(bid, "ether") || "";
   }
 
   const handlePhunkyApeBuy = () => {
@@ -77,7 +77,8 @@ const NFTCard = ({
       nft.phunkyApeId,
       web3,
       () => {
-        dispatch({ type: "REMOVE_APE_FROM_LISTING_DB", value: nft.num });
+        // -1 is just for the type warning for PartialItem.
+        dispatch({ type: "REMOVE_APE_FROM_LISTING_DB", value: nft.num || -1 });
       },
       () => {
         dispatch({ type: "SET_GLOBAL_LOADING_STATUS", value: false });

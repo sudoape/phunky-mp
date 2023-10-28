@@ -9,6 +9,9 @@ const NFTLoadingCards = () => {
           undefined;
         }}
         isLoading={true}
+        dispatch={() => {
+          undefined;
+        }}
       />,
     );
   }
