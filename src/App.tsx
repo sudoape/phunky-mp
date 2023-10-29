@@ -36,7 +36,6 @@ const App = ({ web3 }: { web3: Web3 }) => {
       <Box
         className="app"
         minHeight="100vh"
-        position="relative"
         paddingBottom={{ base: "200px", sm: "250px", lg: "300px" }}>
         <CommonContainer props={{ maxW: "1200px", px: 0 }}>
           <ScrollToTop>
