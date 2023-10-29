@@ -88,7 +88,12 @@ export const MobileNavButton = (props: IconButtonProps) => {
         variant="outline"
         icon={<AiOutlineMenu />}
         {...props}></IconButton>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+      <Drawer
+        isOpen={isOpen}
+        placement="top"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+        preserveScrollBarGap>
         <DrawerOverlay />
         <DrawerContent bg={bg}>
           <DrawerCloseButton />
