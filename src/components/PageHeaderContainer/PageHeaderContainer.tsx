@@ -10,7 +10,7 @@ const PageHeaderContainer = ({ children }: PageHeaderContainerProps) => {
   const [isMobile] = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
   if (isMobile) {
     return (
-      <Flex direction="column" textStyle="h2" p="1rem" gap="1rem">
+      <Flex direction="column" textStyle="h2" paddingBottom="1rem" gap="1rem">
         {children}
       </Flex>
     );

@@ -52,7 +52,7 @@ const MainNavLink = ({ href, label }: MainNavLinkProps) => {
 const HeaderContent = () => {
   return (
     <>
-      <Flex id="nav" w="100%" h="100%" my="0.5rem" align="center" justify="space-between">
+      <Flex id="nav" w="100%" h="100%" align="center" justify="space-between">
         <Flex align="center">
           <Link as={NavLink} to="/" display="block" aria-label="Back to homepage">
             <Image
@@ -102,7 +102,7 @@ function Header(props: HTMLChakraProps<"header">) {
       right="0"
       width="full"
       px={{ base: "1rem", sm: "3rem", lg: "5rem" }}
-      height="4.5rem"
+      height="5rem"
       mx="auto"
       {...props}>
       <HeaderContent />
