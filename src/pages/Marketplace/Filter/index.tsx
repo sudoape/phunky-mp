@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import React from "react";
 
 import {
@@ -11,6 +10,7 @@ import {
   Button,
   Checkbox,
   Flex,
+  FlexProps,
   Show,
   VStack,
 } from "@chakra-ui/react";
@@ -278,10 +278,10 @@ const DropDown = ({ options, filterType, dispatch, state }: DropDownProps) => {
 interface FilterProps {
   state: MarketplaceState;
   dispatch: React.Dispatch<MarketplaceAction>;
+  props: FlexProps;
 }
 
-// TODO: Remove repeating code
-const Filter = ({ state, dispatch }: FilterProps) => {
+const Filter = ({ state, dispatch, props }: FilterProps) => {
   const dropdownOptions = [
     { options: bgOptions, filterType: TraitEnum.Bg },
     { options: clothesOptions, filterType: TraitEnum.Clothes },
@@ -309,7 +309,8 @@ const Filter = ({ state, dispatch }: FilterProps) => {
       }}
       paddingRight={{ base: 0, lg: "2rem" }}
       paddingBottom={{ base: 0, lg: "2rem" }}
-      margin={{ base: "2rem 0", lg: Flex.defaultProps?.margin }}>
+      margin={{ base: "2rem 0", lg: Flex.defaultProps?.margin }}
+      {...props}>
       {!state.hideFilters && (
         <Accordion allowMultiple>
           {dropdownOptions.map((dropdown, index) => (
