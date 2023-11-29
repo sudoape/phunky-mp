@@ -58,7 +58,7 @@ export const MobileFilterButton = (props: MobileFilterButtonProps) => {
         finalFocusRef={btnRef}
         preserveScrollBarGap>
         <DrawerOverlay />
-        <DrawerContent bg={bg}>
+        <DrawerContent bg={bg} maxHeight="calc(100% - 5rem)">
           <DrawerCloseButton />
           <DrawerHeader>Filters</DrawerHeader>
           <DrawerBody>
