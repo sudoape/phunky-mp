@@ -17,6 +17,7 @@ import CommonContainer from "../../uikit/CommonContainer/CommonContainer";
 import { PillGroup } from "../../uikit/Pills/Pills";
 import SortDropdown from "../../uikit/SortDropdown/SortDropdown";
 import Filter from "./Filter";
+import { MobileFilterButton } from "../../components/mobile-filter";
 
 interface MarketplaceProps {
   web3: Web3;
@@ -101,7 +102,11 @@ function Marketplace({ web3 }: MarketplaceProps) {
           </Flex>
         </PageHeaderContainer>
         <MarketPlaceContainer>
-          <Filter state={state} dispatch={dispatch} />
+          <Filter
+            state={state}
+            dispatch={dispatch}
+            props={{ display: { base: "none", lg: "flex" } }}
+          />
           <GridContainer
             visibleItemsCount={visibleItemsCount}
             setVisibleItemsCount={setVisibleItemsCount}>
@@ -134,6 +139,7 @@ function Marketplace({ web3 }: MarketplaceProps) {
                 ))
             )}
           </GridContainer>
+          <MobileFilterButton state={state} dispatch={dispatch} />
         </MarketPlaceContainer>
       </CommonContainer>
     </>
@@ -145,7 +151,7 @@ interface MarketplaceContainerProps {
 }
 
 const MarketPlaceContainer = ({ children }: MarketplaceContainerProps) => (
-  <Flex px="1rem" paddingBottom="2rem" flexDir="row" flexWrap={{ base: "wrap", lg: "inherit" }}>
+  <Flex paddingBottom="1rem" flexDir="row" flexWrap={{ base: "wrap", md: "inherit" }}>
     {children}
   </Flex>
 );
@@ -203,7 +209,7 @@ const GridContainer = ({
       }}
       width="100%"
       templateRows="auto auto 1fr"
-      height="calc(100vh - 208px)"
+      height="calc(100vh - 160px)"
       overflowY="scroll"
       css={{
         paddingInlineEnd: "5px", // Adds space to the right of the content inside the grid container

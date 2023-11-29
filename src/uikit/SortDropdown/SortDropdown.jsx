@@ -1,6 +1,6 @@
 import { Menu, Dropdown } from "antd";
 import { Button } from "@chakra-ui/react";
-import { AiOutlineFilter } from "react-icons/ai";
+import { RiArrowUpDownFill } from "react-icons/ri";
 
 const SORT_VALUES = [
   { key: "price_asc", value: "Price: Low to High" },
@@ -31,7 +31,7 @@ const SortDropdown = ({ selectedSort, setSelectedSort }) => {
   // console.log(SORT_VALUES.find((item) => item.key === selectedSort))
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
-      <Button variant="pill" leftIcon={<AiOutlineFilter />}>
+      <Button variant="pill" leftIcon={<RiArrowUpDownFill />}>
         {getPillText()}
       </Button>
     </Dropdown>

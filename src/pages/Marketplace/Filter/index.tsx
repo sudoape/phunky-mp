@@ -209,7 +209,7 @@ const mouthOptions = [
   "Tongue Out",
 ];
 
-const onClearFilters = (dispatch: React.Dispatch<MarketplaceAction>) => {
+export const onClearFilters = (dispatch: React.Dispatch<MarketplaceAction>) => {
   dispatch({ type: "RESET" });
 };
 
@@ -326,14 +326,11 @@ const Filter = ({ state, dispatch, props }: FilterProps) => {
       )}
       {!state.hideFilters && <PAYCNumSearchInput state={state} dispatch={dispatch} />}
       <Flex width="100%" paddingInline="2px">
-        <Show below="lg">
-          <Button w="50%" onClick={() => onToggleHideFilters(dispatch)}>
-            {state.hideFilters ? "Show" : "Hide"}
+        <Show above="lg">
+          <Button w={{ base: "50%", lg: "100%" }} onClick={() => onClearFilters(dispatch)}>
+            Reset Filters
           </Button>
         </Show>
-        <Button w={{ base: "50%", lg: "100%" }} onClick={() => onClearFilters(dispatch)}>
-          Reset Filters
-        </Button>
       </Flex>
     </Flex>
   );
