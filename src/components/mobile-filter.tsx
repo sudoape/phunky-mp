@@ -26,6 +26,7 @@ export const MobileFilterButton = (props: MobileFilterButtonProps) => {
   const btnRef = React.useRef(null);
   const bg = getThemeBgColor();
 
+  const drawerBodyHeight = `calc(100% - 5rem)`;
   return (
     <>
       <Flex
@@ -58,11 +59,15 @@ export const MobileFilterButton = (props: MobileFilterButtonProps) => {
         finalFocusRef={btnRef}
         preserveScrollBarGap>
         <DrawerOverlay />
-        <DrawerContent bg={bg} maxHeight="calc(100% - 5rem)">
+        <DrawerContent bg={bg} height="100%" maxHeight={drawerBodyHeight}>
           <DrawerCloseButton />
           <DrawerHeader>Filters</DrawerHeader>
           <DrawerBody>
-            <Filter state={props.state} dispatch={props.dispatch} props={{}} />
+            <Filter
+              state={props.state}
+              dispatch={props.dispatch}
+              props={{ height: { drawerBodyHeight } }}
+            />
           </DrawerBody>
           <DrawerFooter>
             <Flex flexDir="row" width="100%" gap="2rem">
@@ -72,7 +77,6 @@ export const MobileFilterButton = (props: MobileFilterButtonProps) => {
                 bgColor="grey"
                 onClick={() => {
                   onClearFilters(props.dispatch);
-                  onClose();
                 }}>
                 Reset All
               </Button>
