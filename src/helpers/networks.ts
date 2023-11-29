@@ -1,4 +1,18 @@
-export const networkConfigs = {
+interface NetworkConfig {
+  currencySymbol: string;
+  chainId?: number;
+  chainName?: string;
+  currencyName?: string;
+  rpcUrl?: string;
+  blockExplorerUrl?: string;
+  wrapped?: string | null;
+}
+
+interface NetworkConfigs {
+  [key: string]: NetworkConfig;
+}
+
+export const networkConfigs: NetworkConfigs = {
   "0x1": {
     currencySymbol: "ETH",
     blockExplorerUrl: "https://etherscan.io/",
@@ -70,10 +84,11 @@ export const networkConfigs = {
   },
 };
 
-export const getNativeByChain = (chain) => networkConfigs[chain]?.currencySymbol || "NATIVE";
+export const getNativeByChain = (chain: string) =>
+  networkConfigs[chain]?.currencySymbol || "NATIVE";
 
-export const getChainById = (chain) => networkConfigs[chain]?.chainId || null;
+export const getChainById = (chain: string) => networkConfigs[chain]?.chainId || null;
 
-export const getExplorer = (chain) => networkConfigs[chain]?.blockExplorerUrl;
+export const getExplorer = (chain: string) => networkConfigs[chain]?.blockExplorerUrl;
 
-export const getWrappedNative = (chain) => networkConfigs[chain]?.wrapped || null;
+export const getWrappedNative = (chain: string) => networkConfigs[chain]?.wrapped || null;
