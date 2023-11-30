@@ -1,4 +1,14 @@
-export const networkCollections = {
+interface Collection {
+  image: string;
+  name: string;
+  addrs: string;
+}
+
+interface NetworkCollections {
+  [key: string]: Collection[];
+}
+
+export const networkCollections: NetworkCollections = {
   "0x1": [
     {
       image:
@@ -19,4 +29,4 @@ export const networkCollections = {
 
 export const getCollection = () => networkCollections["0x1"][0];
 
-export const getCollectionsByChain = (chain) => networkCollections[chain];
+export const getCollectionsByChain = (chain: string) => networkCollections[chain];
