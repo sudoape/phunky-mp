@@ -26,12 +26,10 @@ export const Footer = () => (
   <Box p="0" position="absolute" bottom="0" width="100%">
     <Container maxWidth="90%">
       <Divider width="104%" marginLeft="-2%" opacity="1" bg="white"></Divider>
-      <Grid
-        templateColumns="repeat(3, 1fr)"
-        alignItems="center"
-        p="25px 0"
-        marginTop="1rem"
-        paddingInline="1rem">
+      <Text textAlign="center" paddingTop="1rem" fontSize="12">
+        This website is <strong>not</strong> affiliated with Yuga Labs.
+      </Text>
+      <Grid templateColumns="repeat(3, 1fr)" alignItems="center" p="25px 0" paddingInline="1rem">
         <FooterLogo gridColumn={2} justify="center" />
         <Flex flexDir="column" boxSize="1fr" align="flex-end">
           <HStack py="0.6rem" justify="center">
